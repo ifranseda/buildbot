@@ -6,12 +6,12 @@ def nofunc(): print "test"
 def nofunc2(): print "other"
 
 from time import sleep
+import logging
 
 
 if __name__=="__main__":
     q = TaskQueue()
-    q.insert(lambda : nofunc(),every=20)
-    q.insert(lambda : nofunc2(),every=10)
+    q.insert(lambda : logging.info("still alive"),every=60)
     
     
     while True:
