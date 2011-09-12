@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import heapq
 import datetime
+import logging
 class TaskItem:
     pass
 class TaskQueue(list):
@@ -22,12 +23,12 @@ class TaskQueue(list):
             heapq.heappush(self,(next,item))
             heapq.heappop(self)
             return item
-
         return None
     
     def execTop(self):
         ltop = self.top()
         if ltop:
+            logging.info("task begin %s" % ltop.item)
             ltop.item()
         
         
