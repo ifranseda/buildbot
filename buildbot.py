@@ -24,7 +24,7 @@ def still_alive():
 if __name__=="__main__":
     q = TaskQueue()
     q.insert(still_alive,every=60)
-    q.insert(autoboss,every=HOURLY,now=False) #probably don't want to complain every time we fix a buildbot bug...
+    q.insert(autoboss,every=HOURLY,now=True) #probably don't want to complain every time we fix a buildbot bug...
     
     
     while True:

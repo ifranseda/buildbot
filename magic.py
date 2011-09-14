@@ -1,1 +1,2 @@
-BUILDBOT_USERNAME = "GLaDOS"
+import os
+SETTINGSFILE = os.path.expanduser("~/.buildbot")
