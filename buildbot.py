@@ -16,7 +16,10 @@ import magic
 magic.BUILDBOT_USERNAME = "GLaDOS"
 def autoboss():
     from work.work import complain
-    complain()
+    from work.fogbugzConnect import FogBugzConnect
+    f = FogBugzConnect()
+    people = f.annoyableIxPeople()
+    map(complain,people)
     
 def still_alive():
     logging.info("still alive")
