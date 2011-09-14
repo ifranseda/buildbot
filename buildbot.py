@@ -29,9 +29,9 @@ def create_tests():
     #3.  Cases with an estimate (otherwise, the person assigned might just be a placeholder person...)
     cases = f.fbConnection.search(q='(category:"bug" OR category:"feature") status:"open" estimatecurrent:"1m.."')
     cases = map(lambda x: int(x["ixbug"]),cases.cases)
-    print cases
+    logging.info(cases)
     from work.work import autoTestMake
-    autoTestMake(cases[1])
+    map(autoTestMake,cases)
     
     
 def still_alive():
@@ -49,7 +49,8 @@ class TestSequence(unittest.TestCase):
 if __name__=="__main__":
     q = TaskQueue()
     q.insert(still_alive,every=60)
-    q.insert(autoboss,every=HOURLY,now=False) #probably don't want to complain every time we fix a buildbot bug...
+    q.insert(autoboss,every=HOURLY)
+    q.insert(create_tests,every=HOURLY)
     
     
     while True:
