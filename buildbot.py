@@ -7,6 +7,7 @@ def nofunc2(): print "other"
 
 from time import sleep
 from fogbugzConnect import FogBugzConnect
+import logbuddy
 
 HOURLY=60*60
 
@@ -54,5 +55,9 @@ if __name__=="__main__":
     
     
     while True:
-        q.execTop()
+        try:
+            q.execTop()
+        except Exception as e:
+            logging.error("That's funny, I don't feel corrupt.  In fact, I feel pretty good.")
+            logbuddy.report(e)
         sleep(2)
