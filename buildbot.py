@@ -27,7 +27,8 @@ def create_tests():
     #1.  Bugs and features
     #2.  Open cases
     #3.  Cases with an estimate (otherwise, the person assigned might just be a placeholder person...)
-    cases = f.fbConnection.search(q='(category:"bug" OR category:"feature") status:"open" estimatecurrent:"1m.."')
+    #4.  Cases that are decided (not Undecided)
+    cases = f.fbConnection.search(q='(category:"bug" OR category:"feature") status:"open" estimatecurrent:"1m.." -milestone:"Undecided"')
     cases = map(lambda x: int(x["ixbug"]),cases.cases)
     logging.info(cases)
     from work.work import autoTestMake
