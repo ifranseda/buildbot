@@ -28,7 +28,7 @@ def create_tests():
     #1.  Bugs and features
     #2.  Open cases
     #3.  Cases with an estimate (otherwise, the person assigned might just be a placeholder person...)
-    cases = f.fbConnection.search(q='(category:"bug" OR category:"feature") status:"open" estimatecurrent:"1m.."')
+    cases = f.fbConnection.search(q='(category:"bug" OR category:"feature") status:"open" estimatecurrent:"1m.." -milestone:"Undecided"')
     cases = map(lambda x: int(x["ixbug"]),cases.cases)
     logging.info(cases)
     from work.work import autoTestMake
@@ -51,7 +51,7 @@ if __name__=="__main__":
     q = TaskQueue()
     q.insert(still_alive,every=60)
     q.insert(autoboss,every=HOURLY)
-    q.insert(create_tests,every=HOURLY)
+    #q.insert(create_tests,every=HOURLY)
     
     
     while True:
