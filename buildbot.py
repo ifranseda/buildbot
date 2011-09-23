@@ -10,7 +10,6 @@ from fogbugzConnect import FogBugzConnect
 import logbuddy
 
 HOURLY=60*60
-
 import logging
 logging.basicConfig(level=logging.DEBUG,format='%(asctime)-6s: %(name)s - %(levelname)s - %(message)s')
 import magic
@@ -34,6 +33,10 @@ def create_tests():
     from work.work import autoTestMake
     map(autoTestMake,cases)
     
+def fixup():
+    from work.work import fixUp
+    fixUp()
+    
     
 def still_alive():
     logging.info("still alive")
@@ -49,6 +52,7 @@ class TestSequence(unittest.TestCase):
 
 if __name__=="__main__":
     q = TaskQueue()
+    q.insert(fixup,every=HOURLY*4,now=False)
     q.insert(still_alive,every=60)
     q.insert(autoboss,every=HOURLY)
     q.insert(create_tests,every=HOURLY)
