@@ -51,7 +51,7 @@ if __name__=="__main__":
     q = TaskQueue()
     q.insert(still_alive,every=60)
     q.insert(autoboss,every=HOURLY)
-    #q.insert(create_tests,every=HOURLY)
+    q.insert(create_tests,every=HOURLY)
     
     
     while True:
