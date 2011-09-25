@@ -24,11 +24,11 @@ class Atlas:
             
     def integrate_changed(self,gitConnection,integration_branch,sProject):
         gitConnection.checkoutExistingBranchRaw(integration_branch)
-        cases = self.f.fbConnection.search(q="milestone:%s project:%s" % (integration_branch,sProject),cols="sStatus")
+        cases = self.f.fbConnection.search(q="milestone:'%s' project:'%s' status:'open'" % (integration_branch,sProject),cols="sStatus")
         for case in cases.cases:
             caseno = int(case["ixbug"])
             if not self.f.isReadyForTest(caseno): continue
-            logging.info( "Invalidating",case["ixbug"])
+            logging.info( "Invalidating "+case["ixbug"])
             self.f.fbConnection.assign(ixBug=case["ixbug"],ixPersonAssignedTo=self.f.ixPerson,sEvent="Invalidation.  Are you getting unexpected e-mails after this case event?  File a bug against buildbot.")
         self.test_active_tickets()
     def test_active_tickets(self):
@@ -142,7 +142,7 @@ class Atlas:
                     self.glados_reassign(caseno,why=choice(test_error_statements) + "File a bug about atlas.py:129")
                     return
                 
-                self.integrate_changed(git,integrate_to)
+                self.integrate_changed(git,integrate_to,proj["name"])
                 return True
                 
                 
@@ -173,12 +173,17 @@ class TestSequence(unittest.TestCase):
     def setUp(self):
         self.a = Atlas()
         pass
-    
+    def test_integration_changed(self):
+         #self.a.integrate_changed(GitConnect(".buildbot/buildbot"),"master","buildbot")
+         pass
     def test_fetchall(self):
         self.a.fetch_all()
+        pass
     def test_test_active_tickets(self):
         self.a.test_active_tickets()
+        pass
         
         
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.DEBUG,format='%(asctime)-6s: %(name)s - %(levelname)s - %(message)s')
     unittest.main(failfast=True)
