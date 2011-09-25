@@ -6,3 +6,7 @@ def get_config():
     result = yaml.load(config.read())
     config.close()
     return result
+
+def project_with_name(name):
+    projects = get_config()["Projects"]
+    return filter(lambda x: x["name"]==name,projects)
