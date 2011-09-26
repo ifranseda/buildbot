@@ -18,5 +18,5 @@ Projects:
      url: git@github.com:drewcrawford/work.py.git
      tests:
         - name: unit
-          cmd: ./work.py selftest
+          cmd: python ./work.py selftest
           type: python

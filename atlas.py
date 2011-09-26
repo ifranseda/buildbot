@@ -164,17 +164,17 @@ class Atlas:
         passed = True
         #WARNING:  YOU MUST PATCH $DEVELOPER/Platforms/iPhoneSimulator.platform/Developer/Tools/RunPlatformUnitTests for this to work.
         #See http://longweekendmobile.com/2011/04/17/xcode4-running-application-tests-from-the-command-line-in-ios/
-        
-        for test in proj["tests"]:
-            print "running test",test
-            r = subprocess.Popen(test["cmd"],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+proj["name"])
-            (status,output) = self.wait_for(r)
-            if test["type"]=="xcode":
-                (passed,shortdesc,files) = self.parse_xcodelike_response(passed,shortdesc,files,output,test["name"]+".log")
-            elif test["type"]=="python":
-                (passed,shortdesc,files) = self.parse_python_response(passed,shortdesc,files,output,test["name"]+".log",status)
-            else:
-                raise Exception("Unknown test type.")
+        if proj["tests"]:
+            for test in proj["tests"]:
+                print "running test",test
+                r = subprocess.Popen(test["cmd"],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+proj["name"])
+                (status,output) = self.wait_for(r)
+                if test["type"]=="xcode":
+                    (passed,shortdesc,files) = self.parse_xcodelike_response(passed,shortdesc,files,output,test["name"]+".log")
+                elif test["type"]=="python":
+                    (passed,shortdesc,files) = self.parse_python_response(passed,shortdesc,files,output,test["name"]+".log",status)
+                else:
+                    raise Exception("Unknown test type.")
             
             
             
