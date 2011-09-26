@@ -116,8 +116,11 @@ class Atlas:
     def parse_xcodelike_response(self,passed,shortdesc,files,log,outfilename):
         #parse the output looking for errors / warnings
         import re
-        problem = re.compile("([/\w\.]+):(\d+):(\d*):? (warning|error):([^\n]+)$",re.MULTILINE)
+        problem = re.compile("([/\w\.]+):(\d*):?(\d*):? (warning|error):([^\n]+)$",re.MULTILINE)
         for (filename,lineno,colno,errtype,errdesc) in problem.findall(log):
+            #print errdesc
+            if errdesc==" -l/usr/include/libxml2/libxml: 'linker' input unused when '-c' is present": continue
+            elif errdesc==" -l/usr/include/libxml2/libxml: 'linker' input unused when '--analyze' is present": continue
             shortdesc += "%s:%s:%s:%s %s" % (filename,lineno,colno,errtype,errdesc)
             #determine if the error is supressed
             try:
@@ -315,8 +318,22 @@ class TestSequence(unittest.TestCase):
         #self.a.test_active_tickets()
         pass
     def test_exec(self):
-        print self.a.exec_tests(project_with_name("work.py"))
+        #print self.a.exec_tests(project_with_name("work.py"))
         pass
+    
+    def xcode_parse_harness(self,filen):
+        file = open(filen)
+        data = file.read()
+        file.close()
+        return self.a.parse_xcodelike_response(True,"",{},data,filen)
+    
+    def test_xcode_parse(self):
+        (passed,shortdesc,files) = self.xcode_parse_harness("xcode-fail-1.log")
+        self.assertFalse(passed)
+        self.assertEquals(shortdesc,'bin/LogBuddyInterface.xib:::error  Interface Builder could not open the document "LogBuddyInterface.xib" because it does not exist.\n')
+        (passed,shortdesc,files) = self.xcode_parse_harness("xcode-fail-2.log")
+        self.assertFalse(passed)
+        self.assertEquals(shortdesc,"""/Volumes/y/drew/Dropbox/Code/buildbot/.buildbot/semaps/Classes/EsriMapViewController.m:250:24:warning  Potential leak of an object allocated on line 250 and stored into 'flyover'\n""")
         
         
 if __name__ == '__main__':

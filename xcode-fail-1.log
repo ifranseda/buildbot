@@ -1,0 +1,121 @@
+Build settings from command line:
+    RUN_CLANG_STATIC_ANALYZER = YES
+    SDKROOT = iphonesimulator4.3
+
+=== CLEAN NATIVE TARGET semaps OF PROJECT semaps WITH CONFIGURATION Debug ===
+Check dependencies
+
+Clean.Remove clean /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/semaps_Prefix-awvlhqlnnuljkmfydwvhqkvfzilh/semaps_Prefix.pch.pth
+    builtin-rm -rf /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/semaps_Prefix-awvlhqlnnuljkmfydwvhqkvfzilh/semaps_Prefix.pch.pth
+
+Clean.Remove clean build/Debug-iphonesimulator/semaps.app
+    builtin-rm -rf /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/Debug-iphonesimulator/semaps.app
+
+Clean.Remove clean build/Debug-iphonesimulator/semaps.app.dSYM
+    builtin-rm -rf /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/Debug-iphonesimulator/semaps.app.dSYM
+
+Clean.Remove clean build/semaps.build/Debug-iphonesimulator/semaps.build
+    builtin-rm -rf /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/semaps.build/Debug-iphonesimulator/semaps.build
+
+
+** CLEAN SUCCEEDED **
+
+
+=== ANALYZE NATIVE TARGET semaps OF PROJECT semaps WITH CONFIGURATION Debug ===
+Check dependencies
+
+ProcessInfoPlistFile build/Debug-iphonesimulator/semaps.app/Info.plist semaps-Info.plist
+    cd /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps
+    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"
+    builtin-infoPlistUtility semaps-Info.plist -genpkginfo /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/Debug-iphonesimulator/semaps.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/Debug-iphonesimulator/semaps.app/Info.plist
+
+CompileXIB MainWindow.xib
+    cd /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps
+    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"
+    setenv XCODE_DEVELOPER_USR_PATH /Developer/usr/bin/..
+    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/Debug-iphonesimulator/semaps.app/MainWindow.nib /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/MainWindow.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk
+2011-09-26 16:03:42.819 Interface Builder Cocoa Touch Tool[44458:11a03] CFPreferences: user home directory at file://localhost/Users/drew/Library/Application%20Support/iPhone%20Simulator/User/ is unavailable. User domains will be volatile.
+
+CompileXIB semapsViewController.xib
+    cd /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps
+    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"
+    setenv XCODE_DEVELOPER_USR_PATH /Developer/usr/bin/..
+    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/Debug-iphonesimulator/semaps.app/semapsViewController.nib /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/semapsViewController.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk
+2011-09-26 16:03:42.819 Interface Builder Cocoa Touch Tool[44457:11a03] CFPreferences: user home directory at file://localhost/Users/drew/Library/Application%20Support/iPhone%20Simulator/User/ is unavailable. User domains will be volatile.
+
+CompileXIB Classes/../Classes/ProjectsListController.xib
+    cd /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps
+    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"
+    setenv XCODE_DEVELOPER_USR_PATH /Developer/usr/bin/..
+    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/Debug-iphonesimulator/semaps.app/ProjectsListController.nib /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/Classes/../Classes/ProjectsListController.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk
+
+CompileXIB Classes/../Classes/ProjectsDetailController.xib
+    cd /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps
+    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"
+    setenv XCODE_DEVELOPER_USR_PATH /Developer/usr/bin/..
+    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/Debug-iphonesimulator/semaps.app/ProjectsDetailController.nib /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/Classes/../Classes/ProjectsDetailController.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk
+
+CompileXIB Classes/../Classes/ProjectsAddViewController.xib
+    cd /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps
+    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"
+    setenv XCODE_DEVELOPER_USR_PATH /Developer/usr/bin/..
+    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/Debug-iphonesimulator/semaps.app/ProjectsAddViewController.nib /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/Classes/../Classes/ProjectsAddViewController.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk
+2011-09-26 16:03:43.853 Interface Builder Cocoa Touch Tool[44465:11a03] CFPreferences: user home directory at file://localhost/Users/drew/Library/Application%20Support/iPhone%20Simulator/User/ is unavailable. User domains will be volatile.
+
+CompileXIB Classes/HangOnViewController.xib
+    cd /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps
+    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"
+    setenv XCODE_DEVELOPER_USR_PATH /Developer/usr/bin/..
+    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/Debug-iphonesimulator/semaps.app/HangOnViewController.nib /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/Classes/HangOnViewController.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk
+
+CompileXIB Classes/../Classes/CustomersListController.xib
+    cd /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps
+    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"
+    setenv XCODE_DEVELOPER_USR_PATH /Developer/usr/bin/..
+    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/Debug-iphonesimulator/semaps.app/CustomersListController.nib /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/Classes/../Classes/CustomersListController.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk
+
+CompileXIB Classes/../Classes/CustomersDetailController.xib
+    cd /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps
+    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"
+    setenv XCODE_DEVELOPER_USR_PATH /Developer/usr/bin/..
+    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/Debug-iphonesimulator/semaps.app/CustomersDetailController.nib /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/Classes/../Classes/CustomersDetailController.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk
+
+CompileXIB Classes/../Classes/CustomersAddViewController.xib
+    cd /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps
+    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"
+    setenv XCODE_DEVELOPER_USR_PATH /Developer/usr/bin/..
+    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/Debug-iphonesimulator/semaps.app/CustomersAddViewController.nib /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/Classes/../Classes/CustomersAddViewController.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk
+
+CompileXIB Classes/EsriMapViewController.xib
+    cd /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps
+    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"
+    setenv XCODE_DEVELOPER_USR_PATH /Developer/usr/bin/..
+    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/Debug-iphonesimulator/semaps.app/EsriMapViewController.nib /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/Classes/EsriMapViewController.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk
+
+CompileXIB Classes/Flyover.xib
+    cd /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps
+    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"
+    setenv XCODE_DEVELOPER_USR_PATH /Developer/usr/bin/..
+    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/Debug-iphonesimulator/semaps.app/Flyover.nib /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/Classes/Flyover.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk
+
+CpResource ArcGIS.bundle build/Debug-iphonesimulator/semaps.app/ArcGIS.bundle
+    cd /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps
+    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/ArcGIS.bundle /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/Debug-iphonesimulator/semaps.app
+
+CompileXIB DCAlibs-bin/LogBuddyInterface.xib
+    cd /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps
+    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"
+    setenv XCODE_DEVELOPER_USR_PATH /Developer/usr/bin/..
+    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/build/Debug-iphonesimulator/semaps.app/LogBuddyInterface.nib /Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/DCAlibs-bin/LogBuddyInterface.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk
+/* com.apple.ibtool.errors */
+/Users/drew/buildbot/.buildbot/buildbot/.buildbot/semaps/DCAlibs-bin/LogBuddyInterface.xib: error: Interface Builder could not open the document "LogBuddyInterface.xib" because it does not exist.
+
+
+
+** BUILD FAILED **
+
+
+The following build commands failed:
+	CompileXIB DCAlibs-bin/LogBuddyInterface.xib
+(1 failure)
