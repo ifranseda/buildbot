@@ -120,11 +120,15 @@ class Atlas:
         for (filename,lineno,colno,errtype,errdesc) in problem.findall(log):
             shortdesc += "%s:%s:%s:%s %s" % (filename,lineno,colno,errtype,errdesc)
             #determine if the error is supressed
-            file = open(filename)
-            data = file.read()
-            file.close()
-            line = data.split("\n")[int(lineno)]
-            if "".find("//___INTELLIGENCE_DAMPENING_CORE_WHEATLEY") != -1:
+            try:
+                file = open(filename)
+                data = file.read()
+                file.close()
+                line = data.split("\n")[int(lineno)-1]
+            except:
+                line = ""
+            
+            if line.find("//___INTELLIGENCE_DAMPENING_CORE_WHEATLEY") != -1:
                 shortdesc += " (This was supressed.)\n"
                 continue
             shortdesc += "\n"
@@ -247,8 +251,10 @@ class Atlas:
             
             
          #let the implementer know how we did...
-        self.f.fbConnection.assign(ixBug=caseno,ixPersonAssignedTo=self.f.findImplementer(caseno),sEvent=statement+"\n"+shortDesc,files=files)
-        
+        if passed:
+            self.f.fbConnection.assign(ixBug=caseno,ixPersonAssignedTo=self.f.findImplementer(caseno),sEvent=statement+"\n"+shortDesc,files=files)
+        else:
+            self.f.fbConnection.reactivate(ixBug=caseno,ixPersonAssignedTo=self.f.findImplementer(caseno),sEvent=statement+"\n"+shortDesc,files=files)
 
         
         if passed:
