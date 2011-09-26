@@ -318,7 +318,8 @@ class TestSequence(unittest.TestCase):
         #self.a.test_active_tickets()
         pass
     def test_exec(self):
-        #print self.a.exec_tests(project_with_name("work.py"))
+        print self.a.exec_tests(project_with_name("work.py"))
+        print self.a.exec_tests(project_with_name("semaps"))
         pass
     
     def xcode_parse_harness(self,filen):
