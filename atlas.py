@@ -57,10 +57,10 @@ class Atlas:
             if not test:
                 logging.warning("Ignoring case %d because it has no test case assigned." % caseno)
                 continue
-            if self.be_in_purgatory(parent,test,case,proj[0]):
+            if self.be_in_purgatory(parent,test,case,proj):
                 logging.warning("Ignoring case %d because of purgatory." % caseno)
                 continue
-            if self.test(case,proj[0]): #returns true if we integrate something
+            if self.test(case,proj): #returns true if we integrate something
                 return self.test_active_tickets() #break out of this loop, because who knows what is happening with the list of active cases now, and re-test everything.
     
     
@@ -106,7 +106,79 @@ class Atlas:
             
         
             
+    def wait_for(self,godot):
+        logging.debug("Waiting for godot...")
+        (stdout,stderr) = godot.communicate()
+        logging.warning(stderr)
+        logging.debug("Godot arrived!")
+        return (godot.returncode,stdout+"\n"+stderr)
+        
+    def parse_xcodelike_response(self,passed,shortdesc,files,log,outfilename):
+        #parse the output looking for errors / warnings
+        import re
+        problem = re.compile("([/\w\.]+):(\d+):(\d*):? (warning|error):([^\n]+)$",re.MULTILINE)
+        for (filename,lineno,colno,errtype,errdesc) in problem.findall(log):
+            shortdesc += "%s:%s:%s:%s %s" % (filename,lineno,colno,errtype,errdesc)
+            #determine if the error is supressed
+            file = open(filename)
+            data = file.read()
+            file.close()
+            line = data.split("\n")[int(lineno)]
+            if "".find("//___INTELLIGENCE_DAMPENING_CORE_WHEATLEY") != -1:
+                shortdesc += " (This was supressed.)\n"
+                continue
+            shortdesc += "\n"
+            passed = False
+        files[outfilename]=log
+        return (passed,shortdesc,files)
+        """#study the analyzer results
+        import plistlib
+        analyze_path = proj["analyzepath"]
+        for file in os.listdir(WORK_DIR+proj["name"]+"/"+analyze_path):
+            if file.endswith("plist"):
+                p = plistlib.readPlist(WORK_DIR+proj["name"]+"/"+analyze_path+"/"+file)
+                for result in p["diagnostics"]:
+                    shortdesc += "Analyzer result: %s %s\n" % (file,result["description"])
+                    passed = False"""
+                    
+    def parse_python_response(self,passed,shortdesc,files,log,outfilename,status):
+        if status:
+            shortdesc += "Failed one or more (python) tests (status-related)"
+            passed = False
+        if log.find("FAILED") != -1:
+            shortdesc += "Failed one or more (python) tests\n"
+            passed = False
+        files[outfilename]=log
+        return (passed,shortdesc,files)
+    
+    def exec_tests(self,proj):
+        import subprocess
+        import os
+        import shlex
+        shortdesc = ""
+        files = {}
+        passed = True
+        #WARNING:  YOU MUST PATCH $DEVELOPER/Platforms/iPhoneSimulator.platform/Developer/Tools/RunPlatformUnitTests for this to work.
+        #See http://longweekendmobile.com/2011/04/17/xcode4-running-application-tests-from-the-command-line-in-ios/
+        
+        for test in proj["tests"]:
+            print "running test",test
+            r = subprocess.Popen(test["cmd"],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+proj["name"])
+            (status,output) = self.wait_for(r)
+            if test["type"]=="xcode":
+                (passed,shortdesc,files) = self.parse_xcodelike_response(passed,shortdesc,files,output,test["name"]+".log")
+            elif test["type"]=="python":
+                (passed,shortdesc,files) = self.parse_python_response(passed,shortdesc,files,output,test["name"]+".log",status)
+            else:
+                raise Exception("Unknown test type.")
             
+            
+            
+        return (passed,shortdesc,files)
+        
+                
+            
+        
     def test(self,casedetail,proj,forceFail=False):
         logging.info("Testing %s" % casedetail)
         caseno = int(casedetail["ixbug"])
@@ -132,7 +204,8 @@ class Atlas:
         
         
         #todo: run actual tests
-        passed = True
+        (passed,shortDesc,files) = self.exec_tests(proj)
+        
         
         if forceFail:
             passed = False
@@ -174,7 +247,7 @@ class Atlas:
             
             
          #let the implementer know how we did...
-        self.f.fbConnection.assign(ixBug=caseno,ixPersonAssignedTo=self.f.findImplementer(caseno),sEvent=statement)
+        self.f.fbConnection.assign(ixBug=caseno,ixPersonAssignedTo=self.f.findImplementer(caseno),sEvent=statement+"\n"+shortDesc,files=files)
         
 
         
@@ -226,15 +299,17 @@ import unittest
 class TestSequence(unittest.TestCase):
     def setUp(self):
         self.a = Atlas()
-        pass
-    def test_integration_changed(self):
-         #self.a.integrate_changed(GitConnect(".buildbot/buildbot"),"master","buildbot")
-         pass
-    def test_fetchall(self):
         self.a.fetch_all()
         pass
+    def test_integration_changed(self):
+         #self.a.integrate_changed(GitConnect(".buildbot/work"),"master","buildbot")
+         pass
+
     def test_test_active_tickets(self):
-        self.a.test_active_tickets()
+        #self.a.test_active_tickets()
+        pass
+    def test_exec(self):
+        print self.a.exec_tests(project_with_name("work.py"))
         pass
         
         
