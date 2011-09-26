@@ -247,7 +247,7 @@ class Atlas:
         elif fast and not passed:
             statement = choice(fail_statements) #no statements for this case
         else:
-            statement = choice(test_error_statements) + "File a bug about atlas.py:108"
+            statement = choice(test_error_statements) + "File a bug about atlas.py:LAWJELJW"
             
             
          #let the implementer know how we did...
@@ -270,7 +270,7 @@ class Atlas:
                 self.f.fbConnection.assign(ixBug=caseno,ixPersonAssignedTo=self.f.findTestCaseOwner(test),sEvent=choice(test_statements))
             else: #no open test exists, therefore integrate
                 if not projectIntegrate(caseno,defaultgitConnection=git):
-                    self.glados_reassign(caseno,why=choice(test_error_statements) + "File a bug about atlas.py:129")
+                    self.glados_reassign(caseno,why=choice(test_error_statements) + "File a bug about atlas.py:OUQWIUOIQU")
                     return
                 
                 self.integrate_changed(git,integrate_to,proj["name"])
