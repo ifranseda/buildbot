@@ -11,7 +11,7 @@ Projects:
           type: xcode
         
         - name: unit
-          cmd: killall 'iPhone Simulator'; rm -rf build/; xcrun -sdk iphonesimulator xcodebuild -target semapsTests -configuration Release build -sdk iphonesimulator
+          cmd: killall 'iPhone Simulator'; rm -rf build/; xcrun -sdk iphonesimulator xcodebuild -target semapsTests -configuration UnitTest build -sdk iphonesimulator
           type: xcode
           
    - name: work.py
