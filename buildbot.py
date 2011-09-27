@@ -34,6 +34,12 @@ def create_tests():
     from work.work import autoTestMake
     map(autoTestMake,cases)
     
+def atlas():
+    from atlas import Atlas
+    a = Atlas()
+    a.fetch_all()
+    a.test_active_tickets()
+    
 def fixup():
     from work.work import fixUp
     fixUp()
@@ -49,10 +55,12 @@ class TestSequence(unittest.TestCase):
     
     def test_create_tests(self):
         import cProfile
-        cProfile.runctx('create_tests()',globals(),locals()) #http://stackoverflow.com/questions/1819448/cannot-make-cprofile-work-in-ipython/3305654#3305654
+        #temporarily disabling this test.
+        #cProfile.runctx('create_tests()',globals(),locals()) #http://stackoverflow.com/questions/1819448/cannot-make-cprofile-work-in-ipython/3305654#3305654
 
 if __name__=="__main__":
     q = TaskQueue()
+    q.insert(atlas,every=3,now=True)
     q.insert(fixup,every=HOURLY*4,now=False)
     q.insert(still_alive,every=60)
     q.insert(autoboss,every=HOURLY)

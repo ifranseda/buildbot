@@ -1,1 +1,1 @@
-python -m unittest TaskQueue buildbot
+python -m unittest TaskQueue buildbot atlas
