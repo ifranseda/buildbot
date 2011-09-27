@@ -244,17 +244,17 @@ class Atlas:
             slow = True
         
         if not fast and not slow and passed:
-            statement = choice(pass_statements)
+            statement = choice(pass_statements) + " (Passed)"
         elif not fast and not slow and not passed:
-            statement = choice(fail_statements)
+            statement = choice(fail_statements) + " (Failed)"
         elif fast and passed:
-            statement = choice(fast_pass_statements)
+            statement = choice(fast_pass_statements) + " (Passed, faster than expected)"
         elif slow and passed:
-            statement = choice(slow_pass_statements)
+            statement = choice(slow_pass_statements) + " (Passed, slower than expected)"
         elif slow and not passed:
-            statement = choice(slow_fail_statements)
+            statement = choice(slow_fail_statements) + " (Failed, slower than expected)"
         elif fast and not passed:
-            statement = choice(fail_statements) #no statements for this case
+            statement = choice(fail_statements) + " (Failed, faster than expected)"#no statements for this case
         else:
             statement = choice(test_error_statements) + "File a bug about atlas.py:LAWJELJW"
             
