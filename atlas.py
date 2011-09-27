@@ -114,6 +114,9 @@ class Atlas:
         return (godot.returncode,stdout+"\n"+stderr)
         
     def parse_xcodelike_response(self,passed,shortdesc,files,log,outfilename):
+        if log.find("** BUILD FAILED **") != -1:
+            shortdesc += "Log reports build failed.\n"
+            passed = False
         #parse the output looking for errors / warnings
         import re
         problem = re.compile("([/\w\.]+):(\d*):?(\d*):? (warning|error):([^\n]+)$",re.MULTILINE)
@@ -172,6 +175,9 @@ class Atlas:
                 print "running test",test
                 r = subprocess.Popen(test["cmd"],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+proj["name"])
                 (status,output) = self.wait_for(r)
+                if status:
+                    shortdesc += "Failing in part because test %s returned a non-zero return code %d\n" % (test,status)
+                    passed = False
                 if test["type"]=="xcode":
                     (passed,shortdesc,files) = self.parse_xcodelike_response(passed,shortdesc,files,output,test["name"]+".log")
                 elif test["type"]=="python":
@@ -331,10 +337,13 @@ class TestSequence(unittest.TestCase):
     def test_xcode_parse(self):
         (passed,shortdesc,files) = self.xcode_parse_harness("xcode-fail-1.log")
         self.assertFalse(passed)
-        self.assertEquals(shortdesc,'bin/LogBuddyInterface.xib:::error  Interface Builder could not open the document "LogBuddyInterface.xib" because it does not exist.\n')
+        self.assertEquals(shortdesc,'Log reports build failed.\nbin/LogBuddyInterface.xib:::error  Interface Builder could not open the document "LogBuddyInterface.xib" because it does not exist.\n')
         (passed,shortdesc,files) = self.xcode_parse_harness("xcode-fail-2.log")
         self.assertFalse(passed)
         self.assertEquals(shortdesc,"""/Volumes/y/drew/Dropbox/Code/buildbot/.buildbot/semaps/Classes/EsriMapViewController.m:250:24:warning  Potential leak of an object allocated on line 250 and stored into 'flyover'\n""")
+        (passed,shortdesc,files) = self.xcode_parse_harness("xcode-fail-3.log")
+        self.assertFalse(passed)
+        self.assertEqual(shortdesc,"Log reports build failed.\n/Users/drew/buildbot/.buildbot/semaps/Classes/EsriMapViewController.m:48:2:warning  #warning display this warning //___INTELLIGENCE_DAMPENING_CORE_WHEATLEY [-W#warnings,5]\n")
         
         
 if __name__ == '__main__':
