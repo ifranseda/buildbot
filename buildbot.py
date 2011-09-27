@@ -20,6 +20,28 @@ def autoboss():
     people = f.annoyableIxPeople()
     map(complain,people)
     
+def buildbot_cache_get():
+    import os
+    import pickle
+    try:
+        myfile = open(os.path.expanduser("~/.buildbot-cache"))
+        result =  pickle.load(myfile)
+        myfile.close()
+        return result
+    except:
+        buildbot_cache_set({})
+        return buildbot_cache_get()
+        
+def buildbot_cache_set(obj):
+    import os
+    import pickle
+    myfile = open(os.path.expanduser("~/.buildbot-cache"),"w")
+    pickle.dump(obj,myfile)
+    myfile.close()
+    
+        
+    
+    
 def create_tests():
     from work.fogbugzConnect import FogBugzConnect
     f = FogBugzConnect()
@@ -29,10 +51,19 @@ def create_tests():
     #3.  Cases with an estimate (otherwise, the person assigned might just be a placeholder person...)
     #4.  Cases that are decided (not Undecided)
     cases = f.fbConnection.search(q='(category:"bug" OR category:"feature") status:"open" estimatecurrent:"1m.." -milestone:"Undecided"')
+    cache = buildbot_cache_get()
+    CACHE_KEY = "autoTestMake-cache"
+    if not cache.has_key(CACHE_KEY):
+        cache[CACHE_KEY] = []
     cases = map(lambda x: int(x["ixbug"]),cases.cases)
+    cases = filter(lambda x: x not in cache[CACHE_KEY],cases)
     logging.info(cases)
     from work.work import autoTestMake
-    map(autoTestMake,cases)
+    for case in cases:
+        result = autoTestMake(case)
+        if not result: cache[CACHE_KEY].append(case)
+    
+    buildbot_cache_set(cache)
     
 def atlas():
     from atlas import Atlas
@@ -54,8 +85,8 @@ class TestSequence(unittest.TestCase):
         pass
     
     def test_create_tests(self):
-        import cProfile
-        #temporarily disabling this test.
+        create_tests()
+        #import cProfile
         #cProfile.runctx('create_tests()',globals(),locals()) #http://stackoverflow.com/questions/1819448/cannot-make-cprofile-work-in-ipython/3305654#3305654
 
 if __name__=="__main__":
