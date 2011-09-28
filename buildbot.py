@@ -10,6 +10,7 @@ from fogbugzConnect import FogBugzConnect
 import logbuddy
 
 HOURLY=60*60
+MINUTELY = 60
 import logging
 logging.basicConfig(level=logging.DEBUG,format='%(asctime)-6s: %(name)s - %(levelname)s - %(message)s')
 import magic
@@ -91,11 +92,11 @@ class TestSequence(unittest.TestCase):
 
 if __name__=="__main__":
     q = TaskQueue()
-    q.insert(atlas,every=3,now=True)
+    q.insert(atlas,every=MINUTELY,now=True)
     q.insert(fixup,every=HOURLY*4,now=False)
     q.insert(still_alive,every=60)
     q.insert(autoboss,every=HOURLY)
-    q.insert(create_tests,every=HOURLY)
+    q.insert(create_tests,every=MINUTELY)
     
     
     while True:
