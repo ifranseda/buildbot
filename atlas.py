@@ -199,7 +199,7 @@ class Atlas:
         from random import choice
         #try to check out source code
         git = GitConnect(WORK_DIR+proj["name"])
-
+        git.resetHard_INCREDIBLY_DESTRUCTIVE_COMMAND()
         integrate_to = self.f.getIntegrationBranch(caseno)
         if not git.checkoutExistingBranchRaw(integrate_to): #this auto-pulls
             self.glados_reassign(caseno,why="The dual portal device should be around here somewhere. Once you find it, we can start testing. Just like old times.  (Can't find integration branch; check the milestone or work.py integratemake)")
