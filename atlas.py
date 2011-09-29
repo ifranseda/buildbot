@@ -261,7 +261,7 @@ class Atlas:
             
          #let the implementer know how we did...
         if passed:
-            self.f.fbConnection.edit(ixBug=caseno,ixPersonAssignedTo=self.f.findImplementer(caseno),sEvent=statement+"\n"+shortDesc,files=files)
+            self.f.fbConnection.edit(ixBug=caseno,sEvent=statement+"\n"+shortDesc,files=files)
         else:
             self.f.fbConnection.reactivate(ixBug=caseno,ixPersonAssignedTo=self.f.findImplementer(caseno),sEvent=statement+"\n"+shortDesc,files=files)
 
