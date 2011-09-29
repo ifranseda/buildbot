@@ -1,0 +1,557 @@
+Build settings from command line:
+    RUN_CLANG_STATIC_ANALYZER = YES
+
+=== CLEAN NATIVE TARGET gistory OF PROJECT gistory WITH CONFIGURATION Debug ===
+Check dependencies
+
+Clean.Remove clean /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch.pth
+    builtin-rm -rf /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch.pth
+
+Clean.Remove clean build/Debug/gistory.app
+    builtin-rm -rf /Users/drew/buildbot/.buildbot/gistory/build/Debug/gistory.app
+
+Clean.Remove clean /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch.pth
+    builtin-rm -rf /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch.pth
+
+Clean.Remove clean build/gistory.build/Debug/gistory.build
+    builtin-rm -rf /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build
+
+
+** CLEAN SUCCEEDED **
+
+
+=== ANALYZE NATIVE TARGET gistory OF PROJECT gistory WITH CONFIGURATION Debug ===
+Check dependencies
+
+ProcessInfoPlistFile build/Debug/gistory.app/Contents/Info.plist gistory/gistory-Info.plist
+    cd /Users/drew/buildbot/.buildbot/gistory
+    builtin-infoPlistUtility gistory/gistory-Info.plist -genpkginfo /Users/drew/buildbot/.buildbot/gistory/build/Debug/gistory.app/Contents/PkgInfo -expandbuildsettings -platform macosx -o /Users/drew/buildbot/.buildbot/gistory/build/Debug/gistory.app/Contents/Info.plist
+
+ProcessPCH /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch.pth gistory/gistory-Prefix.pch normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c-header -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -c /Users/drew/buildbot/.buildbot/gistory/gistory/gistory-Prefix.pch -o /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch.pth -MMD -MT dependencies -MF /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch.d
+
+ProcessPCH /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch.pth gistory/gistory-Prefix.pch normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.analyzer
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c-header -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -c /Users/drew/buildbot/.buildbot/gistory/gistory/gistory-Prefix.pch -o /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch.pth -MMD -MT dependencies -MF /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch.d
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/main.o gistory/main.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/main.d -c /Users/drew/buildbot/.buildbot/gistory/gistory/main.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/main.o
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/gistoryAppDelegate.o gistory/gistoryAppDelegate.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/gistoryAppDelegate.d -c /Users/drew/buildbot/.buildbot/gistory/gistory/gistoryAppDelegate.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/gistoryAppDelegate.o
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Rail.o gistory/Rail.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Rail.d -c /Users/drew/buildbot/.buildbot/gistory/gistory/Rail.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Rail.o
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Node+GraphAlgorithms.o gistory/Node+GraphAlgorithms.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Node+GraphAlgorithms.d -c /Users/drew/buildbot/.buildbot/gistory/gistory/Node+GraphAlgorithms.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Node+GraphAlgorithms.o
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/NSSet+NodeAdditions.o gistory/NSSet+NodeAdditions.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/NSSet+NodeAdditions.d -c /Users/drew/buildbot/.buildbot/gistory/gistory/NSSet+NodeAdditions.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/NSSet+NodeAdditions.o
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Node.o gistory/Node.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Node.d -c /Users/drew/buildbot/.buildbot/gistory/gistory/Node.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Node.o
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Ferrari.o gistory/Ferrari.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Ferrari.d -c /Users/drew/buildbot/.buildbot/gistory/gistory/Ferrari.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Ferrari.o
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Node+Drawing.o gistory/Node+Drawing.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Node+Drawing.d -c /Users/drew/buildbot/.buildbot/gistory/gistory/Node+Drawing.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Node+Drawing.o
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Edge.o gistory/Edge.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Edge.d -c /Users/drew/buildbot/.buildbot/gistory/gistory/Edge.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Edge.o
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Edge+Drawing.o gistory/Edge+Drawing.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Edge+Drawing.d -c /Users/drew/buildbot/.buildbot/gistory/gistory/Edge+Drawing.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Edge+Drawing.o
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Graph.o gistory/Graph.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Graph.d -c /Users/drew/buildbot/.buildbot/gistory/gistory/Graph.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Graph.o
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/NSRegularExpression+helpers.o NSRegularExpression+helpers.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/NSRegularExpression+helpers.d -c /Users/drew/buildbot/.buildbot/gistory/NSRegularExpression+helpers.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/NSRegularExpression+helpers.o
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/NSTextCheckingResult+helpers.o NSTextCheckingResult+helpers.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/NSTextCheckingResult+helpers.d -c /Users/drew/buildbot/.buildbot/gistory/NSTextCheckingResult+helpers.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/NSTextCheckingResult+helpers.o
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/RepoController.o gistory/RepoController.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/RepoController.d -c /Users/drew/buildbot/.buildbot/gistory/gistory/RepoController.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/RepoController.o
+/Users/drew/buildbot/.buildbot/gistory/gistory/RepoController.m:48:2: warning: #warning no commit message //___INTELLIGENCE_DAMPENING_CORE_WHEATLEY [-W#warnings,7]
+ #warning no commit message //___INTELLIGENCE_DAMPENING_CORE_WHEATLEY
+  ^
+1 warning generated.
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/DCAWindowController.o gistory/DCAWindowController.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/DCAWindowController.d -c /Users/drew/buildbot/.buildbot/gistory/gistory/DCAWindowController.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/DCAWindowController.o
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Graph+Operations.o gistory/Graph+Operations.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Graph+Operations.d -c /Users/drew/buildbot/.buildbot/gistory/gistory/Graph+Operations.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Graph+Operations.o
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Edge+GraphAlgorithms.o gistory/Edge+GraphAlgorithms.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Edge+GraphAlgorithms.d -c /Users/drew/buildbot/.buildbot/gistory/gistory/Edge+GraphAlgorithms.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/Edge+GraphAlgorithms.o
+/Users/drew/buildbot/.buildbot/gistory/gistory/Edge+GraphAlgorithms.m:203:13: warning: unused variable 'i' [-Wunused-variable,12]
+         int i = 0;
+             ^
+1 warning generated.
+
+CompileC build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/LineSegment.o gistory/LineSegment.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ftciuyvffjkynyabmedwcbiffuqu/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/LineSegment.d -c /Users/drew/buildbot/.buildbot/gistory/gistory/LineSegment.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/LineSegment.o
+
+Analyze gistory/main.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/main.d --analyze /Users/drew/buildbot/.buildbot/gistory/gistory/main.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/main.plist
+
+Analyze gistory/gistoryAppDelegate.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/gistoryAppDelegate.d --analyze /Users/drew/buildbot/.buildbot/gistory/gistory/gistoryAppDelegate.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/gistoryAppDelegate.plist
+
+Ld build/Debug/gistory.app/Contents/MacOS/gistory normal x86_64
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv MACOSX_DEPLOYMENT_TARGET 10.7
+    /ios5/usr/bin/clang -arch x86_64 -isysroot /ios5/SDKs/MacOSX10.7.sdk -L/Users/drew/buildbot/.buildbot/gistory/build/Debug -L/Users/drew/buildbot/.buildbot/gistory -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -filelist /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/gistory.LinkFileList -mmacosx-version-min=10.7 -ObjC -all_load -fobjc-arc -framework Cocoa -o /Users/drew/buildbot/.buildbot/gistory/build/Debug/gistory.app/Contents/MacOS/gistory
+
+Analyze gistory/Rail.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Rail.d --analyze /Users/drew/buildbot/.buildbot/gistory/gistory/Rail.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Rail.plist
+
+Analyze gistory/Node+GraphAlgorithms.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Node+GraphAlgorithms.d --analyze /Users/drew/buildbot/.buildbot/gistory/gistory/Node+GraphAlgorithms.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Node+GraphAlgorithms.plist
+
+Analyze gistory/NSSet+NodeAdditions.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/NSSet+NodeAdditions.d --analyze /Users/drew/buildbot/.buildbot/gistory/gistory/NSSet+NodeAdditions.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/NSSet+NodeAdditions.plist
+
+Analyze gistory/Node.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Node.d --analyze /Users/drew/buildbot/.buildbot/gistory/gistory/Node.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Node.plist
+
+Analyze gistory/Ferrari.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Ferrari.d --analyze /Users/drew/buildbot/.buildbot/gistory/gistory/Ferrari.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Ferrari.plist
+
+Analyze gistory/Node+Drawing.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Node+Drawing.d --analyze /Users/drew/buildbot/.buildbot/gistory/gistory/Node+Drawing.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Node+Drawing.plist
+
+Analyze gistory/Edge.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Edge.d --analyze /Users/drew/buildbot/.buildbot/gistory/gistory/Edge.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Edge.plist
+
+Analyze gistory/Edge+Drawing.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Edge+Drawing.d --analyze /Users/drew/buildbot/.buildbot/gistory/gistory/Edge+Drawing.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Edge+Drawing.plist
+
+Analyze gistory/Graph.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Graph.d --analyze /Users/drew/buildbot/.buildbot/gistory/gistory/Graph.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Graph.plist
+
+Analyze NSRegularExpression+helpers.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/NSRegularExpression+helpers.d --analyze /Users/drew/buildbot/.buildbot/gistory/NSRegularExpression+helpers.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/NSRegularExpression+helpers.plist
+
+Analyze NSTextCheckingResult+helpers.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/NSTextCheckingResult+helpers.d --analyze /Users/drew/buildbot/.buildbot/gistory/NSTextCheckingResult+helpers.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/NSTextCheckingResult+helpers.plist
+
+Analyze gistory/RepoController.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/RepoController.d --analyze /Users/drew/buildbot/.buildbot/gistory/gistory/RepoController.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/RepoController.plist
+
+Analyze gistory/DCAWindowController.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/DCAWindowController.d --analyze /Users/drew/buildbot/.buildbot/gistory/gistory/DCAWindowController.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/DCAWindowController.plist
+
+Analyze gistory/Graph+Operations.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Graph+Operations.d --analyze /Users/drew/buildbot/.buildbot/gistory/gistory/Graph+Operations.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Graph+Operations.plist
+
+Analyze gistory/Edge+GraphAlgorithms.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Edge+GraphAlgorithms.d --analyze /Users/drew/buildbot/.buildbot/gistory/gistory/Edge+GraphAlgorithms.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/Edge+GraphAlgorithms.plist
+
+Analyze gistory/LineSegment.m
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv LANG en_US.US-ASCII
+    /ios5/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /ios5/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -Xclang -analyzer-checker -Xclang osx.cocoa.experimental.SelfInit -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-generated-files.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-own-target-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-all-target-headers.hmap -iquote /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-project-headers.hmap -I/Users/drew/buildbot/.buildbot/gistory/build/Debug/include -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources/x86_64 -I/Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources -F/Users/drew/buildbot/.buildbot/gistory/build/Debug -include /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/gistory-Prefix-ecmovwkoftjabebfofunzixypzpy/gistory-Prefix.pch -MMD -MT dependencies -MF /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/LineSegment.d --analyze /Users/drew/buildbot/.buildbot/gistory/gistory/LineSegment.m -o /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/StaticAnalyzer/normal/x86_64/LineSegment.plist
+
+CopyStringsFile build/Debug/gistory.app/Contents/Resources/en.lproj/InfoPlist.strings gistory/en.lproj/InfoPlist.strings
+    cd /Users/drew/buildbot/.buildbot/gistory
+    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding UTF-16 --outdir /Users/drew/buildbot/.buildbot/gistory/build/Debug/gistory.app/Contents/Resources/en.lproj -- gistory/en.lproj/InfoPlist.strings
+
+CpResource gistory/en.lproj/Credits.rtf build/Debug/gistory.app/Contents/Resources/en.lproj/Credits.rtf
+    cd /Users/drew/buildbot/.buildbot/gistory
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/drew/buildbot/.buildbot/gistory/gistory/en.lproj/Credits.rtf /Users/drew/buildbot/.buildbot/gistory/build/Debug/gistory.app/Contents/Resources/en.lproj
+
+CompileXIB gistory/en.lproj/MainMenu.xib
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv XCODE_DEVELOPER_USR_PATH /ios5/usr/bin/..
+    /ios5/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/drew/buildbot/.buildbot/gistory/build/Debug/gistory.app/Contents/Resources/en.lproj/MainMenu.nib /Users/drew/buildbot/.buildbot/gistory/gistory/en.lproj/MainMenu.xib --sdk /ios5/SDKs/MacOSX10.7.sdk
+
+PhaseScriptExecution "Run Script" build/gistory.build/Debug/gistory.build/Script-3A6F23AE13E37DDE00160188.sh
+    cd /Users/drew/buildbot/.buildbot/gistory
+    setenv ACTION build
+    setenv ALTERNATE_GROUP staff
+    setenv ALTERNATE_MODE u+w,go-w,a+rX
+    setenv ALTERNATE_OWNER drew
+    setenv ALWAYS_SEARCH_USER_PATHS NO
+    setenv APPLE_INTERNAL_DEVELOPER_DIR /AppleInternal/Developer
+    setenv APPLE_INTERNAL_DIR /AppleInternal
+    setenv APPLE_INTERNAL_DOCUMENTATION_DIR /AppleInternal/Documentation
+    setenv APPLE_INTERNAL_LIBRARY_DIR /AppleInternal/Library
+    setenv APPLE_INTERNAL_TOOLS /AppleInternal/Developer/Tools
+    setenv APPLY_RULES_IN_COPY_FILES NO
+    setenv ARCHS x86_64
+    setenv ARCHS_STANDARD_32_64_BIT "x86_64 i386"
+    setenv ARCHS_STANDARD_32_BIT i386
+    setenv ARCHS_STANDARD_64_BIT x86_64
+    setenv AVAILABLE_PLATFORMS "iphonesimulator macosx iphoneos"
+    setenv BUILD_COMPONENTS "headers build"
+    setenv BUILD_DIR /Users/drew/buildbot/.buildbot/gistory/build
+    setenv BUILD_ROOT /Users/drew/buildbot/.buildbot/gistory/build
+    setenv BUILD_STYLE 
+    setenv BUILD_VARIANTS normal
+    setenv BUILT_PRODUCTS_DIR /Users/drew/buildbot/.buildbot/gistory/build/Debug
+    setenv CACHE_ROOT /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501
+    setenv CCHROOT /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501
+    setenv CHMOD /bin/chmod
+    setenv CHOWN /usr/sbin/chown
+    setenv CLANG_ENABLE_OBJC_ARC YES
+    setenv CLASS_FILE_DIR /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/JavaClasses
+    setenv CLEAN_PRECOMPS YES
+    setenv CLONE_HEADERS NO
+    setenv CODESIGNING_FOLDER_PATH /Users/drew/buildbot/.buildbot/gistory/build/Debug/gistory.app
+    setenv CODE_SIGNING_ALLOWED YES
+    setenv COMMAND_MODE legacy
+    setenv COMPOSITE_SDK_DIRS /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/CompositeSDKs
+    setenv CONFIGURATION Debug
+    setenv CONFIGURATION_BUILD_DIR /Users/drew/buildbot/.buildbot/gistory/build/Debug
+    setenv CONFIGURATION_TEMP_DIR /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug
+    setenv CONTENTS_FOLDER_PATH gistory.app/Contents
+    setenv COPYING_PRESERVES_HFS_DATA NO
+    setenv COPY_PHASE_STRIP NO
+    setenv COPY_RESOURCES_FROM_STATIC_FRAMEWORKS YES
+    setenv CP /bin/cp
+    setenv CURRENT_ARCH x86_64
+    setenv CURRENT_VARIANT normal
+    setenv DEAD_CODE_STRIPPING NO
+    setenv DEBUGGING_SYMBOLS YES
+    setenv DEBUG_INFORMATION_FORMAT dwarf
+    setenv DEFAULT_COMPILER com.apple.compilers.llvm.clang.1_0
+    setenv DEPLOYMENT_LOCATION NO
+    setenv DEPLOYMENT_POSTPROCESSING NO
+    setenv DERIVED_FILES_DIR /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources
+    setenv DERIVED_FILE_DIR /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources
+    setenv DERIVED_SOURCES_DIR /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/DerivedSources
+    setenv DEVELOPER_APPLICATIONS_DIR /ios5/Applications
+    setenv DEVELOPER_BIN_DIR /ios5/usr/bin
+    setenv DEVELOPER_DIR /ios5
+    setenv DEVELOPER_FRAMEWORKS_DIR /ios5/Library/Frameworks
+    setenv DEVELOPER_FRAMEWORKS_DIR_QUOTED "\"/ios5/Library/Frameworks\""
+    setenv DEVELOPER_LIBRARY_DIR /ios5/Library
+    setenv DEVELOPER_SDK_DIR /ios5/SDKs
+    setenv DEVELOPER_TOOLS_DIR /ios5/Tools
+    setenv DEVELOPER_USR_DIR /ios5/usr
+    setenv DEVELOPMENT_LANGUAGE English
+    setenv DOCUMENTATION_FOLDER_PATH gistory.app/Contents/Resources/English.lproj/Documentation
+    setenv DO_HEADER_SCANNING_IN_JAM NO
+    setenv DSTROOT /tmp/gistory.dst
+    setenv DWARF_DSYM_FILE_NAME gistory.app.dSYM
+    setenv DWARF_DSYM_FILE_SHOULD_ACCOMPANY_PRODUCT NO
+    setenv DWARF_DSYM_FOLDER_PATH /Users/drew/buildbot/.buildbot/gistory/build/Debug
+    setenv EMBEDDED_PROFILE_NAME embedded.provisionprofile
+    setenv ENABLE_HEADER_DEPENDENCIES YES
+    setenv ENABLE_OPENMP_SUPPORT NO
+    setenv EXCLUDED_INSTALLSRC_SUBDIRECTORY_PATTERNS ".DS_Store .svn .git .hg CVS"
+    setenv EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES "*.nib *.lproj *.framework *.gch (*) .DS_Store CVS .svn .git .hg *.xcodeproj *.xcode *.pbproj *.pbxproj"
+    setenv EXECUTABLES_FOLDER_PATH gistory.app/Contents/Executables
+    setenv EXECUTABLE_FOLDER_PATH gistory.app/Contents/MacOS
+    setenv EXECUTABLE_NAME gistory
+    setenv EXECUTABLE_PATH gistory.app/Contents/MacOS/gistory
+    setenv FILE_LIST /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects/LinkFileList
+    setenv FIXED_FILES_DIR /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/FixedFiles
+    setenv FRAMEWORKS_FOLDER_PATH gistory.app/Contents/Frameworks
+    setenv FRAMEWORK_FLAG_PREFIX -framework
+    setenv FRAMEWORK_SEARCH_PATHS "\"/Users/drew/buildbot/.buildbot/gistory/build/Debug\" "
+    setenv FRAMEWORK_VERSION A
+    setenv FULL_PRODUCT_NAME gistory.app
+    setenv GCC3_VERSION 3.3
+    setenv GCC_C_LANGUAGE_STANDARD gnu99
+    setenv GCC_DYNAMIC_NO_PIC NO
+    setenv GCC_ENABLE_OBJC_EXCEPTIONS YES
+    setenv GCC_INLINES_ARE_PRIVATE_EXTERN YES
+    setenv GCC_OPTIMIZATION_LEVEL 0
+    setenv GCC_PFE_FILE_C_DIALECTS "c objective-c c++ objective-c++"
+    setenv GCC_PRECOMPILE_PREFIX_HEADER YES
+    setenv GCC_PREFIX_HEADER gistory/gistory-Prefix.pch
+    setenv GCC_PREPROCESSOR_DEFINITIONS "DEBUG=1 "
+    setenv GCC_SYMBOLS_PRIVATE_EXTERN NO
+    setenv GCC_TREAT_WARNINGS_AS_ERRORS NO
+    setenv GCC_VERSION com.apple.compilers.llvm.clang.1_0
+    setenv GCC_VERSION_IDENTIFIER com_apple_compilers_llvm_clang_1_0
+    setenv GCC_WARN_64_TO_32_BIT_CONVERSION YES
+    setenv GCC_WARN_ABOUT_MISSING_PROTOTYPES YES
+    setenv GCC_WARN_ABOUT_RETURN_TYPE YES
+    setenv GCC_WARN_UNUSED_VARIABLE YES
+    setenv GENERATE_MASTER_OBJECT_FILE NO
+    setenv GENERATE_PKGINFO_FILE YES
+    setenv GENERATE_PROFILING_CODE NO
+    setenv GID 20
+    setenv GROUP staff
+    setenv HEADERMAP_INCLUDES_FLAT_ENTRIES_FOR_TARGET_BEING_BUILT YES
+    setenv HEADERMAP_INCLUDES_FRAMEWORK_ENTRIES_FOR_ALL_PRODUCT_TYPES YES
+    setenv HEADERMAP_INCLUDES_NONPUBLIC_NONPRIVATE_HEADERS YES
+    setenv HEADERMAP_INCLUDES_PROJECT_HEADERS YES
+    setenv HEADER_SEARCH_PATHS "\"/Users/drew/buildbot/.buildbot/gistory/build/Debug/include\" "
+    setenv ICONV /usr/bin/iconv
+    setenv INFOPLIST_EXPAND_BUILD_SETTINGS YES
+    setenv INFOPLIST_FILE gistory/gistory-Info.plist
+    setenv INFOPLIST_OUTPUT_FORMAT same-as-input
+    setenv INFOPLIST_PATH gistory.app/Contents/Info.plist
+    setenv INFOPLIST_PREPROCESS NO
+    setenv INFOSTRINGS_PATH gistory.app/Contents/Resources/English.lproj/InfoPlist.strings
+    setenv INSTALL_DIR /tmp/gistory.dst/Applications
+    setenv INSTALL_GROUP staff
+    setenv INSTALL_MODE_FLAG u+w,go-w,a+rX
+    setenv INSTALL_OWNER drew
+    setenv INSTALL_PATH /Applications
+    setenv INSTALL_ROOT /tmp/gistory.dst
+    setenv JAVAC_DEFAULT_FLAGS "-J-Xms64m -J-XX:NewSize=4M -J-Dfile.encoding=UTF8"
+    setenv JAVA_APP_STUB /System/Library/Frameworks/JavaVM.framework/Resources/MacOS/JavaApplicationStub
+    setenv JAVA_ARCHIVE_CLASSES YES
+    setenv JAVA_ARCHIVE_TYPE JAR
+    setenv JAVA_COMPILER /usr/bin/javac
+    setenv JAVA_FOLDER_PATH gistory.app/Contents/Resources/Java
+    setenv JAVA_FRAMEWORK_RESOURCES_DIRS Resources
+    setenv JAVA_JAR_FLAGS cv
+    setenv JAVA_SOURCE_SUBDIR .
+    setenv JAVA_USE_DEPENDENCIES YES
+    setenv JAVA_ZIP_FLAGS -urg
+    setenv JIKES_DEFAULT_FLAGS "+E +OLDCSO"
+    setenv KEEP_PRIVATE_EXTERNS NO
+    setenv LD_GENERATE_MAP_FILE NO
+    setenv LD_MAP_FILE_PATH /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/gistory-LinkMap-normal-x86_64.txt
+    setenv LD_NO_PIE NO
+    setenv LD_OPENMP_FLAGS -fopenmp
+    setenv LEGACY_DEVELOPER_DIR /ios5/Library/Xcode/PrivatePlugIns/Xcode3Core.ideplugin/Contents/SharedSupport/Developer
+    setenv LEX /ios5/usr/bin/lex
+    setenv LIBRARY_FLAG_NOSPACE YES
+    setenv LIBRARY_FLAG_PREFIX -l
+    setenv LIBRARY_SEARCH_PATHS "\"/Users/drew/buildbot/.buildbot/gistory/build/Debug\"  \"/Users/drew/buildbot/.buildbot/gistory\""
+    setenv LINKER_DISPLAYS_MANGLED_NAMES NO
+    setenv LINK_FILE_LIST_normal_x86_64 /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal/x86_64/gistory.LinkFileList
+    setenv LINK_WITH_STANDARD_LIBRARIES YES
+    setenv LOCALIZED_RESOURCES_FOLDER_PATH gistory.app/Contents/Resources/English.lproj
+    setenv LOCAL_ADMIN_APPS_DIR /Applications/Utilities
+    setenv LOCAL_APPS_DIR /Applications
+    setenv LOCAL_DEVELOPER_DIR /Library/Developer
+    setenv LOCAL_LIBRARY_DIR /Library
+    setenv MACH_O_TYPE mh_execute
+    setenv MACOSX_DEPLOYMENT_TARGET 10.7
+    setenv MAC_OS_X_PRODUCT_BUILD_VERSION 11B26
+    setenv MAC_OS_X_VERSION_ACTUAL 1071
+    setenv MAC_OS_X_VERSION_MAJOR 1070
+    setenv MAC_OS_X_VERSION_MINOR 0701
+    setenv NATIVE_ARCH i386
+    setenv NATIVE_ARCH_32_BIT i386
+    setenv NATIVE_ARCH_64_BIT x86_64
+    setenv NATIVE_ARCH_ACTUAL x86_64
+    setenv NO_COMMON YES
+    setenv OBJECT_FILE_DIR /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects
+    setenv OBJECT_FILE_DIR_normal /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Objects-normal
+    setenv OBJROOT /Users/drew/buildbot/.buildbot/gistory/build
+    setenv ONLY_ACTIVE_ARCH YES
+    setenv OPTIMIZATION_LEVEL 0
+    setenv OS MACOS
+    setenv OSAC /usr/bin/osacompile
+    setenv OTHER_LDFLAGS "-ObjC -all_load"
+    setenv PACKAGE_TYPE com.apple.package-type.wrapper.application
+    setenv PASCAL_STRINGS YES
+    setenv PATH_PREFIXES_EXCLUDED_FROM_HEADER_DEPENDENCIES "/usr/include /usr/local/include /System/Library/Frameworks /System/Library/PrivateFrameworks /ios5/Headers /ios5/SDKs /ios5/Platforms"
+    setenv PBDEVELOPMENTPLIST_PATH gistory.app/Contents/pbdevelopment.plist
+    setenv PFE_FILE_C_DIALECTS objective-c
+    setenv PKGINFO_FILE_PATH /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/PkgInfo
+    setenv PKGINFO_PATH gistory.app/Contents/PkgInfo
+    setenv PLATFORM_DEVELOPER_APPLICATIONS_DIR /ios5/Applications
+    setenv PLATFORM_DEVELOPER_BIN_DIR /ios5/usr/bin
+    setenv PLATFORM_DEVELOPER_LIBRARY_DIR /ios5/Library
+    setenv PLATFORM_DEVELOPER_SDK_DIR /ios5/SDKs
+    setenv PLATFORM_DEVELOPER_TOOLS_DIR /ios5/Tools
+    setenv PLATFORM_DEVELOPER_USR_DIR /ios5/usr
+    setenv PLATFORM_DIR /ios5/Platforms/MacOSX.platform
+    setenv PLATFORM_NAME macosx
+    setenv PLATFORM_PREFERRED_ARCH x86_64
+    setenv PLATFORM_PRODUCT_BUILD_VERSION 4D177b
+    setenv PLIST_FILE_OUTPUT_FORMAT same-as-input
+    setenv PLUGINS_FOLDER_PATH gistory.app/Contents/PlugIns
+    setenv PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR YES
+    setenv PRECOMP_DESTINATION_DIR /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/PrefixHeaders
+    setenv PRESERVE_DEAD_CODE_INITS_AND_TERMS NO
+    setenv PRIVATE_HEADERS_FOLDER_PATH gistory.app/Contents/PrivateHeaders
+    setenv PRODUCT_NAME gistory
+    setenv PRODUCT_SETTINGS_PATH /Users/drew/buildbot/.buildbot/gistory/gistory/gistory-Info.plist
+    setenv PRODUCT_TYPE com.apple.product-type.application
+    setenv PROFILING_CODE NO
+    setenv PROJECT gistory
+    setenv PROJECT_DERIVED_FILE_DIR /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/DerivedSources
+    setenv PROJECT_DIR /Users/drew/buildbot/.buildbot/gistory
+    setenv PROJECT_FILE_PATH /Users/drew/buildbot/.buildbot/gistory/gistory.xcodeproj
+    setenv PROJECT_NAME gistory
+    setenv PROJECT_TEMP_DIR /Users/drew/buildbot/.buildbot/gistory/build/gistory.build
+    setenv PUBLIC_HEADERS_FOLDER_PATH gistory.app/Contents/Headers
+    setenv RECURSIVE_SEARCH_PATHS_FOLLOW_SYMLINKS YES
+    setenv REMOVE_CVS_FROM_RESOURCES YES
+    setenv REMOVE_GIT_FROM_RESOURCES YES
+    setenv REMOVE_HG_FROM_RESOURCES YES
+    setenv REMOVE_SVN_FROM_RESOURCES YES
+    setenv REZ_COLLECTOR_DIR /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/ResourceManagerResources
+    setenv REZ_OBJECTS_DIR /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/ResourceManagerResources/Objects
+    setenv REZ_SEARCH_PATHS "\"/Users/drew/buildbot/.buildbot/gistory/build/Debug\" "
+    setenv RUN_CLANG_STATIC_ANALYZER YES
+    setenv SCAN_ALL_SOURCE_FILES_FOR_INCLUDES NO
+    setenv SCRIPTS_FOLDER_PATH gistory.app/Contents/Resources/Scripts
+    setenv SCRIPT_INPUT_FILE_COUNT 0
+    setenv SCRIPT_OUTPUT_FILE_COUNT 0
+    setenv SDKROOT /ios5/SDKs/MacOSX10.7.sdk
+    setenv SDK_DIR /ios5/SDKs/MacOSX10.7.sdk
+    setenv SDK_NAME macosx10.7
+    setenv SDK_PRODUCT_BUILD_VERSION 11C43
+    setenv SED /usr/bin/sed
+    setenv SEPARATE_STRIP NO
+    setenv SEPARATE_SYMBOL_EDIT NO
+    setenv SET_DIR_MODE_OWNER_GROUP YES
+    setenv SET_FILE_MODE_OWNER_GROUP NO
+    setenv SHARED_DERIVED_FILE_DIR /Users/drew/buildbot/.buildbot/gistory/build/Debug/DerivedSources
+    setenv SHARED_FRAMEWORKS_FOLDER_PATH gistory.app/Contents/SharedFrameworks
+    setenv SHARED_PRECOMPS_DIR /var/folders/vv/z02zhgz508g99fs34mhrkw6c0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders
+    setenv SHARED_SUPPORT_FOLDER_PATH gistory.app/Contents/SharedSupport
+    setenv SKIP_INSTALL NO
+    setenv SOURCE_ROOT /Users/drew/buildbot/.buildbot/gistory
+    setenv SRCROOT /Users/drew/buildbot/.buildbot/gistory
+    setenv STRINGS_FILE_OUTPUT_ENCODING UTF-16
+    setenv STRIP_INSTALLED_PRODUCT YES
+    setenv STRIP_STYLE all
+    setenv SUPPORTED_PLATFORMS macosx
+    setenv SYMROOT /Users/drew/buildbot/.buildbot/gistory/build
+    setenv SYSTEM_ADMIN_APPS_DIR /Applications/Utilities
+    setenv SYSTEM_APPS_DIR /Applications
+    setenv SYSTEM_CORE_SERVICES_DIR /System/Library/CoreServices
+    setenv SYSTEM_DEMOS_DIR /Applications/Extras
+    setenv SYSTEM_DEVELOPER_APPS_DIR /ios5/Applications
+    setenv SYSTEM_DEVELOPER_BIN_DIR /ios5/usr/bin
+    setenv SYSTEM_DEVELOPER_DEMOS_DIR "/ios5/Applications/Utilities/Built Examples"
+    setenv SYSTEM_DEVELOPER_DIR /ios5
+    setenv SYSTEM_DEVELOPER_DOC_DIR "/ios5/ADC Reference Library"
+    setenv SYSTEM_DEVELOPER_GRAPHICS_TOOLS_DIR "/ios5/Applications/Graphics Tools"
+    setenv SYSTEM_DEVELOPER_JAVA_TOOLS_DIR "/ios5/Applications/Java Tools"
+    setenv SYSTEM_DEVELOPER_PERFORMANCE_TOOLS_DIR "/ios5/Applications/Performance Tools"
+    setenv SYSTEM_DEVELOPER_RELEASENOTES_DIR "/ios5/ADC Reference Library/releasenotes"
+    setenv SYSTEM_DEVELOPER_TOOLS /ios5/Tools
+    setenv SYSTEM_DEVELOPER_TOOLS_DOC_DIR "/ios5/ADC Reference Library/documentation/DeveloperTools"
+    setenv SYSTEM_DEVELOPER_TOOLS_RELEASENOTES_DIR "/ios5/ADC Reference Library/releasenotes/DeveloperTools"
+    setenv SYSTEM_DEVELOPER_USR_DIR /ios5/usr
+    setenv SYSTEM_DEVELOPER_UTILITIES_DIR /ios5/Applications/Utilities
+    setenv SYSTEM_DOCUMENTATION_DIR /Library/Documentation
+    setenv SYSTEM_LIBRARY_DIR /System/Library
+    setenv TARGETNAME gistory
+    setenv TARGET_BUILD_DIR /Users/drew/buildbot/.buildbot/gistory/build/Debug
+    setenv TARGET_NAME gistory
+    setenv TARGET_TEMP_DIR /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build
+    setenv TEMP_DIR /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build
+    setenv TEMP_FILES_DIR /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build
+    setenv TEMP_FILE_DIR /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build
+    setenv TEMP_ROOT /Users/drew/buildbot/.buildbot/gistory/build
+    setenv TEST_AFTER_BUILD YES
+    setenv UID 501
+    setenv UNLOCALIZED_RESOURCES_FOLDER_PATH gistory.app/Contents/Resources
+    setenv UNSTRIPPED_PRODUCT NO
+    setenv USER drew
+    setenv USER_APPS_DIR /Users/drew/Applications
+    setenv USER_LIBRARY_DIR /Users/drew/Library
+    setenv USE_DYNAMIC_NO_PIC YES
+    setenv USE_HEADERMAP YES
+    setenv USE_HEADER_SYMLINKS NO
+    setenv VALIDATE_PRODUCT NO
+    setenv VALID_ARCHS "i386 x86_64"
+    setenv VERBOSE_PBXCP NO
+    setenv VERSIONPLIST_PATH gistory.app/Contents/version.plist
+    setenv VERSION_INFO_BUILDER drew
+    setenv VERSION_INFO_FILE gistory_vers.c
+    setenv VERSION_INFO_STRING "\"@(#)PROGRAM:gistory  PROJECT:gistory-\""
+    setenv WRAPPER_EXTENSION app
+    setenv WRAPPER_NAME gistory.app
+    setenv WRAPPER_SUFFIX .app
+    setenv XCODE_APP_SUPPORT_DIR /ios5/Library/Xcode
+    setenv XCODE_PRODUCT_BUILD_VERSION 4D177b
+    setenv XCODE_VERSION_ACTUAL 0420
+    setenv XCODE_VERSION_MAJOR 0400
+    setenv XCODE_VERSION_MINOR 0420
+    setenv YACC /ios5/usr/bin/yacc
+    /bin/sh -c /Users/drew/buildbot/.buildbot/gistory/build/gistory.build/Debug/gistory.build/Script-3A6F23AE13E37DDE00160188.sh
+appledoc version: 2.0.4 (build 703)
+
+WARN: --output argument or global setting not given, will output to current dir '/Users/drew/buildbot/.buildbot/gistory'!
+
+Touch build/Debug/gistory.app
+    cd /Users/drew/buildbot/.buildbot/gistory
+    /usr/bin/touch -c /Users/drew/buildbot/.buildbot/gistory/build/Debug/gistory.app
+
+
+** BUILD SUCCEEDED **
+
+
