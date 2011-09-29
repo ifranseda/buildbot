@@ -1,0 +1,7 @@
+append this to ~/.ssh/config
+
+Host github-GLaDOS
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/glados_key
+	IdentitiesOnly yes

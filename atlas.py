@@ -23,6 +23,8 @@ class Atlas:
             except IOError:
                 GitConnect.clone(project["url"],WORK_DIR+project["name"])
                 git = GitConnect(WORK_DIR+project["name"])
+                git.repoConfig("user.name",get_config()["Git-Username"])
+                git.repoConfig("user.email",get_config()["Git-Email"])
                 
             git.fetch()
             
@@ -261,7 +263,7 @@ class Atlas:
             
          #let the implementer know how we did...
         if passed:
-            self.f.fbConnection.assign(ixBug=caseno,ixPersonAssignedTo=self.f.findImplementer(caseno),sEvent=statement+"\n"+shortDesc,files=files)
+            self.f.fbConnection.edit(ixBug=caseno,sEvent=statement+"\n"+shortDesc,files=files)
         else:
             self.f.fbConnection.reactivate(ixBug=caseno,ixPersonAssignedTo=self.f.findImplementer(caseno),sEvent=statement+"\n"+shortDesc,files=files)
 

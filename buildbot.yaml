@@ -1,10 +1,10 @@
 Projects:
    - name: buildbot
-     url: git@github.com:drewcrawford/buildbot.git
+     url: git@github-GLaDOS:drewcrawford/buildbot.git
      tests:     
      
    - name: semaps
-     url: git@github.com:drewcrawford/semaps.git
+     url: git@github-GLaDOS:drewcrawford/semaps.git
      tests:
         - name: build
           cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
@@ -15,14 +15,14 @@ Projects:
           type: xcode
           
    - name: work.py
-     url: git@github.com:drewcrawford/work.py.git
+     url: git@github-GLaDOS:drewcrawford/work.py.git
      tests:
         - name: unit
           cmd: python ./work.py selftest
           type: python
           
    - name: gistory
-     url: git@github.com:drewcrawford/Gistory.git
+     url: git@github-GLaDOS:drewcrawford/Gistory.git
      tests:
         - name: build
           cmd: /ios5/usr/bin/xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
@@ -31,3 +31,15 @@ Projects:
         - name: unit
           cmd: rm -rf build/; /ios5/usr/bin/xcodebuild -configuration Release -target gistoryTests clean build
           type: xcode
+   - name: hypercube
+     url: git@github-GLaDOS:drewcrawford/hypercube.git
+     tests:
+        - name: build
+          cmd: /ios5/usr/bin/xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
+          type: xcode
+        - name: unit
+          cmd: rm -rf build/; killall 'iPhone Simulator'; /ios5/usr/bin/xcodebuild -configuration UnitTest -sdk iphonesimulator -target hypercubeTests clean build
+          type: xcode
+
+Git-Username: GLaDOS
+Git-Email: GLaDOS@drewcrawfordapps.com
