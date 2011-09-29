@@ -280,6 +280,7 @@ class Atlas:
 
                 self.f.fbConnection.assign(ixBug=caseno,ixPersonAssignedTo=self.f.findTestCaseOwner(test),sEvent=choice(test_statements))
             else: #no open test exists, therefore integrate
+                git.resetHard_INCREDIBLY_DESTRUCTIVE_COMMAND()
                 if not projectIntegrate(caseno,defaultgitConnection=git):
                     self.glados_reassign(caseno,why=choice(test_error_statements) + "File a bug about atlas.py:OUQWIUOIQU")
                     return
