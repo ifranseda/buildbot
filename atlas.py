@@ -24,7 +24,7 @@ class Atlas:
                 GitConnect.clone(project["url"],WORK_DIR+project["name"])
                 git = GitConnect(WORK_DIR+project["name"])
                 git.repoConfig("user.name",get_config()["Git-Username"])
-                git.repoConfig("user.email",get_config()["Git-Password"])
+                git.repoConfig("user.email",get_config()["Git-Email"])
                 
             git.fetch()
             
