@@ -31,6 +31,15 @@ Projects:
         - name: unit
           cmd: rm -rf build/; /ios5/usr/bin/xcodebuild -configuration Release -target gistoryTests clean build
           type: xcode
+
+   - name: aperture
+   url: git@github-GLaDOS:drewcrawford/aperture.git
+   tests:
+    - name: unit
+      cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python aperture/manage.py test
+      type: python
+
+
    - name: hypercube
      url: git@github-GLaDOS:drewcrawford/hypercube.git
      tests:
