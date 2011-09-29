@@ -31,6 +31,15 @@ Projects:
         - name: unit
           cmd: rm -rf build/; /ios5/usr/bin/xcodebuild -configuration Release -target gistoryTests clean build
           type: xcode
+   - name: hypercube
+   url: git@github-GLaDOS:drewcrawford/hypercube.git
+   tests:
+      - name: build
+        cmd: /ios5/usr/bin/xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
+        type: xcode
+      - name: unit
+        cmd: rm -rf build/; killall 'iPhone Simulator'; /ios5/usr/bin/xcodebuild -configuration UnitTest -sdk iphonesimulator -target hypercubeTests clean build
+        type: xcode
 
 Git-Username: GLaDOS
 Git-Email: GLaDOS@drewcrawfordapps.com
