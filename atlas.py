@@ -23,8 +23,8 @@ class Atlas:
             except IOError:
                 GitConnect.clone(project["url"],WORK_DIR+project["name"])
                 git = GitConnect(WORK_DIR+project["name"])
-                git.repoConfig("user.name","GLaDOS")
-                git.repoConfig("user.email","GLaDOS@drewcrawfordapps.com")
+                git.repoConfig("user.name",get_config()["Git-Username"])
+                git.repoConfig("user.email",get_config()["Git-Password"])
                 
             git.fetch()
             

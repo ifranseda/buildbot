@@ -31,3 +31,6 @@ Projects:
         - name: unit
           cmd: rm -rf build/; /ios5/usr/bin/xcodebuild -configuration Release -target gistoryTests clean build
           type: xcode
+
+Git-Username: GLaDOS
+Git-Email: GLaDOS@drewcrawfordapps.com
