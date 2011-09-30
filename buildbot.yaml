@@ -33,11 +33,11 @@ Projects:
           type: xcode
 
    - name: aperture
-   url: git@github-GLaDOS:drewcrawford/aperture.git
-   tests:
-    - name: unit
-      cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python aperture/manage.py test
-      type: python
+     url: git@github-GLaDOS:drewcrawford/aperture.git
+     tests:
+      - name: unit
+        cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python aperture/manage.py test
+        type: python
 
 
    - name: hypercube
