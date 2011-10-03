@@ -13,20 +13,25 @@ import logging
 class Atlas:
     def __init__(self):
         self.f = FogBugzConnect()
+
+    def clone_or_get(self,URL,dest):
+        try:
+            git = GitConnect(dest)
+        except IOError:
+            GitConnect.clone(URL,dest)
+            git = GitConnect(dest)
+            git.repoConfig("user.name",get_config()["Git-Username"])
+            git.repoConfig("user.email",get_config()["Git-Email"])
+        return git
+
         
     def fetch_all(self):
         projects = get_config()["Projects"]
         #print projects
         for project in projects:
-            try:
-                git = GitConnect(WORK_DIR+project["name"])
-            except IOError:
-                GitConnect.clone(project["url"],WORK_DIR+project["name"])
-                git = GitConnect(WORK_DIR+project["name"])
-                git.repoConfig("user.name",get_config()["Git-Username"])
-                git.repoConfig("user.email",get_config()["Git-Email"])
-                
+            git = self.clone_or_get(project["url"],WORK_DIR+project["name"])
             git.fetch()
+        
             
     def integrate_changed(self,gitConnection,integration_branch,sProject):
         gitConnection.checkoutExistingBranchRaw(integration_branch)
@@ -37,6 +42,48 @@ class Atlas:
             logging.info( "Invalidating "+case["ixbug"])
             self.f.fbConnection.assign(ixBug=case["ixbug"],ixPersonAssignedTo=self.f.ixPerson,sEvent="Invalidation.  Are you getting unexpected e-mails surrounding this case event?  File a bug against buildbot.")
         self.test_active_tickets()
+
+    def deploy(self,git,sfixfor,projectConfig):
+        import subprocess
+        git.checkoutExistingBranchRaw(sfixfor)
+        config = get_config()
+        for deploy in projectConfig["deploys"]:
+            logging.info("Processing deployment specification %s" % deploy)
+            if deploy["type"]=="palantir-ios":
+
+                palantir = self.clone_or_get(config["palantir-repo"],WORK_DIR+"palantir")
+                palantir.pull()
+                shorthash = git.getSHA()[:6]
+                import os.path
+                palantir.pull()
+                if not os.path.exists(WORK_DIR+"palantir"+"/"+shorthash):
+                    logging.info("Deploying %s" % projectConfig)
+                    r = subprocess.Popen(deploy["build"],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
+                    (status,output) = self.wait_for(r)
+                    if status:
+                        raise Exception("Error deploying %s" % output)
+                    r = subprocess.Popen("cp -p -R palantir/%s palantir/%s" % (config["palantir-clone-dir"],shorthash),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR)
+                    (status,output) = self.wait_for(r)
+                    if status:
+                        raise Exception("Error AJBLSJW %s" % output)
+                    r = subprocess.Popen("cp -R *.ipa ../palantir/%s && tar czf ../palantir/%s/dsym build/Release-iphoneos/*.dSYM " % (shorthash,shorthash),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
+                    (status,output) = self.wait_for(r)
+                    if status:
+                        raise Exception("Error PAOWLA %s" % output)
+                    palantir.add(shorthash)
+                    palantir.commit("GLaDOS deploying %s (%s %s)" % (shorthash,projectConfig["name"],sfixfor))
+                    palantir.pushChangesToOriginBranch()
+
+
+                
+            else:
+                raise Exception("Don't understand this deploy %s" % deploy)
+
+
+
+
+
+
     def test_active_tickets(self):
         projects = get_config()["Projects"]
         from work.fogbugzConnect import TEST_IXCATEGORY
@@ -316,6 +363,7 @@ class Atlas:
 import unittest
 class TestSequence(unittest.TestCase):
     def setUp(self):
+        logging.basicConfig(level=logging.DEBUG,format='%(asctime)-6s: %(name)s - %(levelname)s - %(message)s')
         self.a = Atlas()
         self.a.fetch_all()
         pass
@@ -337,7 +385,10 @@ class TestSequence(unittest.TestCase):
         file.close()
         return self.a.parse_xcodelike_response(True,"",{},data,filen)
 
-    
+    def test_deploy(self):
+        git = GitConnect(WORK_DIR+"semaps")
+
+        print self.a.deploy(git,"1.5.1",project_with_name("semaps"))
     def test_xcode_parse(self):
         (passed,shortdesc,files) = self.xcode_parse_harness("xcode-fail-1.log")
         self.assertFalse(passed)
