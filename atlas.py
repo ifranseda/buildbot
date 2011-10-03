@@ -35,6 +35,8 @@ class Atlas:
             
     def integrate_changed(self,gitConnection,integration_branch,sProject):
         gitConnection.checkoutExistingBranchRaw(integration_branch)
+        self.deploy(gitConnection,integration_branch,project_with_name(sProject))
+
         cases = self.f.fbConnection.search(q="milestone:'%s' project:'%s' status:'open'" % (integration_branch,sProject),cols="sStatus")
         for case in cases.cases:
             caseno = int(case["ixbug"])
