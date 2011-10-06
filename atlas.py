@@ -336,6 +336,7 @@ class TestSequence(unittest.TestCase):
         data = file.read()
         file.close()
         return self.a.parse_xcodelike_response(True,"",{},data,filen)
+
     
     def test_xcode_parse(self):
         (passed,shortdesc,files) = self.xcode_parse_harness("xcode-fail-1.log")
