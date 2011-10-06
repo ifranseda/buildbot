@@ -25,11 +25,11 @@ Projects:
      url: git@github-GLaDOS:drewcrawford/Gistory.git
      tests:
         - name: build
-          cmd: /ios5/usr/bin/xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
+          cmd: xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
           type: xcode
         
         - name: unit
-          cmd: rm -rf build/; /ios5/usr/bin/xcodebuild -configuration Release -target gistoryTests clean build
+          cmd: rm -rf build/; xcodebuild -configuration Release -target gistoryTests clean build
           type: xcode
 
    - name: aperture
@@ -44,10 +44,10 @@ Projects:
      url: git@github-GLaDOS:drewcrawford/hypercube.git
      tests:
         - name: build
-          cmd: /ios5/usr/bin/xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
+          cmd: xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
           type: xcode
         - name: unit
-          cmd: rm -rf build/; killall 'iPhone Simulator'; /ios5/usr/bin/xcodebuild -configuration UnitTest -sdk iphonesimulator -target hypercubeTests clean build
+          cmd: rm -rf build/; killall 'iPhone Simulator'; xcodebuild -configuration UnitTest -sdk iphonesimulator -target hypercubeTests clean build
           type: xcode
 
 Git-Username: GLaDOS
