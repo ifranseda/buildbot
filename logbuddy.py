@@ -3,6 +3,7 @@ import urllib
 import urllib2
 import traceback
 import logging
+import hashlib
 def report(exception):
 
     logging.exception(exception)
@@ -11,7 +12,7 @@ def report(exception):
         "ScoutUserName": "LogBuddy",
         "ScoutProject": "buildbot",
         "ScoutArea": "Misc",
-        "Description": exception,
+        "Description": hashlib.md5(str(exception) +  traceback.format_exc()).hexdigest()
         "ForceNewBug": "0",
         "Extra": traceback.format_exc(),
         "Email": "GLaDOS@drewcrawfordapps.com",
