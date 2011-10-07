@@ -350,7 +350,7 @@ class TestSequence(unittest.TestCase):
         self.assertEqual(shortdesc,"Log reports build failed.\n/Users/drew/buildbot/.buildbot/semaps/Classes/EsriMapViewController.m:48:2:warning  #warning display this warning //___INTELLIGENCE_DAMPENING_CORE_WHEATLEY [-W#warnings,5]\n")
         (passed,shortdesc,files) = self.xcode_parse_harness("xcode-fail-4.log")
         self.assertFalse(passed)
-        self.assertEquals(shortdesc,"""/Users/drew/buildbot/.buildbot/gistory/gistory/RepoController.m:48:2:warning  #warning no commit message //___INTELLIGENCE_DAMPENING_CORE_WHEATLEY [-W#warnings,7]
+        self.assertEquals(shortdesc,"""/Users/drew/buildbot/.buildbot/gistory/gistory/NotRepoController.m:48:2:warning  #warning no commit message //___INTELLIGENCE_DAMPENING_CORE_WHEATLEY [-W#warnings,7]
 /Users/drew/buildbot/.buildbot/gistory/gistory/Edge+GraphAlgorithms.m:203:13:warning  unused variable 'i' [-Wunused-variable,12]
 """)
         #print shortdesc
