@@ -123,9 +123,10 @@ class Atlas:
         import re
         problem = re.compile("([/\w\.\+]+):(\d*):?(\d*):? (warning|error):([^\n]+)$",re.MULTILINE)
         for (filename,lineno,colno,errtype,errdesc) in problem.findall(log):
+            
+            if errdesc.find("input unused when") != -1: continue
+            elif errdesc.find("but distcc hosts list does not contain any hosts with") != -1: continue
             #print errdesc
-            if errdesc==" -l/usr/include/libxml2/libxml: 'linker' input unused when '-c' is present": continue
-            elif errdesc==" -l/usr/include/libxml2/libxml: 'linker' input unused when '--analyze' is present": continue
             shortdesc += "%s:%s:%s:%s %s" % (filename,lineno,colno,errtype,errdesc)
             #determine if the error is supressed
             try:
@@ -353,7 +354,9 @@ class TestSequence(unittest.TestCase):
         self.assertEquals(shortdesc,"""/Users/drew/buildbot/.buildbot/gistory/gistory/NotRepoController.m:48:2:warning  #warning no commit message //___INTELLIGENCE_DAMPENING_CORE_WHEATLEY [-W#warnings,7]
 /Users/drew/buildbot/.buildbot/gistory/gistory/Edge+GraphAlgorithms.m:203:13:warning  unused variable 'i' [-Wunused-variable,12]
 """)
-        #print shortdesc
+        (passed,shortdesc,files) = self.xcode_parse_harness("xcode-408-pass.log")
+        self.assertEqual(shortdesc,"/Users/drew/buildbot/.buildbot/semaps/Classes/EsriMapViewController.m:280:24:warning  Potential leak of an object allocated on line 280 and stored into 'flyover'\n")
+        
         
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG,format='%(asctime)-6s: %(name)s - %(levelname)s - %(message)s')

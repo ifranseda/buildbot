@@ -50,7 +50,7 @@ Projects:
           cmd: rm -rf build/; killall 'iPhone Simulator'; xcodebuild -configuration UnitTest -sdk iphonesimulator -target hypercubeTests clean build
           type: xcode
 
-   - name: DCALibs
+   - name: Hackity-Hack
      url: git@github-GLaDOS:drewcrawford/DrewCrawfordApps.git
      tests:
       - name: build-sampleproject
