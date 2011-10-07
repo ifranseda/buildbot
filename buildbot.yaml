@@ -50,5 +50,20 @@ Projects:
           cmd: rm -rf build/; killall 'iPhone Simulator'; xcodebuild -configuration UnitTest -sdk iphonesimulator -target hypercubeTests clean build
           type: xcode
 
+   - name: DCALibs
+     url: git@github-GLaDOS:drewcrawford/DrewCrawfordApps.git
+     tests:
+      - name: build-sampleproject
+        cmd: cd SampleProject && xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
+        type: xcode
+      - name: test-sampleproject
+        cmd: cd SampleProject && rm -rf build/; killall 'iPhone Simulator'; xcodebuild -configuration UnitTest -sdk iphonesimulator -target testSampleProject clean build
+        type: xcode
+      - name: build-DCALibs
+        cmd: cd SampleProject/DCA-libs && xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
+        type: xcode
+      - name: test-DCALibs
+        cmd: cd SampleProject/DCA-libs && rm -rf build/; killall 'iPhone Simulator'; xcodebuild -configuration UnitTest -sdk iphonesimulator -target DCA-libsTests clean build
+
 Git-Username: GLaDOS
 Git-Email: GLaDOS@drewcrawfordapps.com
