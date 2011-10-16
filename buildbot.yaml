@@ -73,6 +73,7 @@ Projects:
         type: xcode
       - name: test-DCALibs
         cmd: cd SampleProject/DCA-libs && rm -rf build/; killall 'iPhone Simulator'; xcodebuild -configuration UnitTest -sdk iphonesimulator -target DCA-libsTests clean build
+        type: xcode
 
 Git-Username: GLaDOS
 Git-Email: GLaDOS@drewcrawfordapps.com
