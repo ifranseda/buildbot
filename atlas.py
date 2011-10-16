@@ -49,6 +49,8 @@ class Atlas:
         import subprocess
         git.checkoutExistingBranchRaw(sfixfor)
         config = get_config()
+        if not projectConfig.has_key("deploys"):
+            return
         for deploy in projectConfig["deploys"]:
             logging.info("Processing deployment specification %s" % deploy)
             if deploy["type"]=="palantir-ios":
