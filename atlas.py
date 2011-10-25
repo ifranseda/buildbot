@@ -177,6 +177,7 @@ class Atlas:
             
             if errdesc.find("input unused when") != -1: continue
             elif errdesc.find("but distcc hosts list does not contain any hosts with") != -1: continue
+            elif errdesc.find("has unexpectedly large size") != -1: continue
             #print errdesc
             shortdesc += "%s:%s:%s:%s %s" % (filename,lineno,colno,errtype,errdesc)
             #determine if the error is supressed
@@ -395,6 +396,11 @@ class TestSequence(unittest.TestCase):
 
         print self.a.deploy(git,"1.5.1",project_with_name("semaps"))
     def test_xcode_parse(self):
+        (passed,shortdesc,files) = self.xcode_parse_harness("xcode-pass-unexpectedly-large.log")
+        print shortdesc
+        self.assertTrue(passed)
+        self.assertEquals(shortdesc,"")
+
         (passed,shortdesc,files) = self.xcode_parse_harness("xcode-fail-1.log")
         self.assertFalse(passed)
         self.assertEquals(shortdesc,'Log reports build failed.\nbin/LogBuddyInterface.xib:::error  Interface Builder could not open the document "LogBuddyInterface.xib" because it does not exist.\n')
