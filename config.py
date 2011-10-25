@@ -8,7 +8,7 @@ def get_config():
     return result
 
 def project_with_name(name):
-	config = get_config()
+    config = get_config()
     projects = get_config()["Projects"]
     proj_filter = filter(lambda x: x["name"]==name,projects)
     if len(proj_filter)==0:
