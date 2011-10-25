@@ -10,7 +10,7 @@ def get_config():
 def project_with_name(name):
 	config = get_config()
     projects = get_config()["Projects"]
-    proj_filter = filter(lambda x: x["name"]==name,projects)[0]
+    proj_filter = filter(lambda x: x["name"]==name,projects)
     if len(proj_filter)==0:
     	return None
     return proj_filter[0]
