@@ -32,6 +32,19 @@ Projects:
         - name: deploy
           build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/SRecovery.app -o `pwd`/srecovery.ipa  --embed srecovery.mobileprovision
           type: palantir-ios
+
+   - name: bedbug
+     url: git@github-GLaDOS:drewcrawford/bedbug.git
+     tests:
+        - name: build
+          cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
+          type: xcode
+        
+
+     deploys:
+        - name: deploy
+          build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/BedBugApp.app -o `pwd`/bedbug.ipa  --embed bedbug.mobileprovision
+          type: palantir-ios
           
    - name: work.py
      url: git@github-GLaDOS:drewcrawford/work.py.git
