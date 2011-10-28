@@ -7,7 +7,7 @@ import hashlib
 def report(exception):
 
     logging.exception(exception)
-    if exception.find("FogBugzLogonError") != -1 or exception.find("FogBugzConnectionError") != -1:
+    if str(exception).find("FogBugzLogonError") != -1 or str(exception).find("FogBugzConnectionError") != -1:
         logging.exception("Not reporting this.  You're on your own, sorry.")
         return
     url = "https://drewcrawfordapps.fogbugz.com/ScoutSubmit.asp"
