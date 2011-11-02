@@ -31,6 +31,20 @@ class Atlas:
         for project in projects:
             git = self.clone_or_get(project["url"],WORK_DIR+project["name"])
             git.fetch()
+            for sFixFor in self.f.listFixFors(sProject=project["name"]):
+                sFixFor = sFixFor.sfixfor.contents[0].encode('utf-8')
+                if sFixFor.endswith("-test"): continue
+                try:
+                    git.checkoutExistingBranchRaw(sFixFor)
+                except:
+                    logging.warning("Can't check out branch %s in project %s, perhaps it doesn't exist?" % (sFixFor,project["name"]))
+                    continue
+                if git.needsPull():
+                    logging.info("Pulling %s in project %s" % (sFixFor,project["name"]))
+                    git.pull()
+                    self.integrate_changed(git,git.getBranch(),project["name"])
+                self.deploy(git,sFixFor,project)
+
         
             
     def integrate_changed(self,gitConnection,integration_branch,sProject):
