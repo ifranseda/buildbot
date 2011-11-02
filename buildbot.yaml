@@ -71,6 +71,13 @@ Projects:
         cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python aperture/manage.py test
         type: python
 
+   - name: package-surprise
+     url: git@github-GLaDOS:drewcrawford/package-surprise.git
+     tests:
+      - name: unit
+        cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python package_surprise/manage.py test
+        type: python
+
 
    - name: hypercube
      url: git@github-GLaDOS:drewcrawford/hypercube.git
