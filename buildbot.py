@@ -103,7 +103,7 @@ class TestSequence(unittest.TestCase):
 
 if __name__=="__main__":
     q = TaskQueue()
-    q.insert(priority_fix,every=MINUTELY,now=True)
+    q.insert(priority_fix,every=HOURLY*6,now=False)
     q.insert(atlas,every=MINUTELY,now=True)
     q.insert(fixup,every=HOURLY*4,now=False)
     q.insert(still_alive,every=60)
