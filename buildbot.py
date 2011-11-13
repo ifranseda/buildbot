@@ -75,7 +75,18 @@ def atlas():
 def fixup():
     from work.work import fixUp
     fixUp()
-    
+
+def priority_fix():
+    from work.fogbugzConnect import FogBugzConnect
+    f = FogBugzConnect()
+    for case in f.listTestCases().cases:
+        ixBug = case["ixbug"]
+        (parent,child) = f.getCaseTuple(ixBug)
+        parent_priority = f.fbConnection.search(q=parent,cols="ixPriority").ixpriority.contents[0]
+        child_priority = f.fbConnection.search(q=child,cols="ixPriority").ixpriority.contents[0]
+        if parent_priority != child_priority:
+            logging.info("Fixing priority of case %s to %s" % (child,parent_priority))
+            f.setPriority(child,parent_priority)
     
 def still_alive():
     logging.info("still alive")
@@ -92,6 +103,7 @@ class TestSequence(unittest.TestCase):
 
 if __name__=="__main__":
     q = TaskQueue()
+    q.insert(priority_fix,every=MINUTELY,now=True)
     q.insert(atlas,every=MINUTELY,now=True)
     q.insert(fixup,every=HOURLY*4,now=False)
     q.insert(still_alive,every=60)
