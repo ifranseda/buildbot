@@ -181,6 +181,7 @@ class Atlas:
         return (godot.returncode,stdout+"\n"+stderr)
         
     def parse_xcodelike_response(self,passed,shortdesc,files,log,outfilename):
+        import cgi
         if log.find("** BUILD FAILED **") != -1:
             shortdesc += "Log reports build failed.\n"
             passed = False
@@ -206,6 +207,8 @@ class Atlas:
             if line.find("//___INTELLIGENCE_DAMPENING_CORE_WHEATLEY") != -1:
                 shortdesc += " (This was supressed.)\n"
                 continue
+            else:
+                shortdesc = "<span style=\"background-color:yellow;\">" + cgi.escape(shortdesc) + "</span>"
             shortdesc += "\n"
             passed = False
         files[outfilename]=log
