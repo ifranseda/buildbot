@@ -43,7 +43,7 @@ Projects:
 
      deploys:
         - name: deploy
-          build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/BedBugApp.app -o `pwd`/bedbug.ipa  --embed bedbug.mobileprovision
+          build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/bedbug.app -o `pwd`/bedbug.ipa  --embed bedbug.mobileprovision
           type: palantir-ios
           
    - name: work.py
@@ -75,9 +75,15 @@ Projects:
      url: git@github-GLaDOS:drewcrawford/package-surprise.git
      tests:
       - name: unit
-        cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python package_surprise/manage.py test
+        cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python package_surprise/manage.py test surprise
         type: python
 
+   - name: CodeLint
+     url: git@github-GLaDOS:bionoren/CodeLint.git
+     tests:
+        - name: unit
+          cmd: python -m unittest
+          type: python
 
    - name: hypercube
      url: git@github-GLaDOS:drewcrawford/hypercube.git
