@@ -78,6 +78,13 @@ Projects:
         cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python package_surprise/manage.py test surprise
         type: python
 
+   - name: black-mesa
+     url: git@github-GLaDOS:drewcrawford/black-mesa.git
+     tests:
+      - name: unit
+        cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python black_mesa/manage.py test
+        type: python
+
    - name: CodeLint
      url: git@github-GLaDOS:bionoren/CodeLint.git
      tests:
