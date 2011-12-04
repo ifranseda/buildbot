@@ -51,9 +51,12 @@ class Atlas:
         gitConnection.checkoutExistingBranchRaw(integration_branch)
         self.deploy(gitConnection,integration_branch,project_with_name(sProject))
 
-        cases = self.f.fbConnection.search(q="milestone:'%s' project:'%s' status:'open'" % (integration_branch,sProject),cols="sStatus")
+        cases = self.f.fbConnection.search(q="project:'%s' status:'Resolved' (category:'Bug' OR category:'Feature')" % (sProject),cols="sStatus")
         for case in cases.cases:
+
             caseno = int(case["ixbug"])
+            if self.f.getIntegrationBranch(caseno)!=integration_branch: continue
+
             if not self.f.isReadyForTest(caseno): continue
             logging.info( "Invalidating "+case["ixbug"])
             self.f.fbConnection.assign(ixBug=case["ixbug"],ixPersonAssignedTo=self.f.ixPerson,sEvent="Invalidation.  Are you getting unexpected e-mails surrounding this case event?  File a bug against buildbot.")
@@ -388,7 +391,7 @@ class TestSequence(unittest.TestCase):
         self.a.fetch_all()
         pass
     def test_integration_changed(self):
-         #self.a.integrate_changed(GitConnect(".buildbot/work"),"master","buildbot")
+         #self.a.integrate_changed(GitConnect(".buildbot/CodeLint"),"master","CodeLint")
          pass
 
     def test_test_active_tickets(self):
@@ -407,6 +410,7 @@ class TestSequence(unittest.TestCase):
 
     def test_deploy(self):
         git = GitConnect(WORK_DIR+"semaps")
+
 
         print self.a.deploy(git,"1.5.1",project_with_name("semaps"))
     def test_xcode_parse(self):
