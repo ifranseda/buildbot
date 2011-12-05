@@ -414,10 +414,6 @@ class TestSequence(unittest.TestCase):
 
         print self.a.deploy(git,"1.5.1",project_with_name("semaps"))
     def test_xcode_parse(self):
-        (passed,shortdesc,files) = self.xcode_parse_harness("xcode-pass-unexpectedly-large.log")
-        print shortdesc
-        self.assertTrue(passed)
-        self.assertEquals(shortdesc,"")
 
         (passed,shortdesc,files) = self.xcode_parse_harness("xcode-fail-1.log")
         self.assertFalse(passed)
