@@ -43,7 +43,11 @@ class Atlas:
                     logging.info("Pulling %s in project %s" % (sFixFor,project["name"]))
                     git.pull()
                     self.integrate_changed(git,git.getBranch(),project["name"])
-                self.deploy(git,sFixFor,project)
+                try:
+                    self.deploy(git,sFixFor,project)
+                except Exception as e:
+                    logging.error("Can't deploy")
+                    logging.exception(e)
 
         
             
@@ -182,6 +186,8 @@ class Atlas:
         (stdout,stderr) = godot.communicate()
         logging.warning(stderr)
         logging.debug("Godot arrived!")
+        logging.debug("Stdout was %s" % stdout)
+        logging.debug("Stderr was %s" % stderr)
         return (godot.returncode,stdout+"\n"+stderr)
         
     def parse_xcodelike_response(self,passed,shortdesc,files,log,outfilename):
@@ -271,7 +277,7 @@ class Atlas:
                 elif test["type"]=="python":
                     (passed,shortdesc,files) = self.parse_python_response(passed,shortdesc,files,output,test["name"]+".log",status)
                 elif test["type"]=="kif":
-                    (passed,shortdesc,files) = self.parse_kif_response(passed,shortdesc,files,output,test["name"]+".log",status)
+                    (passed,shortdesc,files) = self.parse_kif_response(passed,shortdesc,files,output,test["name"]+".log")
                 else:
                     raise Exception("Unknown test type.")
             
@@ -383,6 +389,7 @@ class Atlas:
         
 
     def glados_reassign(self,caseno,reactivate=True,why="Look, you're... doing a great job.  Can you handle things for yourself a while?  I need to think."):
+        return
         ixPerson = None
         if self.f.isTestCase(caseno, oldTestCasesOK=True):
             (parent,child) = self.f.getCaseTuple(caseno,oldTestCasesOK=True)

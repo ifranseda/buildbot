@@ -26,6 +26,30 @@ Projects:
       - name: build
         cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
         type: xcode
+
+  - name: CarAccident
+    url: git@github-GLaDOS:drewcrawford/CarAccident.git
+    tests:
+      - name: build
+        cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
+        type: xcode
+      - name: unit
+        cmd: rm -rf build/; killall 'iPhone Simulator'; xcrun -sdk iphonesimulator xcodebuild -target CarAccidentHelpTest -configuration UnitTest build -sdk iphonesimulator
+        type: xcode
+      - name: build-KIF
+        cmd: xcodebuild -target CarAccidentHelpKIF -sdk iphonesimulator -configuration UnitTest
+        type: xcode
+      - name: KIF
+        cmd: killall 'iPhone Simulator'; ../../ios-sim launch build/UnitTest-iphonesimulator/CarAccidentHelpKIF.app --family "iphone"
+        type: kif
+    deploys:
+      - name: deploy
+        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/CarAccidentHelp.app -o `pwd`/CarAccidentHelp.ipa  --embed prakash.mobileprovision
+        type: palantir-ios
+      - name: deploy-KIF
+        build:  xcodebuild -target CarAccidentHelpKIF && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/CarAccidentHelpKIF.app -o `pwd`/CarAccidentHelpKIF.ipa  --embed prakash.mobileprovision
+        postfix: -kif
+        type: palantir-ios
       
 
     deploys:
