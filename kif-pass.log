@@ -1,0 +1,60 @@
+Launching '/Volumes/y/drew/Dropbox/Code/photowallet/photowallet/build/Release-iphonesimulator/photowalletKIF.app' on'Simulator - iOS 5.0'
+2011-12-19 15:49:25.106 photowalletKIF[3102:fb03] Logging KIF test activity to /Volumes/y/drew/Library/Application Support/iPhone Simulator/5.0/Applications/18F9AC65-C41F-4C34-98EE-F1E6A67458A3/Library/Logs/KIF Tests Dec 19, 2011 3.49.25 PM CST.log
+2011-12-19 15:49:25.107 photowalletKIF[3102:fb03] BEGIN KIF TEST RUN: 1 scenarios
+2011-12-19 15:49:25.109 photowalletKIF[3102:fb03]  
+2011-12-19 15:49:25.110 photowalletKIF[3102:fb03] ---------------------------------------------------
+2011-12-19 15:49:25.111 photowalletKIF[3102:fb03] BEGIN SCENARIO 1/1 (21 steps)
+2011-12-19 15:49:25.112 photowalletKIF[3102:fb03] Testing albums
+2011-12-19 15:49:25.113 photowalletKIF[3102:fb03] ---------------------------------------------------
+2011-12-19 15:49:25.170 photowalletKIF[3102:fb03] share make
+2011-12-19 15:49:25.708 photowalletKIF[3102:fb03] PASS (0.59s): Tap view with accessibility label "Create Album"
+2011-12-19 15:49:25.721 photowalletKIF[3102:fb03] PASS (0.01s): Wait for view with accessibility label "createAlbumView"
+2011-12-19 15:49:28.192 photowalletKIF[3102:fb03] KIF: Unable to find keyboard key for a. Inserting manually.
+2011-12-19 15:49:29.387 photowalletKIF[3102:fb03] PASS (3.66s): Type the text "My album #1" into the view with accessibility label "albumName"
+2011-12-19 15:49:29.918 photowalletKIF[3102:fb03] PASS (0.53s): Tap view with accessibility label "albumPrimary"
+2011-12-19 15:49:29.957 photowalletKIF[3102:fb03] Saved succesfully!
+2011-12-19 15:49:29.968 photowalletKIF[3102:fb03] Saved succesfully!
+2011-12-19 15:49:30.472 photowalletKIF[3102:fb03] PASS (0.55s): Tap view with accessibility label "createAlbumButton"
+2011-12-19 15:49:30.483 photowalletKIF[3102:fb03] PASS (0.01s): Wait for view with accessibility label "createAlbumView" to be gone
+2011-12-19 15:49:30.495 photowalletKIF[3102:fb03] PASS (0.01s): Testing album creation
+2011-12-19 15:49:31.013 photowalletKIF[3102:fb03] PASS (0.52s): Tap view with accessibility label "Create Album"
+2011-12-19 15:49:31.024 photowalletKIF[3102:fb03] PASS (0.01s): Wait for view with accessibility label "createAlbumView"
+2011-12-19 15:49:31.980 photowalletKIF[3102:fb03] KIF: Unable to find keyboard key for a. Inserting manually.
+2011-12-19 15:49:32.796 photowalletKIF[3102:fb03] PASS (1.77s): Type the text "My album #2" into the view with accessibility label "albumName"
+2011-12-19 15:49:33.311 photowalletKIF[3102:fb03] PASS (0.51s): Tap view with accessibility label "albumPrimary"
+2011-12-19 15:49:33.324 photowalletKIF[3102:fb03] Saved succesfully!
+2011-12-19 15:49:33.326 photowalletKIF[3102:fb03] Saved succesfully!
+2011-12-19 15:49:33.828 photowalletKIF[3102:fb03] PASS (0.52s): Tap view with accessibility label "createAlbumButton"
+2011-12-19 15:49:33.840 photowalletKIF[3102:fb03] PASS (0.01s): Wait for view with accessibility label "createAlbumView" to be gone
+2011-12-19 15:49:33.864 photowalletKIF[3102:fb03] Ignoring albums <Album: 0xb67e9a0> (entity: Album; id: 0xb565900 <x-coredata://54915931-2217-4610-A08E-92320852815E/Album/p1> ; data: {
+    name = "My album #1";
+    "primary_private_DO_NOT_USE" = 0;
+})
+2011-12-19 15:49:33.865 photowalletKIF[3102:fb03] PASS (0.02s): Testing album creation
+2011-12-19 15:49:34.380 photowalletKIF[3102:fb03] PASS (0.51s): Tap view with accessibility label "Create Album"
+2011-12-19 15:49:34.392 photowalletKIF[3102:fb03] PASS (0.01s): Wait for view with accessibility label "createAlbumView"
+2011-12-19 15:49:35.339 photowalletKIF[3102:fb03] KIF: Unable to find keyboard key for a. Inserting manually.
+2011-12-19 15:49:36.149 photowalletKIF[3102:fb03] PASS (1.76s): Type the text "My album #3" into the view with accessibility label "albumName"
+2011-12-19 15:49:36.163 photowalletKIF[3102:fb03] Saved succesfully!
+2011-12-19 15:49:36.164 photowalletKIF[3102:fb03] Saved succesfully!
+2011-12-19 15:49:36.667 photowalletKIF[3102:fb03] PASS (0.52s): Tap view with accessibility label "createAlbumButton"
+2011-12-19 15:49:36.679 photowalletKIF[3102:fb03] PASS (0.01s): Wait for view with accessibility label "createAlbumView" to be gone
+2011-12-19 15:49:36.691 photowalletKIF[3102:fb03] Ignoring albums <Album: 0xb67e9a0> (entity: Album; id: 0xb565900 <x-coredata://54915931-2217-4610-A08E-92320852815E/Album/p1> ; data: {
+    name = "My album #1";
+    "primary_private_DO_NOT_USE" = 0;
+})
+2011-12-19 15:49:36.692 photowalletKIF[3102:fb03] Ignoring albums <Album: 0x6b88ad0> (entity: Album; id: 0x6b88b40 <x-coredata://54915931-2217-4610-A08E-92320852815E/Album/p3> ; data: {
+    name = "My album #2";
+    "primary_private_DO_NOT_USE" = 1;
+})
+2011-12-19 15:49:36.693 photowalletKIF[3102:fb03] PASS (0.01s): Testing album creation
+2011-12-19 15:49:36.704 photowalletKIF[3102:fb03] PASS (0.01s): Verify album test
+2011-12-19 15:49:36.706 photowalletKIF[3102:fb03] ---------------------------------------------------
+2011-12-19 15:49:36.708 photowalletKIF[3102:fb03] END OF SCENARIO (duration 11.59s)
+2011-12-19 15:49:36.709 photowalletKIF[3102:fb03] ---------------------------------------------------
+2011-12-19 15:49:36.709 photowalletKIF[3102:fb03]  
+2011-12-19 15:49:36.710 photowalletKIF[3102:fb03] ---------------------------------------------------
+2011-12-19 15:49:36.710 photowalletKIF[3102:fb03] KIF TEST RUN FINISHED: 0 failures (duration 11.66s)
+2011-12-19 15:49:36.714 photowalletKIF[3102:fb03] ---------------------------------------------------
+2011-12-19 15:49:36.716 photowalletKIF[3102:fb03] *** KIF TESTING FINISHED: 0 failures
+Session ended with error. The simulated application quit.
