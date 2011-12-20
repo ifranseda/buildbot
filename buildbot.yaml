@@ -1,114 +1,115 @@
 Projects:
-   - name: buildbot
-     url: git@github-GLaDOS:drewcrawford/buildbot.git
-     tests:     
-     
-   - name: semaps
-     url: git@github-GLaDOS:drewcrawford/semaps.git
-     tests:
-        - name: build
-          cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
-          type: xcode
-        
-        - name: unit
-          cmd: killall 'iPhone Simulator'; rm -rf build/; xcrun -sdk iphonesimulator xcodebuild -target semapsTests -configuration UnitTest build -sdk iphonesimulator
-          type: xcode
-
-     deploys:
-        - name: deploy
-          build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/semaps.app -o `pwd`/semaps.ipa  --embed semaps.mobileprovision
-          type: palantir-ios
-    
-
-   - name: SRecovery
-     url: git@github-GLaDOS:drewcrawford/SRecovery.git
-     tests:
-        - name: build
-          cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
-          type: xcode
-        
-
-     deploys:
-        - name: deploy
-          build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/SRecovery.app -o `pwd`/srecovery.ipa  --embed srecovery.mobileprovision
-          type: palantir-ios
-
-   - name: bedbug
-     url: git@github-GLaDOS:drewcrawford/bedbug.git
-     tests:
-        - name: build
-          cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
-          type: xcode
-        
-
-     deploys:
-        - name: deploy
-          build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/bedbug.app -o `pwd`/bedbug.ipa  --embed bedbug.mobileprovision
-          type: palantir-ios
-          
-   - name: work.py
-     url: git@github-GLaDOS:drewcrawford/work.py.git
-     tests:
-        - name: unit
-          cmd: python ./work.py selftest
-          type: python
-          
-   - name: gistory
-     url: git@github-GLaDOS:drewcrawford/Gistory.git
-     tests:
-        - name: build
-          cmd: xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
-          type: xcode
-        
-        - name: unit
-          cmd: rm -rf build/; xcodebuild -configuration Release -target gistoryTests clean build
-          type: xcode
-
-   - name: aperture
-     url: git@github-GLaDOS:drewcrawford/aperture.git
-     tests:
+  - name: buildbot
+    url: git@github-GLaDOS:drewcrawford/buildbot.git
+    tests:     
+   
+  - name: semaps
+    url: git@github-GLaDOS:drewcrawford/semaps.git
+    tests:
+      - name: build
+        cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
+        type: xcode
+      
       - name: unit
-        cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python aperture/manage.py test
+        cmd: killall 'iPhone Simulator'; rm -rf build/; xcrun -sdk iphonesimulator xcodebuild -target semapsTests -configuration UnitTest build -sdk iphonesimulator
+        type: xcode
+
+    deploys:
+      - name: deploy
+        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/semaps.app -o `pwd`/semaps.ipa  --embed semaps.mobileprovision
+        type: palantir-ios
+
+
+  - name: SRecovery
+    url: git@github-GLaDOS:drewcrawford/SRecovery.git
+    tests:
+      - name: build
+        cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
+        type: xcode
+      
+
+    deploys:
+      - name: deploy
+        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/SRecovery.app -o `pwd`/srecovery.ipa  --embed srecovery.mobileprovision
+        type: palantir-ios
+
+  - name: bedbug
+    url: git@github-GLaDOS:drewcrawford/bedbug.git
+    tests:
+      - name: build
+        cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
+        type: xcode
+      
+
+    deploys:
+      - name: deploy
+        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/bedbug.app -o `pwd`/bedbug.ipa  --embed bedbug.mobileprovision
+        type: palantir-ios
+        
+  - name: work.py
+    url: git@github-GLaDOS:drewcrawford/work.py.git
+    tests:
+      - name: unit
+        cmd: python ./work.py selftest
+        type: python
+        
+  - name: gistory
+    url: git@github-GLaDOS:drewcrawford/Gistory.git
+    tests:
+      - name: build
+        cmd: xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
+        type: xcode
+      
+      - name: unit
+        cmd: rm -rf build/; xcodebuild -configuration Release -target gistoryTests clean build
+        type: xcode
+
+  - name: aperture
+    url: git@github-GLaDOS:drewcrawford/aperture.git
+    tests:
+    - name: unit
+      cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python aperture/manage.py test
+      type: python
+
+  - name: package-surprise
+    url: git@github-GLaDOS:drewcrawford/package-surprise.git
+    tests:
+    - name: unit
+      cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python package_surprise/manage.py test surprise
+      type: python
+
+  - name: black-mesa
+    url: git@github-GLaDOS:drewcrawford/black-mesa.git
+    tests:
+    - name: unit
+      cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python black_mesa/manage.py test
+      type: python
+
+  - name: CodeLint
+    url: git@github-GLaDOS:bionoren/CodeLint.git
+    tests:
+      - name: unit
+        cmd: python -m unittest
         type: python
 
-   - name: package-surprise
-     url: git@github-GLaDOS:drewcrawford/package-surprise.git
-     tests:
+
+  - name: hypercube
+    url: git@github-GLaDOS:drewcrawford/hypercube.git
+    tests:
+      - name: build
+        cmd: xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
+        type: xcode
       - name: unit
-        cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python package_surprise/manage.py test surprise
-        type: python
+        cmd: rm -rf build/; killall 'iPhone Simulator'; xcodebuild -configuration UnitTest -sdk iphonesimulator -target hypercubeTests clean build
+        type: xcode
+    deploys:
+      - name: deploy
+        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/hypercube.app -o `pwd`/hypercube.ipa  --embed hypercube.mobileprovision
+        type: palantir-ios
 
-   - name: black-mesa
-     url: git@github-GLaDOS:drewcrawford/black-mesa.git
-     tests:
-      - name: unit
-        cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python black_mesa/manage.py test
-        type: python
-
-   - name: CodeLint
-     url: git@github-GLaDOS:bionoren/CodeLint.git
-     tests:
-        - name: unit
-          cmd: python -m unittest
-          type: python
-
-   - name: hypercube
-     url: git@github-GLaDOS:drewcrawford/hypercube.git
-     tests:
-        - name: build
-          cmd: xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
-          type: xcode
-        - name: unit
-          cmd: rm -rf build/; killall 'iPhone Simulator'; xcodebuild -configuration UnitTest -sdk iphonesimulator -target hypercubeTests clean build
-          type: xcode
-     deploys:
-        - name: deploy
-          build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/hypercube.app -o `pwd`/hypercube.ipa  --embed hypercube.mobileprovision
-          type: palantir-ios
-
-   - name: Hackity-Hack
-     url: git@github-GLaDOS:drewcrawford/DrewCrawfordApps.git
-     tests:
+  - name: Hackity-Hack
+    url: git@github-GLaDOS:drewcrawford/DrewCrawfordApps.git
+    tests:
       - name: build-sampleproject
         cmd: cd SampleProject && xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
         type: xcode
