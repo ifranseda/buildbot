@@ -84,6 +84,9 @@ class Atlas:
                 palantir.pull()
                 if not os.path.exists(WORK_DIR+"palantir"+"/"+shorthash):
                     logging.info("Deploying %s" % projectConfig)
+                    #in case we have multiple IPAs, we copy with a * below (because we're unsure of the name) so let's make sure our directory is clean
+                    r = subprocess.Popen("rm -rf *.ipa",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
+                    (status,output) = self.wait_for(r)
                     r = subprocess.Popen(deploy["build"],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
                     (status,output) = self.wait_for(r)
                     if status:

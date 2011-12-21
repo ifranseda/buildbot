@@ -26,7 +26,7 @@ Projects:
       - name: build
         cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
         type: xcode
-          deploys:
+    deploys:
       - name: deploy
         build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/SRecovery.app -o `pwd`/srecovery.ipa  --embed srecovery.mobileprovision
         type: palantir-ios
@@ -46,12 +46,38 @@ Projects:
       - name: KIF
         cmd: killall 'iPhone Simulator'; ../../ios-sim launch build/UnitTest-iphonesimulator/CarAccidentHelpKIF.app --family "iphone"
         type: kif
+
     deploys:
       - name: deploy
         build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/CarAccidentHelp.app -o `pwd`/CarAccidentHelp.ipa  --embed prakash.mobileprovision
         type: palantir-ios
       - name: deploy-KIF
         build:  xcodebuild -target CarAccidentHelpKIF && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/CarAccidentHelpKIF.app -o `pwd`/CarAccidentHelpKIF.ipa  --embed prakash.mobileprovision
+        postfix: -kif
+        type: palantir-ios
+
+  - name: mindful-meals
+    url: git@github-GLaDOS:drewcrawford/mindful-meals.git
+    tests:
+      - name: build
+        cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
+        type: xcode
+      - name: unit
+        cmd: rm -rf build/; killall 'iPhone Simulator'; xcrun -sdk iphonesimulator xcodebuild -target mindfulmealsTests -configuration UnitTest build -sdk iphonesimulator
+        type: xcode
+      - name: build-KIF
+        cmd: xcodebuild -target mindfulmealsKIF -sdk iphonesimulator -configuration UnitTest
+        type: xcode
+      - name: KIF
+        cmd: killall 'iPhone Simulator'; ../../ios-sim launch build/UnitTest-iphonesimulator/mindfulmealsKIF.app --family "iphone"
+        type: kif
+
+    deploys:
+      - name: deploy
+        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/mindfulmeals.app -o `pwd`/mindfulmeals.ipa  --embed mindfulmeals.mobileprovision
+        type: palantir-ios
+      - name: deploy-KIF
+        build:  xcodebuild -target mindfulmealsKIF && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/mindfulmealsKIF.app -o `pwd`/mindfulmealsKIF.ipa  --embed mindfulmeals.mobileprovision
         postfix: -kif
         type: palantir-ios
       
