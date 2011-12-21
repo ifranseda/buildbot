@@ -389,7 +389,6 @@ class Atlas:
         
 
     def glados_reassign(self,caseno,reactivate=True,why="Look, you're... doing a great job.  Can you handle things for yourself a while?  I need to think."):
-        return
         ixPerson = None
         if self.f.isTestCase(caseno, oldTestCasesOK=True):
             (parent,child) = self.f.getCaseTuple(caseno,oldTestCasesOK=True)
