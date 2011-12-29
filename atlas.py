@@ -43,7 +43,11 @@ class Atlas:
                     logging.info("Pulling %s in project %s" % (sFixFor,project["name"]))
                     git.pull()
                     self.integrate_changed(git,git.getBranch(),project["name"])
-                self.deploy(git,sFixFor,project)
+                try:
+                    self.deploy(git,sFixFor,project)
+                except Exception as e:
+                    logging.error("Can't deploy")
+                    logging.exception(e)
 
         
             
@@ -75,10 +79,14 @@ class Atlas:
                 palantir = self.clone_or_get(config["palantir-repo"],WORK_DIR+"palantir")
                 palantir.pull()
                 shorthash = git.getSHA()[:6]
+                if deploy.has_key("postfix"): shorthash += deploy["postfix"]
                 import os.path
                 palantir.pull()
                 if not os.path.exists(WORK_DIR+"palantir"+"/"+shorthash):
                     logging.info("Deploying %s" % projectConfig)
+                    #in case we have multiple IPAs, we copy with a * below (because we're unsure of the name) so let's make sure our directory is clean
+                    r = subprocess.Popen("rm -rf *.ipa",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
+                    (status,output) = self.wait_for(r)
                     r = subprocess.Popen(deploy["build"],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
                     (status,output) = self.wait_for(r)
                     if status:
@@ -181,6 +189,8 @@ class Atlas:
         (stdout,stderr) = godot.communicate()
         logging.warning(stderr)
         logging.debug("Godot arrived!")
+        logging.debug("Stdout was %s" % stdout)
+        logging.debug("Stderr was %s" % stderr)
         return (godot.returncode,stdout+"\n"+stderr)
         
     def parse_xcodelike_response(self,passed,shortdesc,files,log,outfilename):
@@ -223,9 +233,24 @@ class Atlas:
                     shortdesc += "Analyzer result: %s %s\n" % (file,result["description"])
                     passed = False"""
                     
+    def parse_kif_response(self,passed,shortdesc,files,log,outfilename):
+        if log.find("KIF TEST RUN FINISHED: 0 failures")==-1:
+            shortdesc += "KIF log reports one or more failures\n"
+            passed = False
+        import re
+        problem = re.compile(".*(FAIL.*)")
+        for instance in problem.findall(log):
+            shortdesc += "%s\n" % instance
+            passed = False
+
+
+        files[outfilename]=log
+        return (passed,shortdesc,files)
+
+
     def parse_python_response(self,passed,shortdesc,files,log,outfilename,status):
         if status:
-            shortdesc += "Failed one or more (python) tests (status-related)"
+            shortdesc += "Failed one or more (python) tests (status-related)\n"
             passed = False
         if log.find("FAILED") != -1:
             shortdesc += "Failed one or more (python) tests\n"
@@ -247,13 +272,15 @@ class Atlas:
                 print "running test",test
                 r = subprocess.Popen(test["cmd"],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+proj["name"])
                 (status,output) = self.wait_for(r)
-                if status:
+                if status and test["type"]!="kif": #kif tests always return a status code of 1
                     shortdesc += "Failing in part because test %s returned a non-zero return code %d\n" % (test,status)
                     passed = False
                 if test["type"]=="xcode":
                     (passed,shortdesc,files) = self.parse_xcodelike_response(passed,shortdesc,files,output,test["name"]+".log")
                 elif test["type"]=="python":
                     (passed,shortdesc,files) = self.parse_python_response(passed,shortdesc,files,output,test["name"]+".log",status)
+                elif test["type"]=="kif":
+                    (passed,shortdesc,files) = self.parse_kif_response(passed,shortdesc,files,output,test["name"]+".log")
                 else:
                     raise Exception("Unknown test type.")
             
@@ -407,12 +434,27 @@ class TestSequence(unittest.TestCase):
         data = file.read()
         file.close()
         return self.a.parse_xcodelike_response(True,"",{},data,filen)
+    def kif_parse_harness(self,filen):
+        file = open(filen)
+        data = file.read()
+        file.close()
+        return self.a.parse_kif_response(True,"",{},data,filen)
 
     def test_deploy(self):
         git = GitConnect(WORK_DIR+"semaps")
 
 
         print self.a.deploy(git,"1.5.1",project_with_name("semaps"))
+
+    def test_kif_parse(self):
+        (passed,shortdesc,files) = self.kif_parse_harness("kif-pass.log")
+        self.assertTrue(passed)
+        self.assertEqual(shortdesc,"")
+
+        (passed,shortdesc,files) = self.kif_parse_harness("kiff-fail.log")
+        self.assertFalse(passed)
+        self.assertEqual(shortdesc,"FAIL (0.01s): Verify album test\n")
+
     def test_xcode_parse(self):
 
         (passed,shortdesc,files) = self.xcode_parse_harness("xcode-fail-1.log")
