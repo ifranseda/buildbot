@@ -114,5 +114,5 @@ if __name__=="__main__":
             q.execTop()
         except Exception as e:
             juche.error("That's funny, I don't feel corrupt.  In fact, I feel pretty good.")
-            logbuddy.report(e)
+            juche.exception(e)
         sleep(2)
