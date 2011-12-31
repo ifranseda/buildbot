@@ -9,7 +9,7 @@ WORK_DIR=".buildbot/"
 BAD_STATUS = [34]
 PURGATORY_TIME = 2
 
-import logging
+from JucheLog.juchelog import juche
 class Atlas:
     def __init__(self):
         self.f = FogBugzConnect()
@@ -26,9 +26,11 @@ class Atlas:
 
         
     def fetch_all(self):
+        juche.superPush("task","fetch-all")
         projects = get_config()["Projects"]
         #print projects
         for project in projects:
+            juche.superPush("fetch",project)
             git = self.clone_or_get(project["url"],WORK_DIR+project["name"])
             git.fetch()
             for sFixFor in self.f.listFixFors(sProject=project["name"]):
@@ -37,21 +39,24 @@ class Atlas:
                 try:
                     git.checkoutExistingBranchRaw(sFixFor)
                 except:
-                    logging.warning("Can't check out branch %s in project %s, perhaps it doesn't exist?" % (sFixFor,project["name"]))
+                    juche.warning("Can't check out branch %s in project %s, perhaps it doesn't exist?" % (sFixFor,project["name"]))
                     continue
                 if git.needsPull():
-                    logging.info("Pulling %s in project %s" % (sFixFor,project["name"]))
+                    juche.info("Pulling %s in project %s" % (sFixFor,project["name"]))
                     git.pull()
                     self.integrate_changed(git,git.getBranch(),project["name"])
                 try:
                     self.deploy(git,sFixFor,project)
                 except Exception as e:
-                    logging.error("Can't deploy")
-                    logging.exception(e)
+                    juche.error("Can't deploy")
+                    juche.exception(e)
+            juche.pop()
+        juche.pop()
 
         
             
     def integrate_changed(self,gitConnection,integration_branch,sProject):
+        juche.superPush("integrate-changed-hook",integration_branch)
         gitConnection.checkoutExistingBranchRaw(integration_branch)
         self.deploy(gitConnection,integration_branch,project_with_name(sProject))
 
@@ -62,8 +67,10 @@ class Atlas:
             if self.f.getIntegrationBranch(caseno)!=integration_branch: continue
 
             if not self.f.isReadyForTest(caseno): continue
-            logging.info( "Invalidating "+case["ixbug"])
+            juche.info( "Invalidating "+case["ixbug"])
             self.f.fbConnection.assign(ixBug=case["ixbug"],ixPersonAssignedTo=self.f.ixPerson,sEvent="Invalidation.  Are you getting unexpected e-mails surrounding this case event?  File a bug against buildbot.")
+        juche.pop()
+
         self.test_active_tickets()
 
     def deploy(self,git,sfixfor,projectConfig):
@@ -73,9 +80,8 @@ class Atlas:
         if not projectConfig.has_key("deploys"):
             return
         for deploy in projectConfig["deploys"]:
-            logging.info("Processing deployment specification %s" % deploy)
+            juche.superPush("deploy-spec",deploy)
             if deploy["type"]=="palantir-ios":
-
                 palantir = self.clone_or_get(config["palantir-repo"],WORK_DIR+"palantir")
                 palantir.pull()
                 shorthash = git.getSHA()[:6]
@@ -83,7 +89,7 @@ class Atlas:
                 import os.path
                 palantir.pull()
                 if not os.path.exists(WORK_DIR+"palantir"+"/"+shorthash):
-                    logging.info("Deploying %s" % projectConfig)
+                    juche.superPush("deploying",projectConfig)
                     #in case we have multiple IPAs, we copy with a * below (because we're unsure of the name) so let's make sure our directory is clean
                     r = subprocess.Popen("rm -rf *.ipa",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
                     (status,output) = self.wait_for(r)
@@ -102,11 +108,12 @@ class Atlas:
                     palantir.add(shorthash)
                     palantir.commit("GLaDOS deploying %s (%s %s)" % (shorthash,projectConfig["name"],sfixfor))
                     palantir.pushChangesToOriginBranch()
-
-
-                
+                    juche.pop()
             else:
+                juche.pop()
                 raise Exception("Don't understand this deploy %s" % deploy)
+            juche.pop()
+            
 
 
 
@@ -133,10 +140,10 @@ class Atlas:
                 continue
             (parent,test) = self.f.getCaseTuple(caseno,oldTestCasesOK=True,exceptOnFailure=False)
             if not test:
-                logging.warning("Ignoring case %d because it has no test case assigned." % caseno)
+                juche.info("Ignoring case %d because it has no test case assigned." % caseno)
                 continue
             if self.be_in_purgatory(parent,test,case,proj):
-                logging.warning("Ignoring case %d because of purgatory." % caseno)
+                juche.info("Ignoring case %d because of purgatory." % caseno)
                 continue
             if self.test(case,proj): #returns true if we integrate something
                 return self.test_active_tickets() #break out of this loop, because who knows what is happening with the list of active cases now, and re-test everything.
@@ -185,12 +192,10 @@ class Atlas:
         
             
     def wait_for(self,godot):
-        logging.debug("Waiting for godot...")
+        juche.debug("Waiting for godot...")
         (stdout,stderr) = godot.communicate()
-        logging.warning(stderr)
-        logging.debug("Godot arrived!")
-        logging.debug("Stdout was %s" % stdout)
-        logging.debug("Stderr was %s" % stderr)
+        juche.info(stderr)
+        juche.debug("Godot arrived!")
         return (godot.returncode,stdout+"\n"+stderr)
         
     def parse_xcodelike_response(self,passed,shortdesc,files,log,outfilename):
@@ -292,7 +297,7 @@ class Atlas:
             
         
     def test(self,casedetail,proj,forceFail=False):
-        logging.info("Testing %s" % casedetail)
+        juche.superPush("testing",casedetail)
         caseno = int(casedetail["ixbug"])
         test_error_statements = ["Would you like to know the results of that last test? Me too. If they existed, we'd all be VERY happy right now. And not furious, which is the emotion I'm actually feeling."]
         from random import choice
@@ -302,14 +307,17 @@ class Atlas:
         integrate_to = self.f.getIntegrationBranch(caseno)
         if not git.checkoutExistingBranchRaw(integrate_to): #this auto-pulls
             self.glados_reassign(caseno,why="The dual portal device should be around here somewhere. Once you find it, we can start testing. Just like old times.  (Can't find integration branch; check the milestone or work.py integratemake)")
+            juche.pop()
             return False
         
         if not git.checkoutExistingBranch(caseno): #this auto-pulls
             self.glados_reassign(caseno,why="The dual portal device should be around here somewhere. Once you find it, we can start testing. Just like old times.  (Can't find your work branch.)")
+            juche.pop()
             return False
         
         if not git.mergeIn(integrate_to,pretend=True):
             self.glados_reassign(caseno,why=choice(test_error_statements)+" Merge failure:  can't merge %s into %d." % (integrate_to,caseno))
+            juche.pop()
             return False
         git.mergeIn(integrate_to)
         git.pushChangesToOriginBranch(branch="work-%d" % caseno)
@@ -380,9 +388,11 @@ class Atlas:
                 git.resetHard_INCREDIBLY_DESTRUCTIVE_COMMAND()
                 if not projectIntegrate(caseno,defaultgitConnection=git):
                     self.glados_reassign(caseno,why=choice(test_error_statements) + "File a bug about atlas.py:OUQWIUOIQU")
+                    juche.pop()
                     return
                 
                 self.integrate_changed(git,integrate_to,proj["name"])
+                juche.pop()
                 return True
                 
                 
@@ -476,5 +486,4 @@ class TestSequence(unittest.TestCase):
         
         
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG,format='%(asctime)-6s: %(name)s - %(levelname)s - %(message)s')
     unittest.main(failfast=True)
