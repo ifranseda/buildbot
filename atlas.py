@@ -31,7 +31,7 @@ class Atlas:
             projects = get_config()["Projects"]
             #print projects
             for project in projects:
-                with juche.revolution(fetch=project):
+                with juche.revolution(fetch=project["url"]):
                     git = self.clone_or_get(project["url"],WORK_DIR+project["name"])
                     git.fetch()
                     for sFixFor in self.f.listFixFors(sProject=project["name"]):
