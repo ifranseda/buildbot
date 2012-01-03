@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+__builtins__.LOGGLY_KEY="f4204229-5e30-475c-a0b6-e85cb4d48367"
 from TaskQueue import TaskQueue
 
 def nofunc(): print "test"
@@ -8,11 +8,9 @@ def nofunc2(): print "other"
 from time import sleep
 from fogbugzConnect import FogBugzConnect
 import logbuddy
-
+from JucheLog.juchelog import juche
 HOURLY=60*60
 MINUTELY = 60
-import logging
-logging.basicConfig(level=logging.DEBUG,format='%(asctime)-6s: %(name)s - %(levelname)s - %(message)s')
 import magic
 def autoboss():
     from work.work import complain
@@ -58,7 +56,7 @@ def create_tests():
         cache[CACHE_KEY] = []
     cases = map(lambda x: int(x["ixbug"]),cases.cases)
     cases = filter(lambda x: x not in cache[CACHE_KEY],cases)
-    logging.info(cases)
+    juche.info(cases)
     from work.work import autoTestMake
     for case in cases:
         result = autoTestMake(case)
@@ -85,11 +83,11 @@ def priority_fix():
         parent_priority = f.fbConnection.search(q=parent,cols="ixPriority").ixpriority.contents[0]
         child_priority = f.fbConnection.search(q=child,cols="ixPriority").ixpriority.contents[0]
         if parent_priority != child_priority:
-            logging.info("Fixing priority of case %s to %s" % (child,parent_priority))
+            juche.info("Fixing priority of case %s to %s" % (child,parent_priority))
             f.setPriority(child,parent_priority)
     
 def still_alive():
-    logging.info("still alive")
+    juche.info("still alive")
     
 import unittest
 class TestSequence(unittest.TestCase):
@@ -115,6 +113,6 @@ if __name__=="__main__":
         try:
             q.execTop()
         except Exception as e:
-            logging.error("That's funny, I don't feel corrupt.  In fact, I feel pretty good.")
-            logbuddy.report(e)
+            juche.error("That's funny, I don't feel corrupt.  In fact, I feel pretty good.")
+            juche.exception(e)
         sleep(2)

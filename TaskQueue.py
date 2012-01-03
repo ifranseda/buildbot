@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import heapq
 import datetime
-import logging
+from JucheLog.juchelog import juche
 class TaskItem:
     pass
 class TaskQueue(list):
@@ -28,8 +28,8 @@ class TaskQueue(list):
     def execTop(self):
         ltop = self.top()
         if ltop:
-            logging.info("task begin %s" % ltop.item)
-            ltop.item()
+            with juche.revolution(taskq=ltop.item):
+                ltop.item()
         
         
         
