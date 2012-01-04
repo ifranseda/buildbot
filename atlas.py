@@ -34,7 +34,7 @@ class Atlas:
                 with juche.revolution(fetch=project["url"]):
                     git = self.clone_or_get(project["url"],WORK_DIR+project["name"])
                     git.fetch()
-                    for sFixFor in self.f.listFixFors(sProject=project["name"]):
+                    for sFixFor in self.f.listFixFors(sProject=project["name"],onlyProjectMilestones=True):
                         sFixFor = sFixFor.sfixfor.contents[0].encode('utf-8')
                         if sFixFor.endswith("-test"): continue
                         try:
@@ -285,6 +285,15 @@ class Atlas:
                             (passed,shortdesc,files) = self.parse_kif_response(passed,shortdesc,files,output,test["name"]+".log")
                         else:
                             raise Exception("Unknown test type.")
+                        if passed:
+                            if "commit-files" in test:
+                                upload_files = test["commit-files"]
+                                with juche.revolution(upload_files=upload_files):
+                                    juche.info("commit-files")
+                                    git = GitConnect(wd=WORK_DIR+proj["name"])
+                                    git.add(upload_files)
+                                    git.commit("If the subject survived the test, we let them purchase the pictures for $5.  If the subject died, we gave the photo to their next of kin free of charge")
+                                    git.pushChangesToOriginBranch()
             
             
             
@@ -310,7 +319,9 @@ class Atlas:
             if not git.checkoutExistingBranch(caseno): #this auto-pulls
                 self.glados_reassign(caseno,why="The dual portal device should be around here somewhere. Once you find it, we can start testing. Just like old times.  (Can't find your work branch.)")
                 return False
+
             
+            git.resetHard_INCREDIBLY_DESTRUCTIVE_COMMAND()
             if not git.mergeIn(integrate_to,pretend=True):
                 self.glados_reassign(caseno,why=choice(test_error_statements)+" Merge failure:  can't merge %s into %d." % (integrate_to,caseno))
                 return False
