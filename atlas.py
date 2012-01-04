@@ -416,7 +416,6 @@ class Atlas:
 import unittest
 class TestSequence(unittest.TestCase):
     def setUp(self):
-        logging.basicConfig(level=logging.DEBUG,format='%(asctime)-6s: %(name)s - %(levelname)s - %(message)s')
         self.a = Atlas()
         self.a.fetch_all()
         pass

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-__builtins__.LOGGLY_KEY="f4204229-5e30-475c-a0b6-e85cb4d48367"
+if __name__=="__main__":
+    __builtins__.LOGGLY_KEY="f4204229-5e30-475c-a0b6-e85cb4d48367"
 from TaskQueue import TaskQueue
 
 def nofunc(): print "test"
