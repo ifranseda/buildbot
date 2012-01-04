@@ -114,6 +114,7 @@ Projects:
       - name: unit
         cmd: rm -rf build/; xcodebuild -configuration Release -target gistoryTests clean build
         type: xcode
+        commit-files: "*.png"
 
   - name: aperture
     url: git@github-GLaDOS:drewcrawford/aperture.git
