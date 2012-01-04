@@ -1,6 +1,9 @@
 #!/usr/bin/env python
+
 import heapq
 import datetime
+if not "LOGGLY_KEY" in __builtins__:
+    __builtins__["LOGGLY_KEY"]="f4204229-5e30-475c-a0b6-e85cb4d48367"
 from JucheLog.juchelog import juche
 class TaskItem:
     pass
@@ -41,6 +44,8 @@ class TaskQueue(list):
         
 import unittest
 class TestSequence(unittest.TestCase):
+    
+
     def setUp(self):
         self.taskq = TaskQueue()
     
