@@ -285,6 +285,15 @@ class Atlas:
                             (passed,shortdesc,files) = self.parse_kif_response(passed,shortdesc,files,output,test["name"]+".log")
                         else:
                             raise Exception("Unknown test type.")
+                        if passed:
+                            if "commit-files" in test:
+                                upload_files = test["commit-files"]
+                                with juche.revolution(upload_files=upload_files):
+                                    juche.info("commit-files")
+                                    git = GitConnect(wd=WORK_DIR+proj["name"])
+                                    git.add(upload_files)
+                                    git.commit("If the subject survived the test, we let them purchase the pictures for $5.  If the subject died, we gave the photo to their next of kin free of charge")
+                                    git.pushChangesToOriginBranch()
             
             
             
