@@ -34,7 +34,7 @@ class Atlas:
                 with juche.revolution(fetch=project["url"]):
                     git = self.clone_or_get(project["url"],WORK_DIR+project["name"])
                     git.fetch()
-                    for sFixFor in self.f.listFixFors(sProject=project["name"]):
+                    for sFixFor in self.f.listFixFors(sProject=project["name"],onlyProjectMilestones=True):
                         sFixFor = sFixFor.sfixfor.contents[0].encode('utf-8')
                         if sFixFor.endswith("-test"): continue
                         try:
