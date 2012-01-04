@@ -319,7 +319,9 @@ class Atlas:
             if not git.checkoutExistingBranch(caseno): #this auto-pulls
                 self.glados_reassign(caseno,why="The dual portal device should be around here somewhere. Once you find it, we can start testing. Just like old times.  (Can't find your work branch.)")
                 return False
+
             
+            git.resetHard_INCREDIBLY_DESTRUCTIVE_COMMAND()
             if not git.mergeIn(integrate_to,pretend=True):
                 self.glados_reassign(caseno,why=choice(test_error_statements)+" Merge failure:  can't merge %s into %d." % (integrate_to,caseno))
                 return False
