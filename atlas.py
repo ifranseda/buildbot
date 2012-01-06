@@ -290,6 +290,12 @@ class Atlas:
 
 
         files[outfilename]=log
+        for fileName in self.locate("*.png", os.curdir):
+            with open(fileName, "rb") as file:
+                files[fileName] = file.read()
+            r = subprocess.Popen("rm %s" % filename,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=os.curdir)
+            (status,output) = self.wait_for(r)
+
         return (passed,shortdesc,files)
 
 
