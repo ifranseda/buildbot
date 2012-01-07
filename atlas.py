@@ -292,8 +292,12 @@ class Atlas:
                                     juche.info("commit-files")
                                     git = GitConnect(wd=WORK_DIR+proj["name"])
                                     git.add(upload_files)
-                                    git.commit("If the subject survived the test, we let them purchase the pictures for $5.  If the subject died, we gave the photo to their next of kin free of charge")
-                                    git.pushChangesToOriginBranch()
+                                    try:
+                                        git.commit("If the subject survived the test, we let them purchase the pictures for $5.  If the subject died, we gave the photo to their next of kin free of charge")
+                                        git.pushChangesToOriginBranch()
+                                    except Exception as e:
+                                        juche.exception(e)
+                                        juche.warn("Was not able to upload the files successfully.  Perhaps they have not changed?")
             
             
             
