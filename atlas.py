@@ -96,6 +96,37 @@ class Atlas:
                             #in case we have multiple IPAs, we copy with a * below (because we're unsure of the name) so let's make sure our directory is clean
                             r = subprocess.Popen("rm -rf *.ipa",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
                             (status,output) = self.wait_for(r)
+
+                            #update the version and build numbers
+                            #note that this has to happen BEFORE you compile (one does not simply walk into an IPA file and change the version number, this unsigns the code and causes an install failure)
+                            r = subprocess.Popen("git log --all --oneline | wc -l",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
+                            (status,versionAppend) = self.wait_for(r)
+                            plists = self.locate("*Info.plist", WORK_DIR+projectConfig["name"])
+                            for plist in plists:
+                                with juche.revolution(plist=plist):
+                                    plistDir = plist.split("/")
+                                    plistDir = "/".join(plistDir[:-1])
+                                    juche.info("plistDir = %s" % str(plistDir))
+                                    r = subprocess.Popen("plutil -convert xml1 -o - '%s' > Info.plist-xml" % plist,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=plistDir)
+                                    (status,output) = self.wait_for(r)
+                                    juche.info("plist = %s" % plist)
+                                    plistData = plistlib.readPlist(plistDir+"/Info.plist-xml")
+                                    import re
+                                    if "CFBundleShortVersionString" not in plistData:
+                                        juche.info("This plist file does not have a version; skipping")
+                                        continue
+                                    oldVersionStr = re.compile("(\d*\.\d*)").match(plistData["CFBundleShortVersionString"]).groups()[0]
+                                    plistData["CFBundleShortVersionString"] = "%s.%s" % (oldVersionStr, versionAppend.strip())
+                                    plistData["CFBundleVersion"] = shorthash
+                                    plistlib.writePlist(plistData, plistDir+"/Info.plist-xml")
+
+                                    juche.debug("plutil -convert binary1 -o - Info.plist-xml > '%s'" % plist)
+                                    r = subprocess.Popen("plutil -convert binary1 -o - Info.plist-xml > '%s'" % plist,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=plistDir)
+                                    (status,output) = self.wait_for(r)
+
+                                    r = subprocess.Popen("rm Info.plist-xml",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=plistDir)
+                                    (status,output) = self.wait_for(r)
+
                             r = subprocess.Popen(deploy["build"],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
                             (status,output) = self.wait_for(r)
                             if status:
@@ -109,31 +140,6 @@ class Atlas:
                             if status:
                                 raise Exception("Error PAOWLA %s" % output)
 
-                            #update the version and build numbers
-                            r = subprocess.Popen("git log --all --oneline | wc -l",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
-                            (status,versionAppend) = self.wait_for(r)
-
-                            ipa = self.locate("*.ipa", WORK_DIR+"palantir"+"/"+shorthash).next()
-                            ipaArchive = ZipFile(ipa)
-                            ipaArchive.extractall(WORK_DIR+"palantir"+"/"+shorthash)
-                            plist = self.locate("Info.plist", WORK_DIR+"palantir"+"/"+shorthash).next()
-                            plistDir = plist.split("/")
-                            plistDir = "/".join(plistDir[:-1])
-                            r = subprocess.Popen("plutil -convert xml1 -o - %s > Info.plist-xml" % plist,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=plistDir)
-                            (status,output) = self.wait_for(r)
-                            juche.info("plist = %s" % plist)
-                            plistData = plistlib.readPlist(plist+"-xml")
-                            plistData["CFBundleShortVersionString"] = "%s.%s" % (plistData["CFBundleShortVersionString"], versionAppend.strip())
-                            plistData["CFBundleVersion"] = shorthash
-                            plistlib.writePlist(plistData, plist+"-xml")
-                            r = subprocess.Popen("plutil -convert binary1 -o - Info.plist-xml > Info.plist",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=plistDir)
-                            (status,output) = self.wait_for(r)
-                            r = subprocess.Popen("rm Info.plist-xml",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=plistDir)
-                            (status,output) = self.wait_for(r)
-                            self.zipdir(WORK_DIR+"palantir"+"/"+shorthash+"/Payload", ipa)
-                            #clean up the Payload/ dir
-                            r = subprocess.Popen("rm -Rf Payload",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+"palantir"+"/"+shorthash)
-                            (status,output) = self.wait_for(r)
 
                             palantir.add(shorthash)
                             palantir.commit("GLaDOS deploying %s (%s %s)" % (shorthash,projectConfig["name"],sfixfor))
