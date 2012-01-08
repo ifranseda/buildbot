@@ -19,18 +19,6 @@ Projects:
         build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/semaps.app -o `pwd`/semaps.ipa  --embed semaps.mobileprovision
         type: palantir-ios
 
-
-  - name: SRecovery
-    url: git@github-GLaDOS:drewcrawford/SRecovery.git
-    tests:
-      - name: build
-        cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
-        type: xcode
-    deploys:
-      - name: deploy
-        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/SRecovery.app -o `pwd`/srecovery.ipa  --embed srecovery.mobileprovision
-        type: palantir-ios
-
   - name: CarAccident
     url: git@github-GLaDOS:drewcrawford/CarAccident.git
     tests:
@@ -80,22 +68,6 @@ Projects:
         build:  xcodebuild -target mindfulmealsKIF && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/mindfulmealsKIF.app -o `pwd`/mindfulmealsKIF.ipa  --embed mindfulmeals.mobileprovision
         postfix: -kif
         type: palantir-ios
-      
-
-
-
-  - name: bedbug
-    url: git@github-GLaDOS:drewcrawford/bedbug.git
-    tests:
-      - name: build
-        cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
-        type: xcode
-      
-
-    deploys:
-      - name: deploy
-        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/bedbug.app -o `pwd`/bedbug.ipa  --embed bedbug.mobileprovision
-        type: palantir-ios
         
   - name: work.py
     url: git@github-GLaDOS:drewcrawford/work.py.git
@@ -128,13 +100,6 @@ Projects:
     tests:
     - name: unit
       cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python package_surprise/manage.py test surprise
-      type: python
-
-  - name: black-mesa
-    url: git@github-GLaDOS:drewcrawford/black-mesa.git
-    tests:
-    - name: unit
-      cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python black_mesa/manage.py test
       type: python
 
   - name: CodeLint
