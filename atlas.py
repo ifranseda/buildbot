@@ -144,6 +144,8 @@ class Atlas:
                             palantir.add(shorthash)
                             palantir.commit("GLaDOS deploying %s (%s %s)" % (shorthash,projectConfig["name"],sfixfor))
                             palantir.pushChangesToOriginBranch()
+                            with juche.revolution(deploy_success=True):
+                                juche.info("A new build of %s is available at http://drewcrawfordapps.com/%s" % (projectConfig["name"],shorthash))
                 else:
                     raise Exception("Don't understand this deploy %s" % deploy)
 

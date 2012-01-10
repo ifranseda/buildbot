@@ -95,6 +95,13 @@ Projects:
       cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python aperture/manage.py test
       type: python
 
+  - name: JucheLog
+    url: git@github-GLaDOS:drewcrawford/JucheLog.git
+    tests:
+    - name: unit
+      cmd: python -m unittest juchelog
+      type: python
+
   - name: package-surprise
     url: git@github-GLaDOS:drewcrawford/package-surprise.git
     tests:
