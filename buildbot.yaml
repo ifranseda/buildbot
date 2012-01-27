@@ -155,6 +155,13 @@ Projects:
         build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/dailydeals.app -o `pwd`/dailydeals.ipa  --embed dailydeals.mobileprovision
         type: palantir-ios
 
+  - name: uscaleit
+    url: git@github.com:drewcrawford/uscaleit.git
+    tests:
+      - name: build
+        cmd: xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
+        type: xcode
+
 Git-Username: GLaDOS
 Git-Email: GLaDOS@drewcrawfordapps.com
 
