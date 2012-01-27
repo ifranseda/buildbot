@@ -147,6 +147,14 @@ Projects:
         cmd: cd SampleProject/DCA-libs && rm -rf build/; killall 'iPhone Simulator'; xcodebuild -configuration UnitTest -sdk iphonesimulator -target DCA-libsTests clean build
         type: xcode
 
+  - name: daily-deals
+    url: git@github.com:drewcrawford/daily-deals.git
+    tests: #there are no tests
+    deploys:
+      - name: deploy
+        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/dailydeals.app -o `pwd`/dailydeals.ipa  --embed dailydeals.mobileprovision
+        type: palantir-ios
+
 Git-Username: GLaDOS
 Git-Email: GLaDOS@drewcrawfordapps.com
 
