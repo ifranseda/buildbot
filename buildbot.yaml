@@ -19,31 +19,6 @@ Projects:
         build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/semaps.app -o `pwd`/semaps.ipa  --embed semaps.mobileprovision
         type: palantir-ios
 
-  - name: CarAccident
-    url: git@github-GLaDOS:drewcrawford/CarAccident.git
-    tests:
-      - name: build
-        cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
-        type: xcode
-      - name: unit
-        cmd: rm -rf build/; killall 'iPhone Simulator'; xcrun -sdk iphonesimulator xcodebuild -target CarAccidentHelpTest -configuration UnitTest build -sdk iphonesimulator
-        type: xcode
-      - name: build-KIF
-        cmd: xcodebuild -target CarAccidentHelpKIF -sdk iphonesimulator -configuration UnitTest
-        type: xcode
-      - name: KIF
-        cmd: killall 'iPhone Simulator'; ../../ios-sim launch build/UnitTest-iphonesimulator/CarAccidentHelpKIF.app --family "iphone"
-        type: kif
-
-    deploys:
-      - name: deploy
-        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/CarAccidentHelp.app -o `pwd`/CarAccidentHelp.ipa  --embed prakash.mobileprovision
-        type: palantir-ios
-      - name: deploy-KIF
-        build:  xcodebuild -target CarAccidentHelpKIF && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/CarAccidentHelpKIF.app -o `pwd`/CarAccidentHelpKIF.ipa  --embed prakash.mobileprovision
-        postfix: -kif
-        type: palantir-ios
-
   - name: mindful-meals
     url: git@github-GLaDOS:drewcrawford/mindful-meals.git
     tests:
@@ -161,6 +136,18 @@ Projects:
       - name: build
         cmd: xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
         type: xcode
+      - name: unit
+        cmd: rm -rf build/; killall 'iPhone Simulator'; xcodebuild -sdk iphonesimulator -target uScaleItTests clean build
+        type: xcode
+      - name: build-KIF
+        cmd: xcodebuild -target uScaleItKIF -sdk iphonesimulator
+        type: xcode
+      - name: KIF
+        cmd: killall 'iPhone Simulator'; ../../ios-sim launch build/Release-iphonesimulator/uScaleItKIF.app --family "iphone"
+        type: kif
+      - name: KIF-iPad
+        cmd: killall 'iPhone Simulator'; ../../ios-sim launch build/Release-iphonesimulator/uScaleItKIF.app --family "ipad"
+        type: kif
 
 Git-Username: GLaDOS
 Git-Email: GLaDOS@drewcrawfordapps.com
