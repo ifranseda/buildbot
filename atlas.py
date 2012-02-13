@@ -362,7 +362,6 @@ class Atlas:
         caseno = int(casedetail["ixbug"])
 
         with juche.revolution(case=caseno):
-
             try:
                 test_error_statements = ["Would you like to know the results of that last test? Me too. If they existed, we'd all be VERY happy right now. And not furious, which is the emotion I'm actually feeling."]
                 from random import choice
@@ -380,10 +379,22 @@ class Atlas:
 
 
                 git.resetHard_INCREDIBLY_DESTRUCTIVE_COMMAND()
-                if not git.mergeIn(integrate_to,pretend=True):
+                mergeStrategy = None
+                if "merge-strategy" in proj:
+                    mergeStrategy = proj["merge-strategy"]
+                if mergeStrategy is not None:
+                    if mergeStrategy == "retest":
+                        def strategy():
+                            self.exec_tests(proj)
+                        mergeStrategy = strategy()
+                    else:
+                        msg = "What kind of merge strategy is that? %s? Really? You can do better than that!" % mergeStrategy
+                        juche.warn(msg)
+                        self.glados_reassign(caseno,why=msg)
+                        return False
+                if not git.mergeInOrReset(integrate_to, mergeStrategy):
                     self.glados_reassign(caseno,why=choice(test_error_statements)+" Merge failure:  can't merge %s into %d." % (integrate_to,caseno))
                     return False
-                git.mergeIn(integrate_to)
                 git.pushChangesToOriginBranch(branch="work-%d" % caseno)
 
 
