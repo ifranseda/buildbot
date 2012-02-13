@@ -1,81 +1,114 @@
 Projects:
-   - name: buildbot
-     url: git@github-GLaDOS:drewcrawford/buildbot.git
-     tests:     
-     
-   - name: semaps
-     url: git@github-GLaDOS:drewcrawford/semaps.git
-     tests:
-        - name: build
-          cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
-          type: xcode
-        
-        - name: unit
-          cmd: killall 'iPhone Simulator'; rm -rf build/; xcrun -sdk iphonesimulator xcodebuild -target semapsTests -configuration UnitTest build -sdk iphonesimulator
-          type: xcode
-
-     deploys:
-        - name: deploy
-          build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/semaps.app -o `pwd`/semaps.ipa  --embed semaps.mobileprovision
-          type: palantir-ios
-    
-
-   - name: SRecovery
-     url: git@github-GLaDOS:drewcrawford/SRecovery.git
-     tests:
-        - name: build
-          cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
-          type: xcode
-        
-
-     deploys:
-        - name: deploy
-          build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/SRecovery.app -o `pwd`/srecovery.ipa  --embed srecovery.mobileprovision
-          type: palantir-ios
-          
-   - name: work.py
-     url: git@github-GLaDOS:drewcrawford/work.py.git
-     tests:
-        - name: unit
-          cmd: python ./work.py selftest
-          type: python
-          
-   - name: gistory
-     url: git@github-GLaDOS:drewcrawford/Gistory.git
-     tests:
-        - name: build
-          cmd: xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
-          type: xcode
-        
-        - name: unit
-          cmd: rm -rf build/; xcodebuild -configuration Release -target gistoryTests clean build
-          type: xcode
-
-   - name: aperture
-     url: git@github-GLaDOS:drewcrawford/aperture.git
-     tests:
+  - name: buildbot
+    url: git@github-GLaDOS:drewcrawford/buildbot.git
+    tests:     
+   
+  - name: semaps
+    url: git@github-GLaDOS:drewcrawford/semaps.git
+    tests:
+      - name: build
+        cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
+        type: xcode
+      
       - name: unit
-        cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python aperture/manage.py test
+        cmd: killall 'iPhone Simulator'; rm -rf build/; xcrun -sdk iphonesimulator xcodebuild -target semapsTests -configuration UnitTest build -sdk iphonesimulator
+        type: xcode
+
+    deploys:
+      - name: deploy
+        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/semaps.app -o `pwd`/semaps.ipa  --embed semaps.mobileprovision
+        type: palantir-ios
+
+  - name: mindful-meals
+    url: git@github-GLaDOS:drewcrawford/mindful-meals.git
+    tests:
+      - name: build
+        cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
+        type: xcode
+      - name: unit
+        cmd: rm -rf build/; killall 'iPhone Simulator'; xcrun -sdk iphonesimulator xcodebuild -target mindfulmealsTests -configuration UnitTest build -sdk iphonesimulator
+        type: xcode
+      - name: build-KIF
+        cmd: xcodebuild -target mindfulmealsKIF -sdk iphonesimulator -configuration UnitTest
+        type: xcode
+      - name: KIF
+        cmd: killall 'iPhone Simulator'; ../../ios-sim launch build/UnitTest-iphonesimulator/mindfulmealsKIF.app --family "iphone"
+        type: kif
+
+    deploys:
+      - name: deploy
+        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/mindfulmeals.app -o `pwd`/mindfulmeals.ipa  --embed mindfulmeals.mobileprovision
+        type: palantir-ios
+      - name: deploy-KIF
+        build:  xcodebuild -target mindfulmealsKIF && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/mindfulmealsKIF.app -o `pwd`/mindfulmealsKIF.ipa  --embed mindfulmeals.mobileprovision
+        postfix: -kif
+        type: palantir-ios
+        
+  - name: work.py
+    url: git@github-GLaDOS:drewcrawford/work.py.git
+    tests:
+      - name: unit
+        cmd: python ./work.py selftest
+        type: python
+        
+  - name: gistory
+    url: git@github-GLaDOS:drewcrawford/Gistory.git
+    tests:
+      - name: build
+        cmd: xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
+        type: xcode
+      
+      - name: unit
+        cmd: rm -rf build/; xcodebuild -configuration Release -target gistoryTests clean build
+        type: xcode
+        commit-files: "*.png"
+
+  - name: aperture
+    url: git@github-GLaDOS:drewcrawford/aperture.git
+    tests:
+    - name: unit
+      cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python aperture/manage.py test
+      type: python
+
+  - name: JucheLog
+    url: git@github-GLaDOS:drewcrawford/JucheLog.git
+    tests:
+    - name: unit
+      cmd: python -m unittest juchelog
+      type: python
+
+  - name: package-surprise
+    url: git@github-GLaDOS:drewcrawford/package-surprise.git
+    tests:
+    - name: unit
+      cmd: virtualenv --no-site-packages . && source bin/activate && bin/pip install -r requirements.txt && python package_surprise/manage.py test surprise
+      type: python
+
+  - name: CodeLint
+    url: git@github-GLaDOS:bionoren/CodeLint.git
+    tests:
+      - name: unit
+        cmd: python -m unittest
         type: python
 
 
-   - name: hypercube
-     url: git@github-GLaDOS:drewcrawford/hypercube.git
-     tests:
-        - name: build
-          cmd: xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
-          type: xcode
-        - name: unit
-          cmd: rm -rf build/; killall 'iPhone Simulator'; xcodebuild -configuration UnitTest -sdk iphonesimulator -target hypercubeTests clean build
-          type: xcode
-     deploys:
-        - name: deploy
-          build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/hypercube.app -o `pwd`/hypercube.ipa  --embed hypercube.mobileprovision
-          type: palantir-ios
+  - name: hypercube
+    url: git@github-GLaDOS:drewcrawford/hypercube.git
+    tests:
+      - name: build
+        cmd: xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
+        type: xcode
+      - name: unit
+        cmd: rm -rf build/; killall 'iPhone Simulator'; xcodebuild -configuration UnitTest -sdk iphonesimulator -target hypercubeTests clean build
+        type: xcode
+    deploys:
+      - name: deploy
+        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/hypercube.app -o `pwd`/hypercube.ipa  --embed hypercube.mobileprovision
+        type: palantir-ios
 
-   - name: Hackity-Hack
-     url: git@github-GLaDOS:drewcrawford/DrewCrawfordApps.git
-     tests:
+  - name: Hackity-Hack
+    url: git@github-GLaDOS:drewcrawford/DrewCrawfordApps.git
+    tests:
       - name: build-sampleproject
         cmd: cd SampleProject && xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
         type: xcode
@@ -88,6 +121,33 @@ Projects:
       - name: test-DCALibs
         cmd: cd SampleProject/DCA-libs && rm -rf build/; killall 'iPhone Simulator'; xcodebuild -configuration UnitTest -sdk iphonesimulator -target DCA-libsTests clean build
         type: xcode
+
+  - name: daily-deals
+    url: git@github.com:drewcrawford/daily-deals.git
+    tests: #there are no tests
+    deploys:
+      - name: deploy
+        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/dailydeals.app -o `pwd`/dailydeals.ipa  --embed dailydeals.mobileprovision
+        type: palantir-ios
+
+  - name: uscaleit
+    url: git@github.com:drewcrawford/uscaleit.git
+    tests:
+      - name: build
+        cmd: xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
+        type: xcode
+      - name: unit
+        cmd: rm -rf build/; killall 'iPhone Simulator'; xcodebuild -sdk iphonesimulator -target uScaleItTests clean build
+        type: xcode
+      - name: build-KIF
+        cmd: xcodebuild -target uScaleItKIF -sdk iphonesimulator
+        type: xcode
+      - name: KIF
+        cmd: killall 'iPhone Simulator'; ../../ios-sim launch build/Release-iphonesimulator/uScaleItKIF.app --family "iphone"
+        type: kif
+      - name: KIF-iPad
+        cmd: killall 'iPhone Simulator'; ../../ios-sim launch build/Release-iphonesimulator/uScaleItKIF.app --family "ipad"
+        type: kif
 
 Git-Username: GLaDOS
 Git-Email: GLaDOS@drewcrawfordapps.com

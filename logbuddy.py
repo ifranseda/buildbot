@@ -4,10 +4,14 @@ import urllib2
 import traceback
 import logging
 import hashlib
+DEBUG_MODE = True
 def report(exception):
 
     logging.exception(exception)
-    if str(exception).find("FogBugzLogonError") != -1 or str(exception).find("FogBugzConnectionError") != -1:
+    if DEBUG_MODE:
+        logging.fatal("Debug mode is on.")
+        return
+    if str(exception).find("HTTP Error 500: Internal Server Error") != -1 or str(exception).find("FogBugzConnectionError") != -1:
         logging.exception("Not reporting this.  You're on your own, sorry.")
         return
     url = "https://drewcrawfordapps.fogbugz.com/ScoutSubmit.asp"

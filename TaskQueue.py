@@ -1,7 +1,10 @@
 #!/usr/bin/env python
+
 import heapq
 import datetime
-import logging
+if not "LOGGLY_KEY" in __builtins__:
+    __builtins__["LOGGLY_KEY"]="f4204229-5e30-475c-a0b6-e85cb4d48367"
+from JucheLog.juchelog import juche
 class TaskItem:
     pass
 class TaskQueue(list):
@@ -28,8 +31,8 @@ class TaskQueue(list):
     def execTop(self):
         ltop = self.top()
         if ltop:
-            logging.info("task begin %s" % ltop.item)
-            ltop.item()
+            with juche.revolution(taskq=ltop.item):
+                ltop.item()
         
         
         
@@ -41,6 +44,8 @@ class TaskQueue(list):
         
 import unittest
 class TestSequence(unittest.TestCase):
+    
+
     def setUp(self):
         self.taskq = TaskQueue()
     
