@@ -106,7 +106,7 @@ if __name__=="__main__":
     q.insert(atlas,every=MINUTELY,now=True)
     q.insert(fixup,every=HOURLY*4,now=False)
     q.insert(still_alive,every=60)
-    q.insert(autoboss,every=HOURLY)
+    q.insert(autoboss,every=HOURLY*4)
     q.insert(create_tests,every=MINUTELY)
     
     
