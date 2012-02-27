@@ -19,7 +19,7 @@ def autoboss():
     f = FogBugzConnect()
     people = f.annoyableIxPeople()
     map(complain,people)
-    
+
 def buildbot_cache_get():
     import os
     import pickle
@@ -31,17 +31,17 @@ def buildbot_cache_get():
     except:
         buildbot_cache_set({})
         return buildbot_cache_get()
-        
+
 def buildbot_cache_set(obj):
     import os
     import pickle
     myfile = open(os.path.expanduser("~/.buildbot-cache"),"w")
     pickle.dump(obj,myfile)
     myfile.close()
-    
-        
-    
-    
+
+
+
+
 def create_tests():
     from work.fogbugzConnect import FogBugzConnect
     f = FogBugzConnect()
@@ -62,15 +62,15 @@ def create_tests():
     for case in cases:
         result = autoTestMake(case)
         if not result: cache[CACHE_KEY].append(case)
-    
+
     buildbot_cache_set(cache)
-    
+
 def atlas():
     from atlas import Atlas
     a = Atlas()
     a.fetch_all()
     a.test_active_tickets()
-    
+
 def fixup():
     from work.work import fixUp
     fixUp()
@@ -86,15 +86,15 @@ def priority_fix():
         if parent_priority != child_priority:
             juche.info("Fixing priority of case %s to %s" % (child,parent_priority))
             f.setPriority(child,parent_priority)
-    
+
 def still_alive():
     juche.info("still alive")
-    
+
 import unittest
 class TestSequence(unittest.TestCase):
     def setUp(self):
         pass
-    
+
     def test_create_tests(self):
         create_tests()
         #import cProfile
@@ -108,8 +108,8 @@ if __name__=="__main__":
     q.insert(still_alive,every=60)
     q.insert(autoboss,every=HOURLY*4)
     q.insert(create_tests,every=MINUTELY)
-    
-    
+
+
     while True:
         try:
             q.execTop()
