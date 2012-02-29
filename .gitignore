@@ -2,4 +2,4 @@
 .buildbot/*
 *.DS_Store
 .buildbot/*
-*.sublime-*
+*.sublime-workspace
