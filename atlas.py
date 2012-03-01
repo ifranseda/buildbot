@@ -49,7 +49,7 @@ class Atlas:
                             continue
                         if git.needsPull():
                             juche.info("Pulling %s in project %s" % (sFixFor,project["name"]))
-                            git.statusOutput("git stash && git stash drop",wd=git.root)
+                            git.statusOutput("git stash && git stash drop")
                             git.pull()
                             self.integrate_changed(git,git.getBranch(),project["name"])
                         if deploy:
