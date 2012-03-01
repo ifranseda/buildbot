@@ -49,6 +49,7 @@ class Atlas:
                             continue
                         if git.needsPull():
                             juche.info("Pulling %s in project %s" % (sFixFor,project["name"]))
+                            git.statusOutput("git stash && git stash drop",wd=git.root)
                             git.pull()
                             self.integrate_changed(git,git.getBranch(),project["name"])
                         if deploy:
@@ -350,9 +351,9 @@ class Atlas:
                                     except Exception as e:
                                         juche.exception(e)
                                         juche.warn("Was not able to upload the files successfully.  Perhaps they have not changed?")
-            
-            
-            
+
+
+
         return (passed,shortdesc,files)
 
 
