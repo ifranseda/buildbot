@@ -43,18 +43,17 @@ class Atlas:
                         sFixFor = sFixFor.sfixfor.contents[0].encode('utf-8')
                         if sFixFor.endswith("-test"): continue
                         try:
+                            git.resetHard_INCREDIBLY_DESTRUCTIVE_COMMAND() # I'm still against this, but it might make things work for this week
                             git.checkoutExistingBranchRaw(sFixFor)
                         except:
                             juche.warning("Can't check out branch %s in project %s, perhaps it doesn't exist?" % (sFixFor,project["name"]))
                             continue
                         if git.needsPull():
                             juche.info("Pulling %s in project %s" % (sFixFor,project["name"]))
-                            git.resetHard_INCREDIBLY_DESTRUCTIVE_COMMAND() # I'm still against this, but it might make things work for this week
                             git.pull()
                             self.integrate_changed(git,git.getBranch(),project["name"])
                         if deploy:
                             try:
-                                git.resetHard_INCREDIBLY_DESTRUCTIVE_COMMAND() # I'm still against this, but it might make things work for this week
                                 self.deploy(git,sFixFor,project)
                             except Exception as e:
                                 juche.error("Can't deploy")
