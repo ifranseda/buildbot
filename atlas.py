@@ -43,6 +43,7 @@ class Atlas:
                         sFixFor = sFixFor.sfixfor.contents[0].encode('utf-8')
                         if sFixFor.endswith("-test"): continue
                         try:
+                            git.resetHard_INCREDIBLY_DESTRUCTIVE_COMMAND() # I'm still against this, but it might make things work for this week
                             git.checkoutExistingBranchRaw(sFixFor)
                         except:
                             juche.warning("Can't check out branch %s in project %s, perhaps it doesn't exist?" % (sFixFor,project["name"]))
@@ -350,9 +351,9 @@ class Atlas:
                                     except Exception as e:
                                         juche.exception(e)
                                         juche.warn("Was not able to upload the files successfully.  Perhaps they have not changed?")
-            
-            
-            
+
+
+
         return (passed,shortdesc,files)
 
 
