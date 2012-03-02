@@ -54,6 +54,7 @@ class Atlas:
                             self.integrate_changed(git,git.getBranch(),project["name"])
                         if deploy:
                             try:
+                                git.resetHard_INCREDIBLY_DESTRUCTIVE_COMMAND() # I'm still against this, but it might make things work for this week
                                 self.deploy(git,sFixFor,project)
                             except Exception as e:
                                 juche.error("Can't deploy")
