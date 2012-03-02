@@ -148,9 +148,13 @@ Projects:
       - name: KIF-iPad
         cmd: killall 'iPhone Simulator'; ../../ios-sim launch build/Release-iphonesimulator/uScaleItKIF.app --family "ipad"
         type: kif
+    deploys:
+      - name: deploy
+        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/uscaleit.app -o `pwd`/uscaleit.ipa  --embed uscaleit.mobileprovision
+        type: palantir-ios
 
 Git-Username: GLaDOS
 Git-Email: GLaDOS@drewcrawfordapps.com
 
-palantir-repo: ssh://drewcrawfordapps/home/private/website.git
+palantir-repo: ssh://drewcrawfordapps/root/drewcrawfordapps.com
 palantir-clone-dir: new-palantir
