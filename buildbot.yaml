@@ -157,7 +157,7 @@ Projects:
     url: git@github.com:RobotsAndPencils/GreenRoutine.git
     tests:
       - name: build
-        cmd: xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
+        cmd: cd _iOS; xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
         type: xcode
 
 Git-Username: GLaDOS
