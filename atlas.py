@@ -232,7 +232,7 @@ class Atlas:
         events = self.f.fbConnection.search(q=caseno,cols="events")
         out = []
         for event in events.events:
-            if int(event.ixperson.contents[0])==magic.BUILDBOT_IXPERSON:
+            if int(event.ixperson.contents[0])==magic.BUILDBOT_IXPERSON and not "Invalidation.  Are you getting unexpected e-mails surrounding this case event?  File a bug against buildbot." in event.evtdescription.contents[0]:
                 out = []
                 continue
             out.append(event)
