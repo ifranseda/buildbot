@@ -13,6 +13,7 @@ import plistlib
 WORK_DIR=".buildbot/"
 BAD_STATUS = [34]
 PURGATORY_TIME = 2
+INVALIDATION_STMT = "Invalidation.  Are you getting unexpected e-mails surrounding this case event?  File a bug against buildbot."
 
 from JucheLog.juchelog import juche
 class Atlas:
@@ -74,7 +75,7 @@ class Atlas:
 
                 if not self.f.isReadyForTest(caseno): continue
                 juche.info( "Invalidating "+case["ixbug"])
-                self.f.fbConnection.assign(ixBug=case["ixbug"],ixPersonAssignedTo=self.f.ixPerson,sEvent="Invalidation.  Are you getting unexpected e-mails surrounding this case event?  File a bug against buildbot.")
+                self.f.fbConnection.assign(ixBug=case["ixbug"],ixPersonAssignedTo=self.f.ixPerson,sEvent=INVALIDATION_STMT)
 
         self.test_active_tickets()
 
@@ -211,7 +212,7 @@ class Atlas:
                 return False
             #logging.info("case 1")
             return True #in purgatory
-        event_q = self.events_since_glados(parent)
+        event_q = self.events_since_latest_glados_event(parent)
         for event in event_q:
 
             if not event.s.contents: continue
@@ -228,11 +229,11 @@ class Atlas:
 
 
 
-    def events_since_glados(self,caseno):
+    def events_since_latest_glados_event(self,caseno):
         events = self.f.fbConnection.search(q=caseno,cols="events")
         out = []
         for event in events.events:
-            if int(event.ixperson.contents[0])==magic.BUILDBOT_IXPERSON and not "Invalidation.  Are you getting unexpected e-mails surrounding this case event?  File a bug against buildbot." in event.evtdescription.contents[0]:
+            if int(event.ixperson.contents[0])==magic.BUILDBOT_IXPERSON and not INVALIDATION_STMT in event.evtdescription.contents[0]:
                 out = []
                 continue
             out.append(event)
