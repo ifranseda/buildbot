@@ -170,7 +170,7 @@ class Atlas:
                     z.write(absfn, zfn)
 
     def test_active_tickets(self):
-        projects = get_config()["Projects"]
+        projects = get_config()["Projects"] 
         from work.fogbugzConnect import TEST_IXCATEGORY
         cases = self.f.fbConnection.search(q="assignedTo:=%d" % self.f.ixPerson,cols="ixCategory,sProject,hrsOrigEst,hrsElapsed,sStatus")
 
@@ -183,6 +183,9 @@ class Atlas:
             proj = project_with_name(case.sproject.contents[0])
             if not proj:
                 self.glados_reassign(caseno,reactivate=False)
+                continue
+            if "review-workflow" in proj:
+                self.glados_reassign(caseno, reactivate=False)
                 continue
             if not self.f.isReadyForTest(caseno):
                 self.glados_reassign(caseno,reactivate=False,why="Not testing this case because it is not marked as resolved/implemented.")
