@@ -101,6 +101,7 @@ import unittest
 import os
 import tempfile
 import shutil
+import zipfile
 from work.work import *
 from work.fogbugzConnect import FogBugzConnect
 from work.gitHubConnect import GitHubConnect
@@ -127,13 +128,13 @@ class TestSequence(unittest.TestCase):
         self.baseWorkingDir = os.getcwd()
         os.chdir(self.mockRepoDir)
 
-        # Create a class attribute: a Dict of Available project files by project name.
-        self.testProjectsDir = os.path.join(self.baseWorkingDir, "projects")
+        # Create a class attribute: a Dict of Available project zip files by project name.
+        self.testProjectsDir = os.path.join(self.baseWorkingDir, "test_projects")
         self.availableProjectNames = ["xcode-unittests"]
         self.availableProjects = {}
         for availableProject in self.availableProjectNames:
             self.availableProjects[availableProject] = os.path.join(self.testProjectsDir, availableProject)
-        # NOTE: Available Project Directories in self.availableProjects[<projectName>]
+        # NOTE: Available Project Zip files in self.availableProjects[<projectName>]
         # NOTE: These are available to copy into SampleProject temp dir with self.copyProject()
 
     def tearDown(self):
@@ -151,15 +152,33 @@ class TestSequence(unittest.TestCase):
     def test_copyProject(self):
         project = "xcode-unittests"
         self.copyProject(project)
-        self.assertTrue(os.listdir(self.mockRepoDir) == os.listdir(self.availableProjects[project]))
+        self.assertTrue(os.listdir(self.mockRepoDir) == zipfile.ZipFile(self.availableProjects[project] + ".zip").namelist())
+
+    def _test_passing_xcode_case(self):
+        # 1) create a case in sample project
+        f = FogBugzConnect()
+        case = f.createCase("BUILDBOT_test_passing_xcode_case", "Sample Project", "SampleMilestone-test")
+        # 2) Setup Project and choose commit
+        mockRepo = MockRepo(self.mockRepoDir)
+        # --Note: using HEAD
+        # 3) Push the commit. ...using force.
+        mockRepo.push()
+
 
     # MARK: Unit Test Convenience Functions
 
     def copyProject(self, projectName):
         if projectName is None or projectName not in self.availableProjectNames:
             raise Exception("ERROR: Illegal Project Name. Do you need to add it to availableProjectNames?")
-        self._rCopyDirContents(self.availableProjects[projectName], self.mockRepoDir)
+        #self._rCopyDirContents(self.availableProjects[projectName], self.mockRepoDir)
+        shutil.copy(self.availableProjects[projectName] + ".zip", self.mockRepoDir)
+        with zipfile.ZipFile(projectName + ".zip") as projectArchive:
+            projectArchive.extractall()
+        os.remove(projectName + ".zip")
         return
+
+    ''' 
+    DEPRECATED: Using zip files
 
     def _rCopyDirContents(self, dir, dest):
         contents = os.listdir(dir)
@@ -171,6 +190,7 @@ class TestSequence(unittest.TestCase):
                 self._rCopyDirContents(newDir, newDest)
             else:
                 shutil.copy(os.path.join(dir, id), dest)
+    '''
 
 
 
