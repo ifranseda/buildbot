@@ -89,16 +89,96 @@ def priority_fix():
     
 def still_alive():
     juche.info("still alive")
-    
+
+
+#####################################################################################
+                        ### You are entering the... ###
+                        ###### UNIT TEST ZONE #########
+#####################################################################################
+
+
 import unittest
+import os
+import tempfile
+import shutil
+from work.work import *
+from work.fogbugzConnect import FogBugzConnect
+from work.gitHubConnect import GitHubConnect
+from work.MockRepo import MockRepo
 class TestSequence(unittest.TestCase):
+
+    # MARK: Class Setup/Destroy Functions
     def setUp(self):
-        pass
+        """
+        Set up unittests for creating sane unit tests
+        This includes making available the following resources:
+        - A Collection of Zip Files with project types
+        - Setting the CWD so that work.py functions can be called directly
+        - The work.py functions callable directly. (just call 'projectStart()' etc)
+        - The work.py libraries: FogBugzConnect, GitHubConnect, MockRepo
+        """
+
+        # Create a mock repo for unit tests in a temp directory.
+        self.mockRepoDir = "%s/SampleProject/" % tempfile.gettempdir()
+        if not os.path.exists(self.mockRepoDir):
+            os.makedirs(self.mockRepoDir)
+        # Set python CWD to SampleProject temp dir to enable full usability of work.py functions
+        # NOTE: stores starting CWD in self.baseWorkingDir
+        self.baseWorkingDir = os.getcwd()
+        os.chdir(self.mockRepoDir)
+
+        # Create a class attribute: a Dict of Available project files by project name.
+        self.testProjectsDir = os.path.join(self.baseWorkingDir, "projects")
+        self.availableProjectNames = ["xcode-unittests"]
+        self.availableProjects = {}
+        for availableProject in self.availableProjectNames:
+            self.availableProjects[availableProject] = os.path.join(self.testProjectsDir, availableProject)
+        # NOTE: Available Project Directories in self.availableProjects[<projectName>]
+        # NOTE: These are available to copy into SampleProject temp dir with self.copyProject()
+
+    def tearDown(self):
+        os.chdir(self.baseWorkingDir)
+        shutil.rmtree(self.mockRepoDir)
     
-    def test_create_tests(self):
-        create_tests()
-        #import cProfile
-        #cProfile.runctx('create_tests()',globals(),locals()) #http://stackoverflow.com/questions/1819448/cannot-make-cprofile-work-in-ipython/3305654#3305654
+    # MARK: Test Cases
+
+    def test_true(self):
+        self.assertTrue(True)
+
+    def test_changed_cwd(self):
+        self.assertTrue(os.getcwd() == os.path.realpath(self.mockRepoDir)) 
+
+    def test_copyProject(self):
+        project = "xcode-unittests"
+        self.copyProject(project)
+        self.assertTrue(os.listdir(self.mockRepoDir) == os.listdir(self.availableProjects[project]))
+
+    # MARK: Unit Test Convenience Functions
+
+    def copyProject(self, projectName):
+        if projectName is None or projectName not in self.availableProjectNames:
+            raise Exception("ERROR: Illegal Project Name. Do you need to add it to availableProjectNames?")
+        self._rCopyDirContents(self.availableProjects[projectName], self.mockRepoDir)
+        return
+
+    def _rCopyDirContents(self, dir, dest):
+        contents = os.listdir(dir)
+        for id in contents:
+            if os.path.isdir(id):
+                newDest = os.path.join(dest, id)
+                newDir = os.path.join(dir, id)
+                os.makdir(newDir)
+                self._rCopyDirContents(newDir, newDest)
+            else:
+                shutil.copy(os.path.join(dir, id), dest)
+
+
+
+#####################################################################################
+                        #### You are leaving the... ###
+                        ###### UNIT TEST ZONE #########
+#####################################################################################
+
 
 if __name__=="__main__":
     q = TaskQueue()
