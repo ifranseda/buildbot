@@ -130,7 +130,7 @@ class TestSequence(unittest.TestCase):
 
         # Create a class attribute: a Dict of Available project zip files by project name.
         self.testProjectsDir = os.path.join(self.baseWorkingDir, "test_projects")
-        self.availableProjectNames = ["xcode-unittests"]
+        self.availableProjectNames = ["xcode-unittests", "SampleProjects"]
         self.availableProjects = {}
         for availableProject in self.availableProjectNames:
             self.availableProjects[availableProject] = os.path.join(self.testProjectsDir, availableProject)
@@ -160,9 +160,23 @@ class TestSequence(unittest.TestCase):
         case = f.createCase("BUILDBOT_test_passing_xcode_case", "Sample Project", "SampleMilestone-test")
         # 2) Setup Project and choose commit
         mockRepo = MockRepo(self.mockRepoDir)
+        self.copyProject("SampleProjects")
         # --Note: using HEAD
         # 3) Push the commit. ...using force.
-        mockRepo.push()
+        mockRepo.push(forceful=True)
+        # 4) Run Atlas loop
+        atlas()
+        # 5) Test for case should pass review and be passed to review
+        (parent, testCase) = f.getCaseTuple(case)
+        # 6) Close review case
+        fbConnection.resolveCase(testCase)
+        fbConnection.closeCase(testCase)
+        fbConnection.fbConnection.assign(ixBug=parent,ixPersonAssignedTo=7)
+        # 7) Rerun atlas loop to assign/merge
+        atlas()
+        # 8) Glados closes and merges
+        caseStatus = f.getStatuses(case)
+        self.assertTrue("closed" in caseStatus)
 
 
     # MARK: Unit Test Convenience Functions
