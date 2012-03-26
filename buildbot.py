@@ -147,12 +147,12 @@ class TestSequence(unittest.TestCase):
     def _test_changed_cwd(self):
         self.assertTrue(os.getcwd() == os.path.realpath(self.mockRepoDir)) 
 
-    def test_copyProject(self):
-        project = "xcode-unittests"
+    def _test_copyProject(self):
+        project = "SampleProjects"
         self.copyProject(project)
         self.assertTrue(os.listdir(self.mockRepoDir) == zipfile.ZipFile(self.availableProjects[project] + ".zip").namelist())
 
-    def _test_passing_xcode_case(self):
+    def test_passing_xcode_case(self):
         # 1) create a case in sample project
         f = FogBugzConnect()
         case = f.createCase("BUILDBOT_test_passing_xcode_case", "Sample Project", "SampleMilestone-test")
@@ -161,7 +161,7 @@ class TestSequence(unittest.TestCase):
         self.copyProject("SampleProjects")
         # --Note: using HEAD
         # 3) Push the commit. ...using force.
-        mockRepo.push(forceful=True)
+        mockRepo.gitPush(forceful=True)
         # 4) Run Atlas loop
         atlas()
         # 5) Test for case should pass review and be passed to review
@@ -182,11 +182,8 @@ class TestSequence(unittest.TestCase):
     def copyProject(self, projectName):
         if projectName is None or projectName not in self.availableProjectNames:
             raise Exception("ERROR: Illegal Project Name. Do you need to add it to availableProjectNames?")
-        #self._rCopyDirContents(self.availableProjects[projectName], self.mockRepoDir)
-        shutil.copy(self.availableProjects[projectName] + ".zip", self.mockRepoDir)
-        with zipfile.ZipFile(projectName + ".zip") as projectArchive:
-            projectArchive.extractall()
-        os.remove(projectName + ".zip")
+        with zipfile.ZipFile(self.availableProjects[projectName]+".zip") as projectArchive:
+            projectArchive.extractall(self.mockRepoDir)
         return
 
     ''' 
