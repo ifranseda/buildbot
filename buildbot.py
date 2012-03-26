@@ -175,6 +175,8 @@ class TestSequence(unittest.TestCase):
         # 8) Glados closes and merges
         caseStatus = f.getStatuses(case)
         self.assertTrue("closed" in caseStatus)
+        # 9) clean up
+        mockRepo.wipeRepo__INCREDIBLY__DESTRUCTIVE_COMMAND()
 
 
     # MARK: Unit Test Convenience Functions
