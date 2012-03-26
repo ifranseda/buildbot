@@ -161,6 +161,7 @@ class TestSequence(unittest.TestCase):
         self.copyProject("SampleProjects")
         # --Note: using HEAD
         # 3) Push the commit. ...using force.
+'''
         mockRepo.gitPush(forceful=True)
         # 4) Run Atlas loop
         atlas()
@@ -177,6 +178,7 @@ class TestSequence(unittest.TestCase):
         self.assertTrue("closed" in caseStatus)
         # 9) clean up
         mockRepo.wipeRepo__INCREDIBLY__DESTRUCTIVE_COMMAND()
+'''
 
 
     # MARK: Unit Test Convenience Functions
