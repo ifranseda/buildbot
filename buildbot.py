@@ -126,7 +126,6 @@ class TestSequence(unittest.TestCase):
         # Set python CWD to SampleProject temp dir to enable full usability of work.py functions
         # NOTE: stores starting CWD in self.baseWorkingDir
         self.baseWorkingDir = os.getcwd()
-        os.chdir(self.mockRepoDir)
 
         # Create a class attribute: a Dict of Available project zip files by project name.
         self.testProjectsDir = os.path.join(self.baseWorkingDir, "test_projects")
@@ -138,7 +137,6 @@ class TestSequence(unittest.TestCase):
         # NOTE: These are available to copy into SampleProject temp dir with self.copyProject()
 
     def tearDown(self):
-        os.chdir(self.baseWorkingDir)
         shutil.rmtree(self.mockRepoDir)
     
     # MARK: Test Cases
@@ -146,7 +144,7 @@ class TestSequence(unittest.TestCase):
     def test_true(self):
         self.assertTrue(True)
 
-    def test_changed_cwd(self):
+    def _test_changed_cwd(self):
         self.assertTrue(os.getcwd() == os.path.realpath(self.mockRepoDir)) 
 
     def test_copyProject(self):
