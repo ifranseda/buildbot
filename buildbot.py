@@ -161,10 +161,9 @@ class TestSequence(unittest.TestCase):
         self.copyProject("SampleProjects")
         # --Note: using HEAD
         # 3) Push the commit. ...using force.
-'''
-        mockRepo.gitPush(forceful=True)
+        #mockRepo.gitPush(forceful=True)
         # 4) Run Atlas loop
-        atlas()
+        #atlas()
         # 5) Test for case should pass review and be passed to review
         (parent, testCase) = f.getCaseTuple(case)
         # 6) Close review case
@@ -172,13 +171,13 @@ class TestSequence(unittest.TestCase):
         fbConnection.closeCase(testCase)
         fbConnection.fbConnection.assign(ixBug=parent,ixPersonAssignedTo=7)
         # 7) Rerun atlas loop to assign/merge
-        atlas()
+        #atlas()
         # 8) Glados closes and merges
         caseStatus = f.getStatuses(case)
         self.assertTrue("closed" in caseStatus)
         # 9) clean up
-        mockRepo.wipeRepo__INCREDIBLY__DESTRUCTIVE_COMMAND()
-'''
+        #mockRepo.wipeRepo__INCREDIBLY__DESTRUCTIVE_COMMAND()
+
 
 
     # MARK: Unit Test Convenience Functions
