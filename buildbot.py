@@ -155,8 +155,8 @@ class TestSequence(unittest.TestCase):
     def test_passing_xcode_case(self):
         # 1) create a case in sample project
         f = FogBugzConnect()
-        resp = f.fbConnection.new(sProject="Sample Project", sPersonAssignedTo="Jonathan Mason", sTitle="BUILDBOT-passing-xcode-case-test", sFixFor="SampleMilestone-test", hrsCurrEst="10 minutes")
-        case = resp.case.ixBug
+        resp = f.fbConnection.new(sProject="Sample Project", sPersonAssignedTo="Jonathan Mason", sTitle="BUILDBOT-passing-xcode-case-test", sFixFor="SampleMilestone", hrsCurrEst="10 minutes")
+        case = resp.case["ixbug"]
         create_tests()
         # 2) Setup Project and choose commit
         mockRepo = MockRepo(self.mockRepoDir)
@@ -169,9 +169,9 @@ class TestSequence(unittest.TestCase):
         # 5) Test for case should pass review and be passed to review
         (parent, testCase) = f.getCaseTuple(case)
         # 6) Close review case
-        fbConnection.resolveCase(testCase)
-        fbConnection.closeCase(testCase)
-        fbConnection.fbConnection.assign(ixBug=parent,ixPersonAssignedTo=7)
+        f.resolveCase(testCase)
+        f.closeCase(testCase)
+        f.fbConnection.assign(ixBug=parent,ixPersonAssignedTo=7)
         # 7) Rerun atlas loop to assign/merge
         #atlas()
         # 8) Glados closes and merges
