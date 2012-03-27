@@ -155,7 +155,8 @@ class TestSequence(unittest.TestCase):
     def test_passing_xcode_case(self):
         # 1) create a case in sample project
         f = FogBugzConnect()
-        case = f.createCase("BUILDBOT_test_passing_xcode_case", "Sample Project", "SampleMilestone-test")
+        case = f.fbConnection.new(sProject="Sample Project", sPersonAssignedTo="Jonathan Mason", sTitle="BUILDBOT-passing-xcode-case-test", sFixFor="SampleProject-test")
+        create_tests()
         # 2) Setup Project and choose commit
         mockRepo = MockRepo(self.mockRepoDir)
         self.copyProject("SampleProjects")
