@@ -63,7 +63,7 @@ def create_tests():
     from work.work import autoTestMake
     for case in cases:
         project = project_with_name(case.sproject.contents[0])
-        if "review-workflow" in project:
+        if "review-workflow" in project and project["review-workflow"] == "no":
             continue
         result = autoTestMake(case)
         if not result: cache[CACHE_KEY].append(case)

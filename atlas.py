@@ -184,7 +184,7 @@ class Atlas:
             if not proj:
                 self.glados_reassign(caseno,reactivate=False)
                 continue
-            if "review-workflow" in proj:
+            if "review-workflow" in proj and proj["review-workflow"] == "no"
                 self.glados_reassign(caseno, reactivate=False)
                 continue
             if not self.f.isReadyForTest(caseno):
