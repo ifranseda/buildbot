@@ -89,6 +89,9 @@ def priority_fix():
     
 def still_alive():
     juche.info("still alive")
+
+def cron-tasks():
+    juche.info("Cron tasks")
     
 import unittest
 class TestSequence(unittest.TestCase):

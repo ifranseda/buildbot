@@ -19,6 +19,12 @@ Projects:
         build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/semaps.app -o `pwd`/semaps.ipa  --embed semaps.mobileprovision
         type: palantir-ios
 
+    cron-tasks:
+      - name: api-check
+        cmd: curl http://google.com
+        type: curl
+        failmail: stephenb@sepro.com
+
   - name: mindful-meals
     url: git@github-GLaDOS:drewcrawford/mindful-meals.git
     tests:
