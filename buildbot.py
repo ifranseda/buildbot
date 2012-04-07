@@ -90,8 +90,13 @@ def priority_fix():
 def still_alive():
     juche.info("still alive")
 
-def cron-tasks():
+def cron_tasks():
+    from cronjob import Cronjob
     juche.info("Cron tasks")
+    cron = Cronjob()
+    cron.loadJobs()
+    cron.doJobs()
+
     
 import unittest
 class TestSequence(unittest.TestCase):
@@ -111,6 +116,7 @@ if __name__=="__main__":
     q.insert(still_alive,every=60)
     q.insert(autoboss,every=HOURLY*4)
     q.insert(create_tests,every=MINUTELY)
+    q.insert(cron_tasks, every=HOURLY*12)
     
     
     while True:

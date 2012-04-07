@@ -21,8 +21,12 @@ Projects:
 
     cron-tasks:
       - name: api-check
-        cmd: curl http://google.com
-        type: curl
+        cmd: curl -sIL http://google.com | grep HTTP
+        type: http-status-code
+        failmail: stephenb@sepro.com
+      - name: failing
+        cmd: curl -sIL http://avertentropy.com/fail | grep HTTP
+        type: http-status-code
         failmail: stephenb@sepro.com
 
   - name: mindful-meals
