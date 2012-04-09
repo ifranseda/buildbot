@@ -33,7 +33,7 @@ Projects:
     url: git@github-GLaDOS:drewcrawford/mindful-meals.git
     tests:
       - name: build
-        cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
+        cmd: xcodebuild -workspace mindfulmeals.xcodeproj/project.xcworkspace -scheme mindfulmeals -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
         type: xcode
       - name: unit
         cmd: rm -rf build/; killall 'iPhone Simulator'; xcrun -sdk iphonesimulator xcodebuild -target mindfulmealsTests -configuration UnitTest build -sdk iphonesimulator
