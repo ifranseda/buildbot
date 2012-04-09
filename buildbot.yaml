@@ -1,15 +1,15 @@
 Projects:
   - name: buildbot
     url: git@github-GLaDOS:drewcrawford/buildbot.git
-    tests:     
-   
+    tests:
+
   - name: semaps
     url: git@github-GLaDOS:drewcrawford/semaps.git
     tests:
       - name: build
         cmd: xcodebuild -configuration Debug -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
         type: xcode
-      
+
       - name: unit
         cmd: killall 'iPhone Simulator'; rm -rf build/; xcrun -sdk iphonesimulator xcodebuild -target semapsTests -configuration UnitTest build -sdk iphonesimulator
         type: xcode
@@ -26,7 +26,7 @@ Projects:
         cmd: xcodebuild -workspace mindfulmeals.xcodeproj/project.xcworkspace -scheme mindfulmeals -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
         type: xcode
       - name: unit
-        cmd: rm -rf build/; killall 'iPhone Simulator'; xcrun -sdk iphonesimulator xcodebuild -target mindfulmealsTests -configuration UnitTest build -sdk iphonesimulator
+        cmd: rm -rf build/; killall 'iPhone Simulator'; xcrun -sdk iphonesimulator xcodebuild -workspace mindfulmeals.xcodeproj/project.xcworkspace -scheme mindfulmealsTest build -sdk iphonesimulator
         type: xcode
       - name: build-KIF
         cmd: xcodebuild -target mindfulmealsKIF -sdk iphonesimulator -configuration UnitTest
@@ -43,21 +43,21 @@ Projects:
         build:  xcodebuild -target mindfulmealsKIF && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/mindfulmealsKIF.app -o `pwd`/mindfulmealsKIF.ipa  --embed mindfulmeals.mobileprovision
         postfix: -kif
         type: palantir-ios
-        
+
   - name: work.py
     url: git@github-GLaDOS:drewcrawford/work.py.git
     tests:
       - name: unit
         cmd: python ./work.py selftest
         type: python
-        
+
   - name: gistory
     url: git@github-GLaDOS:drewcrawford/Gistory.git
     tests:
       - name: build
         cmd: xcodebuild -configuration Debug RUN_CLANG_STATIC_ANALYZER=YES clean build
         type: xcode
-      
+
       - name: unit
         cmd: rm -rf build/; xcodebuild -configuration Release -target gistoryTests clean build
         type: xcode
