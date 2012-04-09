@@ -38,12 +38,6 @@ Projects:
       - name: unit
         cmd: rm -rf build/; killall 'iPhone Simulator'; xcrun -sdk iphonesimulator xcodebuild -workspace mindfulmeals.xcodeproj/project.xcworkspace -scheme mindfulmealsTest build -sdk iphonesimulator
         type: xcode
-      - name: build-KIF
-        cmd: xcodebuild -workspace mindfulmeals.xcodeproj/project.xcworkspace -scheme mindfulmealsKIF -sdk iphonesimulator -configuration UnitTest
-        type: xcode
-      - name: KIF
-        cmd: killall 'iPhone Simulator'; ../../ios-sim launch build/UnitTest-iphonesimulator/mindfulmealsKIF.app --family "iphone"
-        type: kif
 
     deploys:
       - name: deploy
