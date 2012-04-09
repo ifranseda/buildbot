@@ -171,7 +171,7 @@ class Atlas:
                     z.write(absfn, zfn)
 
     def test_active_tickets(self):
-        projects = get_config()["Projects"] 
+        projects = get_config()["Projects"]
         from work.fogbugzConnect import TEST_IXCATEGORY
         cases = self.f.fbConnection.search(q="assignedTo:=%d" % self.f.ixPerson,cols="ixCategory,sProject,hrsOrigEst,hrsElapsed,sStatus")
 
@@ -257,7 +257,7 @@ class Atlas:
             passed = False
         #parse the output looking for errors / warnings
         import re
-        problem = re.compile("([/\w\.\+]+):(\d*):?(\d*):? (warning|error):([^\n]+)$",re.MULTILINE)
+        problem = re.compile("([/\w\.\+-]+):(\d*):?(\d*):? (warning|error):([^\n]+)$",re.MULTILINE)
         for (filename,lineno,colno,errtype,errdesc) in problem.findall(log):
 
             if errdesc.find("input unused when") != -1: continue
