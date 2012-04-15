@@ -136,7 +136,7 @@ class Atlas:
                             (status,output) = self.wait_for(r)
                             if status:
                                 raise Exception("Error AJBLSJW %s" % output)
-                            r = subprocess.Popen("cp -R *.ipa ../palantir/%s && tar czf ../palantir/%s/dsym build/Release-iphoneos/*.dSYM " % (shorthash,shorthash),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
+                            r = subprocess.Popen("cp -R *.ipa ../palantir/%s && tar czf ../palantir/%s/dsym *.dSYM " % (shorthash,shorthash),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
                             (status,output) = self.wait_for(r)
                             if status:
                                 raise Exception("Error PAOWLA %s" % output)
@@ -184,7 +184,7 @@ class Atlas:
             if not proj:
                 self.glados_reassign(caseno,reactivate=False)
                 continue
-            if "review-workflow" in proj and proj["review-workflow"] == "no"
+            if "review-workflow" in proj and proj["review-workflow"] == "no":
                 self.glados_reassign(caseno, reactivate=False)
                 continue
             if not self.f.isReadyForTest(caseno):
