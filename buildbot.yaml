@@ -41,11 +41,7 @@ Projects:
 
     deploys:
       - name: deploy
-        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/mindfulmeals.app -o `pwd`/mindfulmeals.ipa  --embed mindfulmeals.mobileprovision
-        type: palantir-ios
-      - name: deploy-KIF
-        build:  xcodebuild -target mindfulmealsKIF && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/mindfulmealsKIF.app -o `pwd`/mindfulmealsKIF.ipa  --embed mindfulmeals.mobileprovision
-        postfix: -kif
+        build: bash build.sh
         type: palantir-ios
 
   - name: work.py
