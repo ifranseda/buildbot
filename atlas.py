@@ -136,7 +136,7 @@ class Atlas:
                             (status,output) = self.wait_for(r)
                             if status:
                                 raise Exception("Error AJBLSJW %s" % output)
-                            r = subprocess.Popen("cp -R *.ipa ../palantir/%s && tar czf ../palantir/%s/dsym build/Release-iphoneos/*.dSYM " % (shorthash,shorthash),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
+                            r = subprocess.Popen("cp -R *.ipa ../palantir/%s && tar czf ../palantir/%s/dsym *.dSYM " % (shorthash,shorthash),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
                             (status,output) = self.wait_for(r)
                             if status:
                                 raise Exception("Error PAOWLA %s" % output)
@@ -170,7 +170,7 @@ class Atlas:
                     z.write(absfn, zfn)
 
     def test_active_tickets(self):
-        projects = get_config()["Projects"] 
+        projects = get_config()["Projects"]
         from work.fogbugzConnect import TEST_IXCATEGORY
         cases = self.f.fbConnection.search(q="assignedTo:=%d" % self.f.ixPerson,cols="ixCategory,sProject,hrsOrigEst,hrsElapsed,sStatus")
 
@@ -256,7 +256,7 @@ class Atlas:
             passed = False
         #parse the output looking for errors / warnings
         import re
-        problem = re.compile("([/\w\.\+]+):(\d*):?(\d*):? (warning|error):([^\n]+)$",re.MULTILINE)
+        problem = re.compile("([/\w\.\+-]+):(\d*):?(\d*):? (warning|error):([^\n]+)$",re.MULTILINE)
         for (filename,lineno,colno,errtype,errdesc) in problem.findall(log):
 
             if errdesc.find("input unused when") != -1: continue
