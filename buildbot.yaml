@@ -129,18 +129,9 @@ Projects:
       - name: unit
         cmd: rm -rf build/; killall 'iPhone Simulator'; xcodebuild -sdk iphonesimulator -target uScaleItTests clean build
         type: xcode
-      - name: build-KIF
-        cmd: xcodebuild -target uScaleItKIF -sdk iphonesimulator
-        type: xcode
-      - name: KIF
-        cmd: killall 'iPhone Simulator'; ../../ios-sim launch build/Release-iphonesimulator/uScaleItKIF.app --family "iphone"
-        type: kif
-      - name: KIF-iPad
-        cmd: killall 'iPhone Simulator'; ../../ios-sim launch build/Release-iphonesimulator/uScaleItKIF.app --family "ipad"
-        type: kif
     deploys:
       - name: deploy
-        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/uscaleit.app -o `pwd`/uscaleit.ipa  --embed uscaleit.mobileprovision
+        build: xcodebuild && xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/uscaleit.app -o `pwd`/uscaleit.ipa  --embed uscaleit.mobileprovision && cp -R build/Release-iphoneos/*.dSYM .
         type: palantir-ios
 
   - name: GreenRoutine
