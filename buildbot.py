@@ -61,7 +61,7 @@ def create_tests():
     cases = filter(lambda x: x not in cache[CACHE_KEY],cases)
     juche.info(cases)
     from work.work import autoTestMake
-    for case in cases:
+    for case in cases.cases.contents:
         project = project_with_name(case.sproject.contents[0])
         if "review-workflow" in project and project["review-workflow"] == "no":
             continue
