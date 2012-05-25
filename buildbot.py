@@ -52,21 +52,21 @@ def create_tests():
     #3.  Cases with an estimate (otherwise, the person assigned might just be a placeholder person...)
     #4.  Cases that are decided (not Undecided)
     #5.  Cases that are in projects without review-workflow: no
-    cases = f.fbConnection.search(q='(category:"bug" OR category:"feature") status:"open" estimatecurrent:"1m.." -milestone:"Undecided"')
+    cases = f.fbConnection.search(q='(category:"bug" OR category:"feature") status:"open" estimatecurrent:"1m.." -milestone:"Undecided"', cols="sProject")
     cache = buildbot_cache_get()
     CACHE_KEY = "autoTestMake-cache"
     if not cache.has_key(CACHE_KEY):
         cache[CACHE_KEY] = []
-    cases = map(lambda x: int(x["ixbug"]),cases.cases)
-    cases = filter(lambda x: x not in cache[CACHE_KEY],cases)
-    juche.info(cases)
+    casesList = map(lambda x: int(x["ixbug"]),cases.cases)
+    casesList = filter(lambda x: x not in cache[CACHE_KEY],casesList)
+    juche.info(casesList)
     from work.work import autoTestMake
     for case in cases.cases.contents:
         project = project_with_name(case.sproject.contents[0])
         if "review-workflow" in project and project["review-workflow"] == "no":
             continue
-        result = autoTestMake(case)
-        if not result: cache[CACHE_KEY].append(case)
+        result = autoTestMake(int(case["ixbug"]))
+        if not result: cache[CACHE_KEY].append(case["ixbug"])
 
     buildbot_cache_set(cache)
 
