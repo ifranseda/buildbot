@@ -324,36 +324,39 @@ class Atlas:
         #WARNING:  YOU MUST PATCH $DEVELOPER/Platforms/iPhoneSimulator.platform/Developer/Tools/RunPlatformUnitTests for this to work.
         #See http://longweekendmobile.com/2011/04/17/xcode4-running-application-tests-from-the-command-line-in-ios/
         if proj["tests"]:
-            with juche.revolution(project=proj):
-                for test in proj["tests"]:
-                    with juche.revolution(running_test=test):
-                        juche.info("running test")
-                        r = subprocess.Popen(test["cmd"],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+proj["name"])
-                        (status,output) = self.wait_for(r)
-                        if status and test["type"]!="kif": #kif tests always return a status code of 1
-                            shortdesc += "Failing in part because test %s returned a non-zero return code %d\n" % (test,status)
-                            passed = False
-                        if test["type"]=="xcode":
-                            (passed,shortdesc,files) = self.parse_xcodelike_response(passed,shortdesc,files,output,test["name"]+".log")
-                        elif test["type"]=="python":
-                            (passed,shortdesc,files) = self.parse_python_response(passed,shortdesc,files,output,test["name"]+".log",status)
-                        elif test["type"]=="kif":
-                            (passed,shortdesc,files) = self.parse_kif_response(passed,shortdesc,files,output,test["name"]+".log")
-                        else:
-                            raise Exception("Unknown test type.")
-                        if passed:
-                            if "commit-files" in test:
-                                upload_files = test["commit-files"]
-                                with juche.revolution(upload_files=upload_files):
-                                    juche.info("commit-files")
-                                    git = GitConnect(wd=WORK_DIR+proj["name"])
-                                    git.add(upload_files)
-                                    try:
-                                        git.commit("If the subject survived the test, we let them purchase the pictures for $5.  If the subject died, we gave the photo to their next of kin free of charge")
-                                        git.pushChangesToOriginBranch()
-                                    except Exception as e:
-                                        juche.exception(e)
-                                        juche.warn("Was not able to upload the files successfully.  Perhaps they have not changed?")
+            juche.dictate(project=proj)
+
+            for test in proj["tests"]:
+                juche.dictate(running_test=test)
+                
+                juche.info("running test")
+                r = subprocess.Popen(test["cmd"],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+proj["name"])
+                (status,output) = self.wait_for(r)
+                if status and test["type"]!="kif": #kif tests always return a status code of 1
+                    shortdesc += "Failing in part because test %s returned a non-zero return code %d\n" % (test,status)
+                    passed = False
+                if test["type"]=="xcode":
+                    (passed,shortdesc,files) = self.parse_xcodelike_response(passed,shortdesc,files,output,test["name"]+".log")
+                elif test["type"]=="python":
+                    (passed,shortdesc,files) = self.parse_python_response(passed,shortdesc,files,output,test["name"]+".log",status)
+                elif test["type"]=="kif":
+                    (passed,shortdesc,files) = self.parse_kif_response(passed,shortdesc,files,output,test["name"]+".log")
+                else:
+                    raise Exception("Unknown test type.")
+                if passed:
+                    if "commit-files" in test:
+                        upload_files = test["commit-files"]
+                        juche.dictate(upload_files=upload_files)
+
+                        juche.info("commit-files")
+                        git = GitConnect(wd=WORK_DIR+proj["name"])
+                        git.add(upload_files)
+                        try:
+                            git.commit("If the subject survived the test, we let them purchase the pictures for $5.  If the subject died, we gave the photo to their next of kin free of charge")
+                            git.pushChangesToOriginBranch()
+                        except Exception as e:
+                            juche.exception(e)
+                            juche.warn("Was not able to upload the files successfully.  Perhaps they have not changed?")
 
 
 
