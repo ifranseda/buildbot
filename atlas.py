@@ -11,7 +11,7 @@ from contextlib import closing
 from zipfile import ZipFile, ZIP_DEFLATED
 import plistlib
 WORK_DIR=".buildbot/"
-BAD_STATUS = [34]
+BAD_STATUS = [34]  #resolved (inspect)
 PURGATORY_TIME = 2
 
 from JucheLog.juchelog import juche
@@ -19,6 +19,7 @@ class Atlas:
     def __init__(self):
         self.f = FogBugzConnect()
 
+    """Buildbot maintains directories in .buildbot.  This will return a gitConnect reference to dest in .buildbot directory, either because it already exists or by cloning it from the given URL."""
     def clone_or_get(self,URL,dest):
         try:
             git = GitConnect(dest)
@@ -29,7 +30,8 @@ class Atlas:
             git.repoConfig("user.email",get_config()["Git-Email"])
         return git
 
-
+    """Fetch (git fetch) all of the folders in .buildbot/
+    This also runs some other actions that are triggered when we notice that code has changed.  For example, it deploys."""
     def fetch_all(self,deploy=True):
 
         juche.dictate(task="fetch-all")
@@ -39,6 +41,7 @@ class Atlas:
             juche.dictate(fetch=project["url"])
             git = self.clone_or_get(project["url"],WORK_DIR+project["name"])
             git.fetch()
+            #Iterate over milestones for the current project
             for sFixFor in self.f.listFixFors(sProject=project["name"],onlyProjectMilestones=True):
                 sFixFor = sFixFor.sfixfor.contents[0].encode('utf-8')
                 if sFixFor.endswith("-test"): continue
@@ -66,6 +69,9 @@ class Atlas:
         gitConnection.checkoutExistingBranchRaw(integration_branch)
         self.deploy(gitConnection,integration_branch,project_with_name(sProject))
 
+        #Here's the problem: A and B are in the review queue.  They are mutually exclusive (can't merge them both in.)
+        #You pass patch A.  It's merged in.  We need to re-test B.  Perhaps the merge will fail now, or perhaps the unit test will fail.
+        #We "invalidate" (put back in the glados queue; snatch from the reviewer) all cases in the review queue and they will be re-tested on the next pass.
         cases = self.f.fbConnection.search(q="project:'%s' status:'Resolved' (category:'Bug' OR category:'Feature')" % (sProject),cols="sStatus")
         for case in cases.cases:
 
@@ -78,6 +84,7 @@ class Atlas:
 
         self.test_active_tickets()
 
+    """sfixfor is a milestone"""
     def deploy(self,git,sfixfor,projectConfig):
         import subprocess
         git.checkoutExistingBranchRaw(sfixfor)
@@ -200,7 +207,8 @@ class Atlas:
             if self.test(case,proj): #returns true if we integrate something
                 return self.test_active_tickets() #break out of this loop, because who knows what is happening with the list of active cases now, and re-test everything.
 
-
+    """The design decision was that we should unit test more things.  As a rsult, we artificially delay cases that are resolved inspect.
+    These cases are placed into purgatory where they will wait until they have paid their penance."""
     def be_in_purgatory(self,parent,test,casedetail,proj):
         status_q = self.f.fbConnection.search(q=test,cols="ixStatus,dtResolved")
 
@@ -230,7 +238,8 @@ class Atlas:
 
 
 
-
+    """This returns events since the last glados message on a ticket.  This is useful, for example, when ignoring messages from earlier test runs.
+    The user or glados sometimes use special messages to indicate something should be done with a test.  We usually only look at the most recent test and onwards to make that determination."""
     def events_since_glados(self,caseno):
         events = self.f.fbConnection.search(q=caseno,cols="events")
         out = []
@@ -242,7 +251,7 @@ class Atlas:
         return out
 
 
-
+    """godot here is a subprocess (from the subprocess module.)"""
     def wait_for(self,godot):
         juche.info("Waiting for godot...")
         (stdout,stderr) = godot.communicate()
@@ -280,15 +289,6 @@ class Atlas:
             passed = False
         files[outfilename]=log
         return (passed,shortdesc,files)
-        """#study the analyzer results
-        import plistlib
-        analyze_path = proj["analyzepath"]
-        for file in os.listdir(WORK_DIR+proj["name"]+"/"+analyze_path):
-            if file.endswith("plist"):
-                p = plistlib.readPlist(WORK_DIR+proj["name"]+"/"+analyze_path+"/"+file)
-                for result in p["diagnostics"]:
-                    shortdesc += "Analyzer result: %s %s\n" % (file,result["description"])
-                    passed = False"""
 
     def parse_kif_response(self,passed,shortdesc,files,log,outfilename):
         if log.find("KIF TEST RUN FINISHED: 0 failures")==-1:
@@ -328,7 +328,7 @@ class Atlas:
 
             for test in proj["tests"]:
                 juche.dictate(running_test=test)
-                
+
                 juche.info("running test")
                 r = subprocess.Popen(test["cmd"],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+proj["name"])
                 (status,output) = self.wait_for(r)
@@ -390,7 +390,7 @@ class Atlas:
             git.pushChangesToOriginBranch(branch="work-%d" % caseno)
 
 
-            #todo: run actual tests
+            #run actual tests
             (passed,shortDesc,files) = self.exec_tests(proj)
 
 
@@ -406,6 +406,7 @@ class Atlas:
 
 
             #GLaDOS AI
+            #Decide which sentance to use.  We're either fast or slow, and we've either passed or failed.
             try:
                 ratio = float(casedetail.hrselapsed.contents[0]) / float(casedetail.hrsorigest.contents[0])
             except:
