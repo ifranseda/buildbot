@@ -327,6 +327,10 @@ class Atlas:
             juche.dictate(project=proj)
 
             for test in proj["tests"]:
+                if "remove-simulator" in proj:
+                    r = subprocess.Popen("find ~/Library/Application\\ Support/iPhone\\ Simulator -iname \"%s.app\" -exec rm -Rf -- {} +" % proj["remove-simulator"],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd="~/")
+                    (status,output) = self.wait_for(r)
+
                 juche.dictate(running_test=test)
 
                 juche.info("running test")
@@ -388,7 +392,6 @@ class Atlas:
                 return False
             git.mergeIn(integrate_to)
             git.pushChangesToOriginBranch(branch="work-%d" % caseno)
-
 
             #run actual tests
             (passed,shortDesc,files) = self.exec_tests(proj)
