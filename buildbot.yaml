@@ -135,14 +135,11 @@ Projects:
       - name: unit
         cmd: rm -rf build/; killall 'iPhone Simulator'; xcrun -sdk iphonesimulator xcodebuild -workspace photowallet/photowallet.xcodeproj/project.xcworkspace -scheme photowallet build -sdk iphonesimulator
         type: xcode
+    deploys:
+      - name: deploy
+        build: bash build.sh
+        type: palantir-ios
  
-
-  - name: GreenRoutine
-    url: git@github.com:RobotsAndPencils/GreenRoutine.git
-    tests:
-      - name: build
-        cmd: cd _iOS; xcodebuild -workspace GreenRoutine.xcodeproj/project.xcworkspace -scheme GreenRoutine -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=yes clean build
-        type: xcode
 
 Git-Username: GLaDOS
 Git-Email: GLaDOS@drewcrawfordapps.com
