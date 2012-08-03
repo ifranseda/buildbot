@@ -1,1 +1,4 @@
+This is iOS sim.  We got it from here:
 https://github.com/Fingertips/ios-sim
+
+It's bascially a wrapper around the iOS simulator that is less terrible than the alternatives.  We use it for KIF, I'm not sure if we use it for anything else or not.

@@ -46,7 +46,7 @@ def create_tests():
     from work.fogbugzConnect import FogBugzConnect
     from config import project_with_name
     f = FogBugzConnect()
-    #we only create test cases for:
+    #we create test cases if and only if all the following conditions are met:
     #1.  Bugs and features
     #2.  Open cases
     #3.  Cases with an estimate (otherwise, the person assigned might just be a placeholder person...)
@@ -80,6 +80,7 @@ def fixup():
     from work.work import fixUp
     fixUp()
 
+"""Make the test cases match the priority of their parent cases"""
 def priority_fix():
     from work.fogbugzConnect import FogBugzConnect
     f = FogBugzConnect()
