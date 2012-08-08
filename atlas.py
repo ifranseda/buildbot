@@ -11,7 +11,7 @@ from contextlib import closing
 from zipfile import ZipFile, ZIP_DEFLATED
 import plistlib
 WORK_DIR=".buildbot/"
-BAD_STATUS = [34]
+BAD_STATUS = [34]  #resolved (inspect)
 PURGATORY_TIME = 2
 INVALIDATION_STMT = "Invalidation.  Are you getting unexpected e-mails surrounding this case event?  File a bug against buildbot."
 
@@ -20,6 +20,7 @@ class Atlas:
     def __init__(self):
         self.f = FogBugzConnect()
 
+    """Buildbot maintains directories in .buildbot.  This will return a gitConnect reference to dest in .buildbot directory, either because it already exists or by cloning it from the given URL."""
     def clone_or_get(self,URL,dest):
         try:
             git = GitConnect(dest)
@@ -30,7 +31,8 @@ class Atlas:
             git.repoConfig("user.email",get_config()["Git-Email"])
         return git
 
-
+    """Fetch (git fetch) all of the folders in .buildbot/
+    This also runs some other actions that are triggered when we notice that code has changed.  For example, it deploys."""
     def fetch_all(self,deploy=True):
 
         juche.dictate(task="fetch-all")
@@ -40,6 +42,7 @@ class Atlas:
             juche.dictate(fetch=project["url"])
             git = self.clone_or_get(project["url"],WORK_DIR+project["name"])
             git.fetch()
+            #Iterate over milestones for the current project
             for sFixFor in self.f.listFixFors(sProject=project["name"],onlyProjectMilestones=True):
                 sFixFor = sFixFor.sfixfor.contents[0].encode('utf-8')
                 if sFixFor.endswith("-test"): continue
@@ -67,6 +70,9 @@ class Atlas:
         gitConnection.checkoutExistingBranchRaw(integration_branch)
         self.deploy(gitConnection,integration_branch,project_with_name(sProject))
 
+        #Here's the problem: A and B are in the review queue.  They are mutually exclusive (can't merge them both in.)
+        #You pass patch A.  It's merged in.  We need to re-test B.  Perhaps the merge will fail now, or perhaps the unit test will fail.
+        #We "invalidate" (put back in the glados queue; snatch from the reviewer) all cases in the review queue and they will be re-tested on the next pass.
         cases = self.f.fbConnection.search(q="project:'%s' status:'Resolved' (category:'Bug' OR category:'Feature')" % (sProject),cols="sStatus")
         for case in cases.cases:
 
@@ -79,6 +85,7 @@ class Atlas:
 
         self.test_active_tickets()
 
+    """sfixfor is a milestone"""
     def deploy(self,git,sfixfor,projectConfig):
         import subprocess
         git.checkoutExistingBranchRaw(sfixfor)
@@ -201,7 +208,8 @@ class Atlas:
             if self.test(case,proj): #returns true if we integrate something
                 return self.test_active_tickets() #break out of this loop, because who knows what is happening with the list of active cases now, and re-test everything.
 
-
+    """The design decision was that we should unit test more things.  As a rsult, we artificially delay cases that are resolved inspect.
+    These cases are placed into purgatory where they will wait until they have paid their penance."""
     def be_in_purgatory(self,parent,test,casedetail,proj):
         status_q = self.f.fbConnection.search(q=test,cols="ixStatus,dtResolved")
 
@@ -243,7 +251,7 @@ class Atlas:
         return out
 
 
-
+    """godot here is a subprocess (from the subprocess module.)"""
     def wait_for(self,godot):
         juche.info("Waiting for godot...")
         (stdout,stderr) = godot.communicate()
@@ -281,15 +289,6 @@ class Atlas:
             passed = False
         files[outfilename]=log
         return (passed,shortdesc,files)
-        """#study the analyzer results
-        import plistlib
-        analyze_path = proj["analyzepath"]
-        for file in os.listdir(WORK_DIR+proj["name"]+"/"+analyze_path):
-            if file.endswith("plist"):
-                p = plistlib.readPlist(WORK_DIR+proj["name"]+"/"+analyze_path+"/"+file)
-                for result in p["diagnostics"]:
-                    shortdesc += "Analyzer result: %s %s\n" % (file,result["description"])
-                    passed = False"""
 
     def parse_kif_response(self,passed,shortdesc,files,log,outfilename):
         if log.find("KIF TEST RUN FINISHED: 0 failures")==-1:
@@ -325,36 +324,39 @@ class Atlas:
         #WARNING:  YOU MUST PATCH $DEVELOPER/Platforms/iPhoneSimulator.platform/Developer/Tools/RunPlatformUnitTests for this to work.
         #See http://longweekendmobile.com/2011/04/17/xcode4-running-application-tests-from-the-command-line-in-ios/
         if proj["tests"]:
-            with juche.revolution(project=proj):
-                for test in proj["tests"]:
-                    with juche.revolution(running_test=test):
-                        juche.info("running test")
-                        r = subprocess.Popen(test["cmd"],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+proj["name"])
-                        (status,output) = self.wait_for(r)
-                        if status and test["type"]!="kif": #kif tests always return a status code of 1
-                            shortdesc += "Failing in part because test %s returned a non-zero return code %d\n" % (test,status)
-                            passed = False
-                        if test["type"]=="xcode":
-                            (passed,shortdesc,files) = self.parse_xcodelike_response(passed,shortdesc,files,output,test["name"]+".log")
-                        elif test["type"]=="python":
-                            (passed,shortdesc,files) = self.parse_python_response(passed,shortdesc,files,output,test["name"]+".log",status)
-                        elif test["type"]=="kif":
-                            (passed,shortdesc,files) = self.parse_kif_response(passed,shortdesc,files,output,test["name"]+".log")
-                        else:
-                            raise Exception("Unknown test type.")
-                        if passed:
-                            if "commit-files" in test:
-                                upload_files = test["commit-files"]
-                                with juche.revolution(upload_files=upload_files):
-                                    juche.info("commit-files")
-                                    git = GitConnect(wd=WORK_DIR+proj["name"])
-                                    git.add(upload_files)
-                                    try:
-                                        git.commit("If the subject survived the test, we let them purchase the pictures for $5.  If the subject died, we gave the photo to their next of kin free of charge")
-                                        git.pushChangesToOriginBranch()
-                                    except Exception as e:
-                                        juche.exception(e)
-                                        juche.warn("Was not able to upload the files successfully.  Perhaps they have not changed?")
+            juche.dictate(project=proj)
+
+            for test in proj["tests"]:
+                juche.dictate(running_test=test)
+
+                juche.info("running test")
+                r = subprocess.Popen(test["cmd"],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+proj["name"])
+                (status,output) = self.wait_for(r)
+                if status and test["type"]!="kif": #kif tests always return a status code of 1
+                    shortdesc += "Failing in part because test %s returned a non-zero return code %d\n" % (test,status)
+                    passed = False
+                if test["type"]=="xcode":
+                    (passed,shortdesc,files) = self.parse_xcodelike_response(passed,shortdesc,files,output,test["name"]+".log")
+                elif test["type"]=="python":
+                    (passed,shortdesc,files) = self.parse_python_response(passed,shortdesc,files,output,test["name"]+".log",status)
+                elif test["type"]=="kif":
+                    (passed,shortdesc,files) = self.parse_kif_response(passed,shortdesc,files,output,test["name"]+".log")
+                else:
+                    raise Exception("Unknown test type.")
+                if passed:
+                    if "commit-files" in test:
+                        upload_files = test["commit-files"]
+                        juche.dictate(upload_files=upload_files)
+
+                        juche.info("commit-files")
+                        git = GitConnect(wd=WORK_DIR+proj["name"])
+                        git.add(upload_files)
+                        try:
+                            git.commit("If the subject survived the test, we let them purchase the pictures for $5.  If the subject died, we gave the photo to their next of kin free of charge")
+                            git.pushChangesToOriginBranch()
+                        except Exception as e:
+                            juche.exception(e)
+                            juche.warn("Was not able to upload the files successfully.  Perhaps they have not changed?")
 
 
 
@@ -388,7 +390,7 @@ class Atlas:
             git.pushChangesToOriginBranch(branch="work-%d" % caseno)
 
 
-            #todo: run actual tests
+            #run actual tests
             (passed,shortDesc,files) = self.exec_tests(proj)
 
 
@@ -404,6 +406,7 @@ class Atlas:
 
 
             #GLaDOS AI
+            #Decide which sentance to use.  We're either fast or slow, and we've either passed or failed.
             try:
                 ratio = float(casedetail.hrselapsed.contents[0]) / float(casedetail.hrsorigest.contents[0])
             except:
