@@ -404,9 +404,9 @@ def projectIntegrateMake(CASE_NO,fromSpec):
 
 
 
-def complain(ixComplainAboutPerson):
+def complain(ixComplainAboutPerson,sComplainAboutProject):
     fbConnection = FogBugzConnect()
-    response = fbConnection.fbConnection.search(q="status:active assignedto:=%d" % ixComplainAboutPerson,cols="hrsCurrEst,hrsElapsed,sPersonAssignedTo,sFixFor,sCategory")
+    response = fbConnection.fbConnection.search(q="status:active assignedto:=%d project:%s" % (ixComplainAboutPerson,sComplainAboutProject),cols="hrsCurrEst,hrsElapsed,sPersonAssignedTo,sFixFor,sCategory")
     for case in response.cases:
         #print case
         if case.hrscurrest.contents[0]=="0":

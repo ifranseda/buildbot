@@ -4,6 +4,7 @@ from config import get_config, project_with_name
 from work.gitConnect import GitConnect
 from work.work import projectIntegrate, PURGATORY_STMT
 from work.fogbugzConnect import FogBugzConnect
+from work.fogbugz import FogBugz
 from magic import magic
 import os
 import fnmatch
