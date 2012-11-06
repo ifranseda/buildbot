@@ -7,7 +7,7 @@ def nofunc(): print "test"
 def nofunc2(): print "other"
 
 from time import sleep
-from fogbugzConnect import FogBugzConnect
+from work.fogbugzConnect import FogBugzConnect
 import logbuddy
 from JucheLog.juchelog import juche
 HOURLY=60*60
@@ -18,7 +18,9 @@ def autoboss():
     from work.fogbugzConnect import FogBugzConnect
     f = FogBugzConnect()
     people = f.annoyableIxPeople()
-    map(complain,people)
+    from config import get_config
+    projects = get_config()["Projects"]
+    map(lambda person: complain(person,projects.keys()),people)
 
 def buildbot_cache_get():
     import os
@@ -51,7 +53,7 @@ def create_tests():
     #2.  Open cases
     #3.  Cases with an estimate (otherwise, the person assigned might just be a placeholder person...)
     #4.  Cases that are decided (not Undecided)
-    #5.  Cases that are in projects without review-workflow: no
+    #5.  Cases that are in projects for which we have review-workflow: yes
     cases = f.fbConnection.search(q='(category:"bug" OR category:"feature") status:"open" estimatecurrent:"1m.." -milestone:"Undecided"', cols="sProject")
     cache = buildbot_cache_get()
     CACHE_KEY = "autoTestMake-cache"
@@ -63,7 +65,10 @@ def create_tests():
     from work.work import autoTestMake
     for case in cases.cases.contents:
         project = project_with_name(case.sproject.contents[0])
-        if "review-workflow" in project and project["review-workflow"] == "no":
+        if not project: 
+            juche.info("No project named %s in buildbot.yaml" % case.sproject.contents[0])
+            continue
+        if not ("review-workflow" in project.keys() and project["review-workflow"] == "yes"):
             continue
         result = autoTestMake(int(case["ixbug"]))
         if not result: cache[CACHE_KEY].append(case["ixbug"])
