@@ -16,6 +16,17 @@ BAD_STATUS = [34]  #resolved (inspect)
 PURGATORY_TIME = 2
 
 from JucheLog.juchelog import juche
+
+def flowdock_post(source,from_address,subject,content,tags):
+    import json
+    data = json.dumps({"source":source,"from_address":from_address,"subject":subject,"content":content,"tags":tags})
+    url = "https://api.flowdock.com/v1/messages/team_inbox/6ba4622f9746465a6c1dcbf9e4dc0aec"
+    import urllib2
+    req = urllib2.Request(url, data, {'Content-Type': 'application/json'})
+    f = urllib2.urlopen(req)
+    response = f.read()
+    f.close()
+
 class Atlas:
     def __init__(self):
         self.f = FogBugzConnect()
@@ -99,62 +110,82 @@ class Atlas:
                 palantir.pull()
                 shorthash = git.getSHA()[:6]
                 if deploy.has_key("postfix"): shorthash += deploy["postfix"]
-                palantir.pull()
-                if not os.path.exists(WORK_DIR+"palantir"+"/"+shorthash):
-                    juche.dictate(deploying=projectConfig)
-                    #in case we have multiple IPAs, we copy with a * below (because we're unsure of the name) so let's make sure our directory is clean
-                    r = subprocess.Popen("rm -rf *.ipa",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
+                if deploy.get("force-trunk"): deploydir = deploy["force-trunk"] + "/" + sfixfor
+                else: deploydir = shorthash
+
+                full_deploydir = WORK_DIR+"palantir/"+deploydir
+
+                #don't deploy if we don't have to
+                if  os.path.exists(full_deploydir) and not deploy.has_key("force-trunk"):
+                    continue
+                if os.path.exists(full_deploydir):
+                    #compare the hashes
+                    if os.path.exists(full_deploydir+"/"+git.getSHA()): continue
+
+
+
+                juche.dictate(deploying=projectConfig)
+                #in case we have multiple IPAs, we copy with a * below (because we're unsure of the name) so let's make sure our directory is clean
+                r = subprocess.Popen("rm -rf *.ipa",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
+                (status,output) = self.wait_for(r)
+
+                #update the version and build numbers
+                #note that this has to happen BEFORE you compile (one does not simply walk into an IPA file and change the version number, this unsigns the code and causes an install failure)
+                r = subprocess.Popen("git log --all --oneline | wc -l",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
+                (status,versionAppend) = self.wait_for(r)
+                plists = self.locate("*Info.plist", WORK_DIR+projectConfig["name"])
+                for plist in plists:
+                    juche.dictate(plist=plist)
+                    plistDir = plist.split("/")
+                    plistDir = "/".join(plistDir[:-1])
+                    juche.info("plistDir = %s" % str(plistDir))
+                    r = subprocess.Popen("plutil -convert xml1 -o - '%s' > Info.plist-xml" % plist,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=plistDir)
+                    (status,output) = self.wait_for(r)
+                    juche.info("plist = %s" % plist)
+                    plistData = plistlib.readPlist(plistDir+"/Info.plist-xml")
+                    import re
+                    if "CFBundleShortVersionString" not in plistData:
+                        juche.info("This plist file does not have a version; skipping")
+                        continue
+                    oldVersionStr = re.compile("(\d*\.\d*)").match(plistData["CFBundleShortVersionString"]).groups()[0]
+                    plistData["CFBundleShortVersionString"] = "%s.%s" % (oldVersionStr, versionAppend.strip())
+                    plistData["CFBundleVersion"] = shorthash
+                    plistlib.writePlist(plistData, plistDir+"/Info.plist-xml")
+
+                    juche.debug("plutil -convert binary1 -o - Info.plist-xml > '%s'" % plist)
+                    r = subprocess.Popen("plutil -convert binary1 -o - Info.plist-xml > '%s'" % plist,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=plistDir)
                     (status,output) = self.wait_for(r)
 
-                    #update the version and build numbers
-                    #note that this has to happen BEFORE you compile (one does not simply walk into an IPA file and change the version number, this unsigns the code and causes an install failure)
-                    r = subprocess.Popen("git log --all --oneline | wc -l",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
-                    (status,versionAppend) = self.wait_for(r)
-                    plists = self.locate("*Info.plist", WORK_DIR+projectConfig["name"])
-                    for plist in plists:
-                        juche.dictate(plist=plist)
-                        plistDir = plist.split("/")
-                        plistDir = "/".join(plistDir[:-1])
-                        juche.info("plistDir = %s" % str(plistDir))
-                        r = subprocess.Popen("plutil -convert xml1 -o - '%s' > Info.plist-xml" % plist,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=plistDir)
-                        (status,output) = self.wait_for(r)
-                        juche.info("plist = %s" % plist)
-                        plistData = plistlib.readPlist(plistDir+"/Info.plist-xml")
-                        import re
-                        if "CFBundleShortVersionString" not in plistData:
-                            juche.info("This plist file does not have a version; skipping")
-                            continue
-                        oldVersionStr = re.compile("(\d*\.\d*)").match(plistData["CFBundleShortVersionString"]).groups()[0]
-                        plistData["CFBundleShortVersionString"] = "%s.%s" % (oldVersionStr, versionAppend.strip())
-                        plistData["CFBundleVersion"] = shorthash
-                        plistlib.writePlist(plistData, plistDir+"/Info.plist-xml")
-
-                        juche.debug("plutil -convert binary1 -o - Info.plist-xml > '%s'" % plist)
-                        r = subprocess.Popen("plutil -convert binary1 -o - Info.plist-xml > '%s'" % plist,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=plistDir)
-                        (status,output) = self.wait_for(r)
-
-                        r = subprocess.Popen("rm Info.plist-xml",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=plistDir)
-                        (status,output) = self.wait_for(r)
-
-                    r = subprocess.Popen(deploy["build"],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
+                    r = subprocess.Popen("rm Info.plist-xml",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=plistDir)
                     (status,output) = self.wait_for(r)
-                    if status:
-                        raise Exception("Error deploying %s" % output)
-                    r = subprocess.Popen("cp -p -R palantir/%s palantir/%s" % (config["palantir-clone-dir"],shorthash),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR)
-                    (status,output) = self.wait_for(r)
-                    if status:
-                        raise Exception("Error AJBLSJW %s" % output)
-                    r = subprocess.Popen("cp -R *.ipa ../palantir/%s && tar czf ../palantir/%s/dsym *.dSYM " % (shorthash,shorthash),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
-                    (status,output) = self.wait_for(r)
-                    if status:
-                        raise Exception("Error PAOWLA %s" % output)
+
+                r = subprocess.Popen(deploy["build"],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
+                (status,output) = self.wait_for(r)
+                if status:
+                    raise Exception("Error deploying %s" % output)
+                try:
+                    os.makedirs(WORK_DIR+"palantir/%s" % deploydir)
+                except:
+                    pass
+                r = subprocess.Popen("cp -p -R palantir/%s/* palantir/%s/" % (config["palantir-clone-dir"],deploydir),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR)
+                (status,output) = self.wait_for(r)
+                if status:
+                    raise Exception("Error AJBLSJW %s" % output)
+                r = subprocess.Popen("cp -R *.ipa ../palantir/%s && tar czf ../palantir/%s/dsym *.dSYM " % (deploydir,deploydir),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
+                (status,output) = self.wait_for(r)
+                if status:
+                    raise Exception("Error PAOWLA %s" % output)
 
 
-                    palantir.add(shorthash)
-                    palantir.commit("GLaDOS deploying %s (%s %s)" % (shorthash,projectConfig["name"],sfixfor))
-                    palantir.pushChangesToOriginBranch()
-                    juche.dictate(deploy_success=True)
-                    juche.info("A new build of %s is available at http://drewcrawfordapps.com/%s" % (projectConfig["name"],shorthash))
+                palantir.add(deploydir)
+                palantir.commit("GLaDOS deploying %s (%s %s)" % (shorthash,projectConfig["name"],sfixfor))
+                palantir.pushChangesToOriginBranch()
+                r = subprocess.Popen("touch %s/%s" % (deploydir,git.getSHA()),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+"palantir")
+                (status,output) = self.wait_for(r)
+                juche.dictate(deploy_success=True)
+                juche.info("A new build of %s is available at http://drewcrawfordapps.com/%s" % (projectConfig["name"],deploydir))
+                flowdock_post("GLaDOS","GLaDOS@drewcrawfordapps.com","%s built" % projectConfig["name"],"A new build of %s is available at http://drewcrawfordapps.com/%s" % (projectConfig["name"],deploydir),["buildbot","#%s" % projectConfig["name"]])
+
             else:
                 raise Exception("Don't understand this deploy %s" % deploy)
 
