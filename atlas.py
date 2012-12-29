@@ -183,6 +183,22 @@ class Atlas:
                 r = subprocess.Popen("touch %s/%s" % (deploydir,git.getSHA()),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+"palantir")
                 (status,output) = self.wait_for(r)
                 juche.dictate(deploy_success=True)
+                if deploy["hockeyapp-id"]:
+                    import pdb
+                    pdb.set_trace()
+                    r = subprocess.Popen("ls *.ipa",stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
+                    (status,filename) = self.wait_for(r)
+                    filename = filename.strip()
+                    r = subprocess.Popen("zip dsym.zip *.dSYM",stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
+                    (status,output) = self.wait_for(r)
+                    projectdir = WORK_DIR+projectConfig["name"]
+
+                    import hockeyapp
+                    hockeyapp.hockeyapp_upload(config["hockeyapp-key"], deploy["hockeyapp-id"], open(projectdir+"/"+filename,"r"), open(projectdir+"/dsym.zip"))
+                    
+
+
+
                 juche.info("A new build of %s is available at http://drewcrawfordapps.com/%s" % (projectConfig["name"],deploydir))
                 flowdock_post("GLaDOS","GLaDOS@drewcrawfordapps.com","%s built" % projectConfig["name"],"A new build of %s is available at http://drewcrawfordapps.com/%s" % (projectConfig["name"],deploydir),["buildbot","#%s" % projectConfig["name"]])
 
