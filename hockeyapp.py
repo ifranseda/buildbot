@@ -17,7 +17,7 @@ def post_multipart(host, selector, fields, files,moar_headers={}):
         }
     for (key,value) in moar_headers.iteritems():
         headers[key] = value
-    h.request('POST', selector, body.decode('utf-8').encode('ascii', 'replace'), headers)
+    h.request('POST', selector, body, headers)
     res = h.getresponse()
     return res.read()
 
@@ -55,10 +55,14 @@ def get_content_type(filename):
 
 
 def hockeyapp_upload(api_token,app_identifier,ipa,dsym):
-    print post_multipart("rink.hockeyapp.net", "/api/2/apps/%s/app_versions" % app_identifier, [], [("ipa","ipa.ipa",ipa),("dsym","dsym",dsym)],{"X-HockeyAppToken":api_token})
-
+    result =  post_multipart("rink.hockeyapp.net", "/api/2/apps/%s/app_versions" % app_identifier, [], [("ipa","ipa.ipa",ipa),
+        ("dsym","workaround.dsym.zip",dsym)], #http://support.hockeyapp.net/discussions/problems/3135-wrong-error-message-when-uploading-new-version-via-curl
+        {"X-HockeyAppToken":api_token})
+    print result
+    assert '"status":"error"' not in result
 
 import unittest
 class TestSequence(unittest.TestCase):
     def test_hockeyappupload(self):
         print hockeyapp_upload("9b3957ca17a446f6bdbba2f12ea085e1", "7f8b966c983bc0dfd8f93f94f13c582e", "This is not an IPA", "This is not a dsym")
+

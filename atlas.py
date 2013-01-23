@@ -176,26 +176,27 @@ class Atlas:
                 if status:
                     raise Exception("Error PAOWLA %s" % output)
 
-
-                palantir.add(deploydir)
-                palantir.commit("GLaDOS deploying %s (%s %s)" % (shorthash,projectConfig["name"],sfixfor))
-                palantir.pushChangesToOriginBranch()
-                r = subprocess.Popen("touch %s/%s" % (deploydir,git.getSHA()),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+"palantir")
-                (status,output) = self.wait_for(r)
-                juche.dictate(deploy_success=True)
-                if deploy["hockeyapp-id"]:
-                    import pdb
-                    pdb.set_trace()
-                    r = subprocess.Popen("ls *.ipa",stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
+                #todo: add other steps here so that failures cause a second deploy
+                if deploy.has_key("hockeyapp-id"):
+                    r = subprocess.Popen("ls *.ipa",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
                     (status,filename) = self.wait_for(r)
                     filename = filename.strip()
-                    r = subprocess.Popen("zip dsym.zip *.dSYM",stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
+                    r = subprocess.Popen("zip -r dsym.zip *.dSYM",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+projectConfig["name"])
                     (status,output) = self.wait_for(r)
                     projectdir = WORK_DIR+projectConfig["name"]
 
                     import hockeyapp
-                    hockeyapp.hockeyapp_upload(config["hockeyapp-key"], deploy["hockeyapp-id"], open(projectdir+"/"+filename,"r"), open(projectdir+"/dsym.zip"))
+                    hockeyapp.hockeyapp_upload(config["hockeyapp-key"], deploy["hockeyapp-id"], open(projectdir+"/"+filename,"rb").read(), open(projectdir+"/dsym.zip","rb").read())
                     
+
+                r = subprocess.Popen("touch %s/%s" % (deploydir,git.getSHA()),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=WORK_DIR+"palantir")
+                (status,output) = self.wait_for(r)
+                palantir.add(deploydir)
+                palantir.commit("GLaDOS deploying %s (%s %s)" % (shorthash,projectConfig["name"],sfixfor))
+                palantir.pushChangesToOriginBranch()
+
+                juche.dictate(deploy_success=True)
+                
 
 
 

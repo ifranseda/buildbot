@@ -58,7 +58,16 @@ Projects:
         build: bash build.sh
         type: palantir-ios
 
-
+  - name: ConstructPM
+    url: git@github.com:drewcrawford/ConstructPM.git
+    tests:
+      - name: build
+        cmd: xcodebuild -workspace ConstructPM.xcworkspace -scheme ConstructPM -sdk iphonesimulator RUN_CLANG_STATIC_ANALYZER=YES clean build
+        type: xcode
+    deploys:
+      - name: deploy
+        build: bash build.sh
+        type: palantir-ios
  
 
 Git-Username: GLaDOS
