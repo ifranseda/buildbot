@@ -68,6 +68,7 @@ Projects:
       - name: deploy
         build: bash build.sh
         type: palantir-ios
+        hockeyapp-id: e7b93d79e5c401599ae6f39e7a6a3a06
  
 
 Git-Username: GLaDOS
