@@ -7,7 +7,7 @@ Projects:
        build: bash build.sh
        type: palantir-ios
        force-trunk: spolsky-ios
-       hockeyapp-id: 7f8b966c983bc0dfd8f93f94f13c582e
+       hockeyapp-id: 8a8ee16ab70aa6e4c7219f96959c2b46
        
   - name: buildbot
     url: git@github-GLaDOS:drewcrawford/buildbot.git
